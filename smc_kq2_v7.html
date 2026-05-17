@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>KQ2 Series ミリサイズ ワンタッチ管継手 品番選定</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EDECEA;--sf:#FFF;--sf2:#E8E6E0;--bd:#CFCCC5;--bd2:#A8A49C;
+  --tx:#1A1916;--tx2:#5A574F;--tx3:#928D83;
+  --ac:#1A7A9A;--ac2:#E4F4FA;--ac3:#0D5068;
+  --ok:#246B42;--ok2:#E4F4EC;
+  --ta:#1A7A9A;--ta2:#E4F4FA;--ta3:#0D5068;
+  --tb:#0E6880;--tb2:#D4EFF8;--tb3:#0A4558;
+  --ic:#6B6860;
+  --mono:'JetBrains Mono',monospace;--sans:'Noto Sans JP',sans-serif;
+  --r:5px;--rl:9px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--sans);background:var(--bg);color:var(--tx);font-size:14px;line-height:1.6;min-height:100vh;}
+header{background:var(--tx);padding:0 22px;height:50px;display:flex;align-items:center;gap:12px;border-bottom:3px solid var(--ac);position:sticky;top:0;z-index:101;}
+.logo{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.14em;color:var(--ac);}
+.hsep{width:1px;height:18px;background:#3a3a3a;}
+header h1{font-size:13px;font-weight:500;color:#C0BDB5;}
+.hr{margin-left:auto;display:flex;align-items:center;gap:7px;}
+.htag{font-family:var(--mono);font-size:9px;color:#555;background:#1E1D18;border:1px solid #3a3a3a;border-radius:3px;padding:3px 7px;}
+.dbtn{background:none;border:1px solid #3a3a3a;color:#666;border-radius:3px;padding:3px 9px;font-family:var(--mono);font-size:9px;cursor:pointer;}
+.dbtn:hover{border-color:var(--ac);color:var(--ac);}
+.page{max-width:1100px;margin:0 auto;padding:14px 16px 36px;display:flex;flex-direction:column;gap:10px;}
+/* PN Bar */
+.pnbar{background:var(--tx);padding:10px 22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:sticky;top:50px;z-index:100;box-shadow:0 3px 12px rgba(0,0,0,.4);border-top:1px solid #2a2a2a;}
+.pnlbl{font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:#555;text-transform:uppercase;white-space:nowrap;}
+.pnval{font-family:var(--mono);font-size:22px;font-weight:600;letter-spacing:.07em;color:#fff;flex:1;line-height:1;word-break:break-all;}
+.pnval .ph{color:#3a3a3a;}
+.pnval.done{color:#72E8A8;}
+.pnr{display:flex;align-items:center;gap:9px;flex-shrink:0;}
+.pnstat{font-family:var(--mono);font-size:10px;color:#555;white-space:nowrap;}
+.pnstat.done{color:#72E8A8;}
+.cbtn{background:none;border:1px solid #444;color:#888;border-radius:var(--r);padding:5px 13px;font-family:var(--mono);font-size:10px;font-weight:600;cursor:pointer;transition:all .15s;}
+.cbtn:hover:not(:disabled){border-color:#72E8A8;color:#72E8A8;}
+.cbtn:disabled{opacity:.2;cursor:not-allowed;}
+.cbtn.ok{border-color:#72E8A8;color:#72E8A8;}
+/* Push selector */
+.push-row{display:flex;gap:10px;}
+/* Cards */
+.fcard{background:var(--sf);border:1px solid var(--bd);border-radius:var(--rl);overflow:hidden;}
+.fh{background:var(--sf2);border-bottom:1px solid var(--bd);padding:8px 12px;display:flex;align-items:center;gap:7px;}
+.fl{font-size:11px;font-weight:700;letter-spacing:.02em;color:var(--tx2);}
+.fcv{margin-left:auto;font-family:var(--mono);font-size:10px;font-weight:600;color:var(--ac3);background:var(--ac2);border:1px solid var(--ac);border-radius:3px;padding:1px 6px;white-space:nowrap;max-width:200px;overflow:hidden;text-overflow:ellipsis;}
+.fcv.e{color:var(--tx3);background:none;border-color:var(--bd);}
+.fb{padding:10px 12px;}
+/* Type cards */
+.tg{display:flex;flex-direction:column;gap:7px;}
+.tc{border:1.5px solid var(--bd);border-radius:var(--rl);padding:9px 11px;cursor:pointer;background:var(--sf);transition:all .12s;}
+.tc:hover{border-color:var(--bd2);}
+.tc.sel-a{border-color:var(--ta);background:var(--ta2);}
+.tc.sel-b{border-color:var(--tb);background:var(--tb2);}
+.tc-hd{display:flex;align-items:center;gap:6px;}
+.tc-badge{font-family:var(--mono);font-size:9px;font-weight:600;padding:2px 6px;border-radius:3px;}
+.ba{background:var(--ta);color:#fff;}.bb{background:var(--tb);color:#fff;}.bc{background:#1A7A3A;color:#fff;}.bd{background:#6B6B20;color:#fff;}
+.tc-title{font-size:11px;font-weight:700;}
+.tc-fmt{font-family:var(--mono);font-size:10px;color:var(--tx3);margin-top:3px;}
+.tc.sel-a .tc-fmt{color:var(--ta3);}.tc.sel-b .tc-fmt{color:var(--tb3);}
+/* Chips */
+.chips{display:flex;flex-wrap:wrap;gap:5px;}
+.chip{display:inline-flex;flex-direction:column;padding:5px 8px;border:1px solid var(--bd);border-radius:var(--r);cursor:pointer;background:var(--sf);transition:all .12s;user-select:none;}
+.chip:hover{border-color:var(--bd2);background:var(--sf2);}
+.chip.sel{border-color:var(--ac);background:var(--ac2);}
+.chip.dis{opacity:.2;pointer-events:none;}
+.cm{font-size:11px;font-weight:500;color:var(--tx);font-family:var(--mono);}
+.cs{font-size:9px;color:var(--tx3);margin-top:1px;line-height:1.3;}
+.chip.sel .cm{color:var(--ac3);}.chip.sel .cs{color:var(--ac);}
+.auto-tag{font-family:var(--mono);font-size:9px;background:var(--ok2);color:var(--ok);border:1px solid var(--ok);border-radius:3px;padding:1px 5px;margin-left:5px;}
+.fnote{font-size:10px;color:var(--tx3);margin-top:7px;line-height:1.6;background:var(--sf2);border-radius:3px;padding:5px 8px;}
+/* Workspace */
+.workspace{display:grid;grid-template-columns:260px 1fr;gap:10px;align-items:start;}
+.filters{display:flex;flex-direction:column;gap:8px;}
+/* Model grid */
+.mzone{background:var(--sf);border:1px solid var(--bd);border-radius:var(--rl);overflow:hidden;}
+.mzone-head{background:var(--sf2);border-bottom:1px solid var(--bd);padding:8px 14px;display:flex;align-items:center;gap:8px;}
+.mzone-title{font-size:11px;font-weight:700;color:var(--tx2);letter-spacing:.02em;}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:6px;padding:10px;}
+.mc{border:1px solid var(--bd);border-radius:var(--r);cursor:pointer;background:var(--sf);padding:7px 7px 5px;transition:all .12s;display:flex;flex-direction:column;align-items:center;gap:2px;position:relative;}
+.mc:hover{border-color:var(--bd2);background:var(--sf2);}
+.mc.sel{border-color:var(--ac);background:var(--ac2);}
+.mc.dis{opacity:.2;pointer-events:none;}
+.mc-icon{width:55px;height:44px;display:flex;align-items:center;justify-content:center;color:var(--ic);}
+.mc.sel .mc-icon{color:var(--ac);}
+.mc-code{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--tx);text-align:center;}
+.mc.sel .mc-code{color:var(--ac3);}
+.mc-name{font-size:9px;color:var(--tx3);text-align:center;line-height:1.2;}
+.mc.sel .mc-name{color:var(--ac);}
+.round-only{position:absolute;top:3px;right:3px;font-family:var(--mono);font-size:8px;background:var(--ta2);color:var(--ta3);border-radius:2px;padding:1px 4px;border:1px solid var(--ta);}
+/* Order options */
+.order-card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--rl);overflow:hidden;}
+.order-body{padding:10px 12px;display:flex;flex-direction:column;gap:8px;}
+.order-row{display:flex;align-items:flex-start;gap:8px;font-size:12px;}
+.order-check{margin-top:2px;cursor:pointer;accent-color:var(--ac);}
+.order-lbl{cursor:pointer;color:var(--tx);}
+.order-lbl b{font-family:var(--mono);color:var(--ac3);}
+.order-lbl small{display:block;font-size:10px;color:var(--tx3);margin-top:1px;}
+.order-dis .order-lbl{color:var(--tx3);text-decoration:line-through;}
+.order-note{background:var(--sf2);border-radius:3px;padding:5px 8px;font-size:10px;color:var(--tx3);line-height:1.7;}
+/* Result */
+.rc{background:var(--sf);border:1px solid var(--bd);border-radius:var(--rl);overflow:hidden;}
+.rh{background:var(--sf2);border-bottom:1px solid var(--bd);padding:8px 14px;font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--tx3);text-transform:uppercase;display:flex;align-items:center;gap:7px;}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--bd2);}.dot.on{background:var(--ok);}
+.dr{display:flex;justify-content:space-between;align-items:center;padding:7px 14px;border-bottom:1px solid var(--sf2);font-size:11px;}
+.dr:last-child{border-bottom:none;}
+.dk{color:var(--tx3);}
+.dv{font-weight:500;color:var(--tx);font-family:var(--mono);font-size:11px;}
+.warn{background:#FFF0DC;border:1px solid var(--ac);border-radius:var(--r);padding:7px 11px;font-size:10px;color:#7A3A00;line-height:1.7;display:none;}
+.warn.show{display:block;}
+.notice{font-size:10px;color:var(--tx3);line-height:1.9;}
+.sv-o{display:none;}
+.mgrid.tb .tm{display:none;}
+.mgrid.tb .sv-o{display:inline;}
+.notice a{color:inherit;}
+/* Dark */
+body.dark{
+  --bg:#13120C;--sf:#1B1A13;--sf2:#232219;--bd:#34322A;--bd2:#514E43;
+  --tx:#EAE7DD;--tx2:#A6A298;--tx3:#666258;
+  --ac:#2AAFD4;--ac2:#031419;--ac3:#50C8E8;
+  --ok:#4AAF76;--ok2:#091E12;
+  --ta2:#031419;--ta3:#50C8E8;--tb2:#031C24;--tb3:#2AAFD4;--ic:#8A8680;
+}
+</style>
+</head>
+<body>
+<header>
+  <span class="logo">SMC</span><div class="hsep"></div>
+  <h1>KQ2 Series　ミリサイズ　ワンタッチ管継手　品番選定ソフト</h1>
+  <div class="hr">
+    <span class="htag">CAT.S50-37D / ミリ / Rc・Mねじ</span>
+    <button class="dbtn" onclick="document.body.classList.toggle('dark')">DARK</button>
+  </div>
+</header>
+<div class="pnbar">
+    <span class="pnlbl">型式</span>
+    <div class="pnval" id="pn-disp"><span class="ph">KQ2————</span></div>
+    <div class="pnr">
+      <span class="pnstat" id="pn-stat">未選択の項目があります</span>
+      <button class="cbtn" id="copy-btn" onclick="doCopy()" disabled>COPY</button>
+    </div>
+  </div>
+<div class="page">
+  <!-- PN Bar は header直後に固定表示 -->
+
+  <!-- Step 1: Push shape -->
+  <div class="fcard">
+    <div class="fh"><span class="fl">① リリースブッシュ形状</span><span class="fcv e" id="ch-push">—</span></div>
+    <div class="fb">
+      <div class="chips">
+        <div class="chip" onclick="pickPush('1',this)">
+          <span class="cm">長円形</span><span class="cs">末尾「1」　P.5〜<br>ø2〜ø6（ねじ付）</span>
+        </div>
+        <div class="chip" onclick="pickPush('',this)">
+          <span class="cm">真円形</span><span class="cs">末尾コードなし　P.101〜<br>ø2〜ø16対応</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Round-only warning -->
+  <div class="warn show" id="warn-round">
+    <b>📌 ご注意：</b>真円形シリーズはバリエーションが多く、ø2〜ø16・R1/2（コード04）など長円形より対応範囲が広くなっています。<br>生成された品番はご注文前に <a href="https://www.smcworld.com/products/ja-jp/fitting/kq2/" target="_blank" style="color:var(--ac3);text-decoration:underline;">SMC公式サイトの検索欄</a> での確認を推奨します。
+  </div>
+
+  <!-- Workspace -->
+  <div class="workspace">
+    <div class="filters">
+      <!-- Type -->
+      <div class="fcard">
+        <div class="fh"><span class="fl">② 接続タイプ</span><span class="fcv e" id="ch-type">—</span></div>
+        <div class="fb">
+          <div class="tg">
+            <div class="tc" id="tc-A" onclick="pickType('A')">
+              <div class="tc-hd"><span class="tc-badge ba">A</span><span class="tc-title">ねじ＋ワンタッチ</span></div>
+              <div class="tc-fmt" id="tc-fmt-A">KQ2H06-01AS1</div>
+            </div>
+            <div class="tc" id="tc-B" onclick="pickType('B')">
+              <div class="tc-hd"><span class="tc-badge bb">B</span><span class="tc-title">ワンタッチ＋ワンタッチ</span></div>
+              <div class="tc-fmt" id="tc-fmt-B">KQ2H06-00A1</div>
+            </div>
+            <div class="tc" id="tc-C" onclick="pickType('C')">
+              <div class="tc-hd"><span class="tc-badge bc">C</span><span class="tc-title">ワンタッチ＋ニップル差込</span></div>
+              <div class="tc-fmt" id="tc-fmt-C">KQ2L06-99A1</div>
+            </div>
+            <div class="tc" id="tc-D" onclick="pickType('D')">
+              <div class="tc-hd"><span class="tc-badge bd">D</span><span class="tc-title">その他（アクセサリ）</span></div>
+              <div class="tc-fmt" id="tc-fmt-D">KQ2R06-08A1</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- A専用: ねじ種フィルタ -->
+      <div class="fcard" id="card-screw" style="display:none;">
+        <div class="fh"><span class="fl">ねじ種</span><span class="fcv e" id="ch-screw">—</span></div>
+        <div class="fb">
+          <div class="chips">
+            <div class="chip" onclick="pickScrew('all',this)"><span class="cm">全て</span></div>
+            <div class="chip" onclick="pickScrew('male',this)"><span class="cm">おねじ</span><span class="cs">M・R系（外ねじ）</span></div>
+            <div class="chip" onclick="pickScrew('female',this)"><span class="cm">めねじ</span><span class="cs">Rc系（内ねじ）</span></div>
+            <div class="chip" onclick="pickScrew('both',this)"><span class="cm">両方</span><span class="cs">おねじ＋めねじ<br>（KQ2VF・KQ2ZF）</span></div>
+          </div>
+        </div>
+      </div>
+      <!-- B専用: 接続径タイプ -->
+      <div class="fcard" id="card-diam" style="display:none;">
+        <div class="fh"><span class="fl">接続径タイプ</span><span class="fcv e" id="ch-diam">—</span></div>
+        <div class="fb">
+          <div class="chips">
+            <div class="chip" onclick="pickDiam('all',this)"><span class="cm">全て</span></div>
+            <div class="chip" onclick="pickDiam('same',this)"><span class="cm">同径</span><span class="cs">両端同じ径<br>（00・99）</span></div>
+            <div class="chip" onclick="pickDiam('diff',this)"><span class="cm">異径</span><span class="cs">両端異なる径<br>（径コード指定）</span></div>
+          </div>
+        </div>
+      </div>
+      <!-- Tube -->
+      <div class="fcard">
+        <div class="fh"><span class="fl" id="tube-lbl">チューブ外径</span><span class="fcv e" id="ch-tube">—</span></div>
+        <div class="fb"><div class="chips" id="tube-chips"></div></div>
+      </div>
+      <!-- Conn -->
+      <div class="fcard">
+        <div class="fh"><span class="fl" id="conn-lbl">接続コード</span><span class="fcv e" id="ch-conn">—</span></div>
+        <div class="fb">
+          <div class="chips" id="conn-chips"></div>
+          <div class="fnote" id="conn-note" style="display:none;"></div>
+        </div>
+      </div>
+      <!-- Mat -->
+      <div class="fcard">
+        <div class="fh">
+          <span class="fl">材質<span class="auto-tag" id="mat-auto" style="display:none;">自動</span></span>
+          <span class="fcv e" id="ch-mat">—</span>
+        </div>
+        <div class="fb">
+          <div class="chips">
+            <div class="chip" data-mat="A" onclick="pickMat('A',this)"><span class="cm">A</span><span class="cs">黄銅</span></div>
+            <div class="chip" data-mat="N" onclick="pickMat('N',this)"><span class="cm">N</span><span class="cs">黄銅＋Ni</span></div>
+            <div class="chip dis" data-mat="G" id="chip-G" onclick="pickMat('G',this)"><span class="cm">G</span><span class="cs">SUS303<br>M3のみ</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Model grid -->
+    <div class="mzone">
+      <div class="mzone-head"><span class="mzone-title" id="mzone-title">機種を選択してください</span></div>
+      <div class="mgrid" id="model-grid"></div>
+    </div>
+  </div>
+
+  <!-- Order options -->
+  <div class="order-card">
+    <div class="fh"><span class="fl">オーダーメイド・特殊仕様（任意）</span></div>
+    <div class="order-body">
+      <div class="order-row" id="ord-clean-row">
+        <input type="checkbox" class="order-check" id="ord-clean" onchange="updatePN()">
+        <label class="order-lbl" for="ord-clean">
+          <b>10-</b>（クリーンシリーズ）
+          <small>黄銅部無電解Niめっき・フッ素系グリース・クリーンルームエアブロー・二重梱包 / 品番先頭に付加。材質はN推奨。</small>
+        </label>
+      </div>
+      <div class="order-row">
+        <input type="checkbox" class="order-check" id="ord-x12" onchange="updatePN()">
+        <label class="order-lbl" for="ord-x12">
+          <b>X12</b>（潤滑剤：白色ワセリン・プッシュ色：白）
+          <small>品番末尾に付加</small>
+        </label>
+      </div>
+      <div class="order-row" id="ord-x35-row">
+        <input type="checkbox" class="order-check" id="ord-x35" onchange="updatePN()">
+        <label class="order-lbl" for="ord-x35">
+          <b>X35</b>（ボディ色：黒・プッシュ色：ライトグレー）
+          <small>品番末尾に付加 ／ KQ2H・S・F・E・N・C・P には適用不可</small>
+        </label>
+      </div>
+      <div class="order-row" id="ord-qs-row" style="display:none;">
+        <input type="checkbox" class="order-check" id="ord-qs" onchange="updatePN()">
+        <label class="order-lbl" for="ord-qs">
+          <b>QS</b>（従来品KQシリーズ 有効断面積互換・真円形のみ）
+          <small>ø8 / R1/8 のみ対応。シール記号Sが QS に変わります（例：KQ2L08-01AQS）</small>
+        </label>
+      </div>
+      <div class="order-note">
+        以下はSMC営業への要確認品：
+        <b>X41</b>（固定絞り付き）、
+        <b>X17</b>（ノングリース/NBR）、
+        <b>X29</b>（X17+Niめっき）、
+        <b>X34</b>（FKMゴム）、
+        <b>X39</b>（X29+クリーン）、
+        <b>X94</b>（ノングリース/FKM）
+      </div>
+    </div>
+  </div>
+
+  <!-- Result -->
+  <div class="rc">
+    <div class="rh"><div class="dot" id="r-dot"></div>選定結果</div>
+    <div class="dr"><span class="dk">型式</span><span class="dv" id="r-pn">—</span></div>
+    <div class="dr"><span class="dk">リリースブッシュ</span><span class="dv" id="r-push">—</span></div>
+    <div class="dr"><span class="dk">接続タイプ</span><span class="dv" id="r-type">—</span></div>
+    <div class="dr"><span class="dk">機種</span><span class="dv" id="r-model">—</span></div>
+    <div class="dr"><span class="dk">チューブ外径</span><span class="dv" id="r-tube">—</span></div>
+    <div class="dr"><span class="dk" id="r-ck">接続コード</span><span class="dv" id="r-conn">—</span></div>
+    <div class="dr"><span class="dk">材質・表面処理</span><span class="dv" id="r-mat">—</span></div>
+    <div class="dr" id="r-seal-row"><span class="dk">シール方式</span><span class="dv" id="r-seal">—</span></div>
+  </div>
+
+  <p class="notice">
+    ※ ミリサイズ / Rc・Mねじ 対象（CAT.S50-37D）。Type C/D で KQ2N・KQ2R・KQ2C・KQ2P に対応。ミリインチ変換品は対象外。<br>
+    ※ 発注前に必ず <a href="https://www.smcworld.com/ja-jp/">SMC 公式カタログ</a> で最終確認してください。
+  </p>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════
+   SVG イラスト（機種コード → shape キー）
+══════════════════════════════════════════════════════ */
+const SVG = {
+'straight-male':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="19" y="19" width="22" height="12" stroke-width="1.5"/><line x1="30" y1="19" x2="30" y2="14" stroke-width="1.5"/><circle cx="30" cy="10" r="4" stroke-width="1.5"/><line x1="30" y1="31" x2="30" y2="35" stroke-width="1.5"/><line class="tm" x1="21" y1="37" x2="39" y2="37" stroke-width="1.2"/><line class="tm" x1="21" y1="40" x2="39" y2="40" stroke-width="1.2"/><line class="tm" x1="21" y1="43" x2="39" y2="43" stroke-width="1.2"/><circle class="sv-o" cx="30" cy="40" r="4" stroke-width="1.5"/></svg>`,
+'straight-hex':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><polygon points="30,9 41,15 41,27 30,33 19,27 19,15" stroke-width="1.5"/><line x1="30" y1="9" x2="30" y2="5" stroke-width="1.5"/><circle cx="30" cy="4" r="3" stroke-width="1.5"/><line x1="30" y1="33" x2="30" y2="37" stroke-width="1.5"/><line class="tm" x1="21" y1="39" x2="39" y2="39" stroke-width="1.2"/><line class="tm" x1="21" y1="42" x2="39" y2="42" stroke-width="1.2"/><line class="tm" x1="21" y1="45" x2="39" y2="45" stroke-width="1.2"/><circle class="sv-o" cx="30" cy="42" r="4" stroke-width="1.5"/></svg>`,
+'straight-female':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="19" y="19" width="22" height="12" stroke-width="1.5"/><line x1="30" y1="19" x2="30" y2="14" stroke-width="1.5"/><circle cx="30" cy="10" r="4" stroke-width="1.5"/><line x1="30" y1="31" x2="30" y2="35" stroke-width="1.5"/><path d="M21,35 L21,47 L39,47 L39,35" stroke-width="1.5"/><line x1="23" y1="44" x2="37" y2="44" stroke-width="1" stroke-dasharray="2,1.5"/></svg>`,
+'elbow-male':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><polygon points="18,10 32,10 32,30 46,30 46,42 18,42" stroke-width="1.5"/><line x1="25" y1="10" x2="25" y2="6" stroke-width="1.5"/><circle cx="25" cy="4" r="3.5" stroke-width="1.5"/><line x1="46" y1="36" x2="50" y2="36" stroke-width="1.5"/><line class="tm" x1="51" y1="30" x2="51" y2="42" stroke-width="1.2"/><line class="tm" x1="54" y1="30" x2="54" y2="42" stroke-width="1.2"/><line class="tm" x1="57" y1="30" x2="57" y2="42" stroke-width="1.2"/><circle class="sv-o" cx="54" cy="36" r="4" stroke-width="1.5"/></svg>`,
+'elbow-branch':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><polygon points="18,10 32,10 32,30 46,30 46,42 18,42" stroke-width="1.5"/><line x1="22" y1="10" x2="22" y2="6" stroke-width="1.5"/><circle cx="22" cy="4" r="3.5" stroke-width="1.5"/><line x1="28" y1="10" x2="28" y2="6" stroke-width="1.5"/><circle cx="28" cy="4" r="3.5" stroke-width="1.5"/><line x1="46" y1="36" x2="50" y2="36" stroke-width="1.5"/><line class="tm" x1="51" y1="30" x2="51" y2="42" stroke-width="1.2"/><line class="tm" x1="54" y1="30" x2="54" y2="42" stroke-width="1.2"/><line class="tm" x1="57" y1="30" x2="57" y2="42" stroke-width="1.2"/><circle class="sv-o" cx="54" cy="36" r="4" stroke-width="1.5"/></svg>`,
+'elbow-45':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M20,42 L20,30 Q20,14 34,10 L46,10 L46,18 Q36,18 30,26 L30,42 Z" stroke-width="1.5"/><line x1="36" y1="10" x2="36" y2="6" stroke-width="1.5"/><circle cx="36" cy="4" r="3.5" stroke-width="1.5"/><line x1="25" y1="42" x2="25" y2="46" stroke-width="1.5"/><line class="tm" x1="16" y1="46" x2="34" y2="46" stroke-width="1.2"/><line class="tm" x1="16" y1="49" x2="34" y2="49" stroke-width="1.2"/><line class="tm" x1="16" y1="52" x2="34" y2="52" stroke-width="1.2"/><circle class="sv-o" cx="25" cy="49" r="4" stroke-width="1.5"/></svg>`,
+'elbow-female':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><polygon points="18,10 32,10 32,30 46,30 46,42 18,42" stroke-width="1.5"/><line x1="25" y1="10" x2="25" y2="6" stroke-width="1.5"/><circle cx="25" cy="4" r="3.5" stroke-width="1.5"/><line x1="46" y1="36" x2="50" y2="36" stroke-width="1.5"/><path d="M50,30 L57,30 L57,42 L50,42" stroke-width="1.5"/><line x1="52" y1="39" x2="55" y2="39" stroke-width="1" stroke-dasharray="2,1.5"/></svg>`,
+'elbow-long':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><polygon points="14,10 28,10 28,28 50,28 50,42 14,42" stroke-width="1.5"/><line x1="21" y1="10" x2="21" y2="6" stroke-width="1.5"/><circle cx="21" cy="4" r="3.5" stroke-width="1.5"/><line x1="50" y1="35" x2="54" y2="35" stroke-width="1.5"/><line class="tm" x1="55" y1="29" x2="55" y2="41" stroke-width="1.2"/><line class="tm" x1="58" y1="29" x2="58" y2="41" stroke-width="1.2"/><line class="tm" x1="61" y1="29" x2="61" y2="41" stroke-width="1.2"/><circle class="sv-o" cx="58" cy="35" r="4" stroke-width="1.5"/></svg>`,
+'swivel-male':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><polygon points="18,10 32,10 32,30 46,30 46,42 18,42" stroke-width="1.5"/><circle cx="25" cy="36" r="7" stroke-width="1.2" stroke-dasharray="3,2"/><line x1="25" y1="10" x2="25" y2="6" stroke-width="1.5"/><circle cx="25" cy="4" r="3.5" stroke-width="1.5"/><line x1="46" y1="36" x2="50" y2="36" stroke-width="1.5"/><line class="tm" x1="51" y1="30" x2="51" y2="42" stroke-width="1.2"/><line class="tm" x1="54" y1="30" x2="54" y2="42" stroke-width="1.2"/><line class="tm" x1="57" y1="30" x2="57" y2="42" stroke-width="1.2"/><circle class="sv-o" cx="54" cy="36" r="4" stroke-width="1.5"/></svg>`,
+'swivel-hex':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><polygon points="18,10 32,10 32,30 46,30 46,42 18,42" stroke-width="1.5"/><circle cx="25" cy="36" r="7" stroke-width="1.2" stroke-dasharray="3,2"/><line x1="25" y1="10" x2="25" y2="6" stroke-width="1.5"/><circle cx="25" cy="4" r="3.5" stroke-width="1.5"/><line x1="46" y1="36" x2="50" y2="36" stroke-width="1.5"/><line class="tm" x1="51" y1="30" x2="51" y2="42" stroke-width="1.2"/><line class="tm" x1="54" y1="30" x2="54" y2="42" stroke-width="1.2"/><line class="tm" x1="57" y1="30" x2="57" y2="42" stroke-width="1.2"/><circle class="sv-o" cx="54" cy="36" r="4" stroke-width="1.5"/></svg>`,
+'swivel-female':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><polygon points="18,10 32,10 32,30 46,30 46,42 18,42" stroke-width="1.5"/><circle cx="25" cy="36" r="7" stroke-width="1.2" stroke-dasharray="3,2"/><line x1="25" y1="10" x2="25" y2="6" stroke-width="1.5"/><circle cx="25" cy="4" r="3.5" stroke-width="1.5"/><line x1="46" y1="36" x2="50" y2="36" stroke-width="1.5"/><path d="M50,30 L57,30 L57,42 L50,42" stroke-width="1.5"/><line x1="52" y1="39" x2="55" y2="39" stroke-width="1" stroke-dasharray="2,1.5"/></svg>`,
+'dbl-swivel':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="16" y="16" width="28" height="18" stroke-width="1.5"/><line x1="16" y1="25" x2="11" y2="25" stroke-width="1.5"/><circle cx="8" cy="25" r="3.5" stroke-width="1.5"/><line x1="44" y1="25" x2="49" y2="25" stroke-width="1.5"/><circle cx="52" cy="25" r="3.5" stroke-width="1.5"/><line x1="30" y1="34" x2="30" y2="38" stroke-width="1.5"/><line class="tm" x1="21" y1="39" x2="39" y2="39" stroke-width="1.2"/><line class="tm" x1="21" y1="42" x2="39" y2="42" stroke-width="1.2"/><line class="tm" x1="21" y1="45" x2="39" y2="45" stroke-width="1.2"/><circle class="sv-o" cx="30" cy="42" r="4" stroke-width="1.5"/></svg>`,
+'triple-swivel':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="16" y="16" width="28" height="18" stroke-width="1.5"/><line x1="30" y1="16" x2="30" y2="11" stroke-width="1.5"/><circle cx="30" cy="8" r="3.5" stroke-width="1.5"/><line x1="16" y1="25" x2="11" y2="25" stroke-width="1.5"/><circle cx="8" cy="25" r="3.5" stroke-width="1.5"/><line x1="44" y1="25" x2="49" y2="25" stroke-width="1.5"/><circle cx="52" cy="25" r="3.5" stroke-width="1.5"/><line x1="30" y1="34" x2="30" y2="38" stroke-width="1.5"/><line class="tm" x1="21" y1="39" x2="39" y2="39" stroke-width="1.2"/><line class="tm" x1="21" y1="42" x2="39" y2="42" stroke-width="1.2"/><line class="tm" x1="21" y1="45" x2="39" y2="45" stroke-width="1.2"/><circle class="sv-o" cx="30" cy="42" r="4" stroke-width="1.5"/></svg>`,
+'tee-male':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="9" y="18" width="42" height="12" stroke-width="1.5"/><rect x="24" y="30" width="12" height="9" stroke-width="1.5"/><line x1="9" y1="24" x2="5" y2="24" stroke-width="1.5"/><circle cx="3" cy="24" r="3.5" stroke-width="1.5"/><line x1="51" y1="24" x2="55" y2="24" stroke-width="1.5"/><circle cx="57" cy="24" r="3.5" stroke-width="1.5"/><line x1="30" y1="39" x2="30" y2="42" stroke-width="1.5"/><line class="tm" x1="21" y1="43" x2="39" y2="43" stroke-width="1.2"/><line class="tm" x1="21" y1="46" x2="39" y2="46" stroke-width="1.2"/><line class="tm" x1="21" y1="49" x2="39" y2="49" stroke-width="1.2"/><circle class="sv-o" cx="30" cy="46" r="4" stroke-width="1.5"/></svg>`,
+'tee-service':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="9" y="18" width="42" height="12" stroke-width="1.5"/><rect x="24" y="30" width="12" height="9" stroke-width="1.5"/><line x1="9" y1="24" x2="5" y2="24" stroke-width="1.5"/><circle cx="3" cy="24" r="3.5" stroke-width="1.5"/><line x1="51" y1="24" x2="55" y2="24" stroke-width="1.5"/><circle cx="57" cy="24" r="3.5" stroke-width="1.5"/><line x1="30" y1="39" x2="30" y2="42" stroke-width="1.5"/><line class="tm" x1="21" y1="43" x2="39" y2="43" stroke-width="1.2"/><line class="tm" x1="21" y1="46" x2="39" y2="46" stroke-width="1.2"/><line class="tm" x1="21" y1="49" x2="39" y2="49" stroke-width="1.2"/><circle class="sv-o" cx="30" cy="46" r="4" stroke-width="1.5"/></svg>`,
+'cross':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="16" y="10" width="28" height="30" stroke-width="1.5"/><rect x="9" y="18" width="42" height="14" stroke-width="1.5"/><line x1="30" y1="10" x2="30" y2="6" stroke-width="1.5"/><circle cx="30" cy="4" r="3.5" stroke-width="1.5"/><line x1="9" y1="25" x2="5" y2="25" stroke-width="1.5"/><circle cx="3" cy="25" r="3.5" stroke-width="1.5"/><line x1="51" y1="25" x2="55" y2="25" stroke-width="1.5"/><circle cx="57" cy="25" r="3.5" stroke-width="1.5"/><line x1="30" y1="40" x2="30" y2="44" stroke-width="1.5"/><circle cx="30" cy="47" r="3.5" stroke-width="1.5"/></svg>`,
+'cross-diff':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="16" y="10" width="28" height="30" stroke-width="1.5"/><rect x="9" y="18" width="42" height="14" stroke-width="1.5"/><line x1="30" y1="10" x2="30" y2="6" stroke-width="1.5"/><circle cx="30" cy="4" r="3.5" stroke-width="1.5"/><line x1="9" y1="25" x2="5" y2="25" stroke-width="1.5"/><circle cx="3" cy="25" r="3.5" stroke-width="1.5"/><line x1="51" y1="25" x2="55" y2="25" stroke-width="1.5"/><circle cx="57" cy="25" r="3.5" stroke-width="1.5"/><line x1="30" y1="40" x2="30" y2="44" stroke-width="1.5"/><circle cx="30" cy="47" r="3.5" stroke-width="1.5"/></svg>`,
+'cross-y':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="16" y="10" width="28" height="30" stroke-width="1.5"/><rect x="9" y="18" width="42" height="14" stroke-width="1.5"/><line x1="30" y1="10" x2="30" y2="6" stroke-width="1.5"/><circle cx="30" cy="4" r="3.5" stroke-width="1.5"/><line x1="9" y1="25" x2="5" y2="25" stroke-width="1.5"/><circle cx="3" cy="25" r="3.5" stroke-width="1.5"/><line x1="51" y1="25" x2="55" y2="25" stroke-width="1.5"/><circle cx="57" cy="25" r="3.5" stroke-width="1.5"/><line x1="30" y1="40" x2="30" y2="44" stroke-width="1.5"/><circle cx="30" cy="47" r="3.5" stroke-width="1.5"/></svg>`,
+'delta':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><polygon points="30,8 7,44 53,44" stroke-width="1.5"/><line x1="30" y1="8" x2="30" y2="4" stroke-width="1.5"/><circle cx="30" cy="3" r="3.5" stroke-width="1.5"/><line x1="53" y1="44" x2="57" y2="46" stroke-width="1.5"/><circle cx="57" cy="47" r="3" stroke-width="1.5"/><line x1="7" y1="44" x2="4" y2="47" stroke-width="1.5"/><line class="tm" x1="-1" y1="45" x2="11" y2="45" stroke-width="1.2"/><line class="tm" x1="-1" y1="48" x2="11" y2="48" stroke-width="1.2"/><line class="tm" x1="-1" y1="51" x2="11" y2="51" stroke-width="1.2"/><circle class="sv-o" cx="5" cy="48" r="4" stroke-width="1.5"/></svg>`,
+'union-y':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><polygon points="27,42 27,26 12,12 18,8 30,22 42,8 48,12 33,26 33,42" stroke-width="1.5"/><line x1="15" y1="10" x2="13" y2="6" stroke-width="1.5"/><circle cx="12" cy="4" r="3" stroke-width="1.5"/><line x1="45" y1="10" x2="47" y2="6" stroke-width="1.5"/><circle cx="48" cy="4" r="3" stroke-width="1.5"/><line x1="30" y1="42" x2="30" y2="46" stroke-width="1.5"/><line class="tm" x1="21" y1="46" x2="39" y2="46" stroke-width="1.2"/><line class="tm" x1="21" y1="49" x2="39" y2="49" stroke-width="1.2"/><line class="tm" x1="21" y1="52" x2="39" y2="52" stroke-width="1.2"/><circle class="sv-o" cx="30" cy="49" r="4" stroke-width="1.5"/></svg>`,
+'branch-yd':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="23" y="20" width="14" height="22" stroke-width="1.5"/><rect x="9" y="20" width="16" height="11" stroke-width="1.5"/><rect x="35" y="20" width="16" height="11" stroke-width="1.5"/><line x1="9" y1="25" x2="5" y2="25" stroke-width="1.5"/><circle cx="3" cy="25" r="3" stroke-width="1.5"/><line x1="9" y1="29" x2="5" y2="29" stroke-width="1.5"/><circle cx="3" cy="29" r="3" stroke-width="1.5"/><line x1="51" y1="25" x2="55" y2="25" stroke-width="1.5"/><circle cx="57" cy="25" r="3" stroke-width="1.5"/><line x1="51" y1="29" x2="55" y2="29" stroke-width="1.5"/><circle cx="57" cy="29" r="3" stroke-width="1.5"/><line x1="30" y1="42" x2="30" y2="46" stroke-width="1.5"/><line class="tm" x1="21" y1="46" x2="39" y2="46" stroke-width="1.2"/><line class="tm" x1="21" y1="49" x2="39" y2="49" stroke-width="1.2"/><line class="tm" x1="21" y1="52" x2="39" y2="52" stroke-width="1.2"/><circle class="sv-o" cx="30" cy="49" r="4" stroke-width="1.5"/></svg>`,
+'branch-z':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><polygon points="18,10 32,10 32,30 46,30 46,42 18,42" stroke-width="1.5"/><line x1="22" y1="10" x2="22" y2="6" stroke-width="1.5"/><circle cx="22" cy="4" r="3.5" stroke-width="1.5"/><line x1="28" y1="10" x2="28" y2="6" stroke-width="1.5"/><circle cx="28" cy="4" r="3.5" stroke-width="1.5"/><line x1="46" y1="36" x2="50" y2="36" stroke-width="1.5"/><line class="tm" x1="51" y1="30" x2="51" y2="42" stroke-width="1.2"/><line class="tm" x1="54" y1="30" x2="54" y2="42" stroke-width="1.2"/><line class="tm" x1="57" y1="30" x2="57" y2="42" stroke-width="1.2"/><circle class="sv-o" cx="54" cy="36" r="4" stroke-width="1.5"/></svg>`,
+'dbl-ud':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="20" y="12" width="20" height="28" stroke-width="1.5"/><line x1="20" y1="16" x2="15" y2="16" stroke-width="1.5"/><circle cx="12" cy="16" r="3" stroke-width="1.5"/><line x1="20" y1="22" x2="15" y2="22" stroke-width="1.5"/><circle cx="12" cy="22" r="3" stroke-width="1.5"/><line x1="20" y1="30" x2="15" y2="30" stroke-width="1.5"/><circle cx="12" cy="30" r="3" stroke-width="1.5"/><line x1="20" y1="36" x2="15" y2="36" stroke-width="1.5"/><circle cx="12" cy="36" r="3" stroke-width="1.5"/><line x1="40" y1="26" x2="44" y2="26" stroke-width="1.5"/><line class="tm" x1="45" y1="20" x2="45" y2="32" stroke-width="1.2"/><line class="tm" x1="48" y1="20" x2="48" y2="32" stroke-width="1.2"/><line class="tm" x1="51" y1="20" x2="51" y2="32" stroke-width="1.2"/><circle class="sv-o" cx="48" cy="26" r="4" stroke-width="1.5"/></svg>`,
+'branch-xd':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="20" y="8" width="20" height="36" stroke-width="1.5"/><line x1="20" y1="12" x2="15" y2="12" stroke-width="1.5"/><circle cx="12" cy="12" r="3" stroke-width="1.5"/><line x1="20" y1="18" x2="15" y2="18" stroke-width="1.5"/><circle cx="12" cy="18" r="3" stroke-width="1.5"/><line x1="20" y1="24" x2="15" y2="24" stroke-width="1.5"/><circle cx="12" cy="24" r="3" stroke-width="1.5"/><line x1="20" y1="30" x2="15" y2="30" stroke-width="1.5"/><circle cx="12" cy="30" r="3" stroke-width="1.5"/><line x1="20" y1="36" x2="15" y2="36" stroke-width="1.5"/><circle cx="12" cy="36" r="3" stroke-width="1.5"/><line x1="20" y1="42" x2="15" y2="42" stroke-width="1.5"/><circle cx="12" cy="42" r="3" stroke-width="1.5"/><line x1="40" y1="26" x2="44" y2="26" stroke-width="1.5"/><line class="tm" x1="45" y1="20" x2="45" y2="32" stroke-width="1.2"/><line class="tm" x1="48" y1="20" x2="48" y2="32" stroke-width="1.2"/><line class="tm" x1="51" y1="20" x2="51" y2="32" stroke-width="1.2"/><circle class="sv-o" cx="48" cy="26" r="4" stroke-width="1.5"/></svg>`,
+'wall-union':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="3" y="21" width="54" height="8" stroke-width="2.5" rx="1"/><line x1="30" y1="21" x2="30" y2="14" stroke-width="1.5"/><circle cx="30" cy="11" r="4" stroke-width="1.5"/><line x1="30" y1="29" x2="30" y2="36" stroke-width="1.5"/><circle cx="30" cy="39" r="4" stroke-width="1.5"/></svg>`,
+'wall-elbow':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="3" y="21" width="54" height="8" stroke-width="2.5" rx="1"/><line x1="15" y1="21" x2="15" y2="12" stroke-width="1.5"/><circle cx="15" cy="9" r="4" stroke-width="1.5"/><line x1="42" y1="29" x2="42" y2="36" stroke-width="1.5"/><circle cx="42" cy="39" r="4" stroke-width="1.5"/></svg>`,
+'reducer':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><polygon points="10,20 10,30 26,34 26,16" stroke-width="1.5"/><polygon points="26,16 26,34 50,32 50,18" stroke-width="1.5"/><line x1="10" y1="25" x2="6" y2="25" stroke-width="1.5"/><circle cx="4" cy="25" r="4" stroke-width="1.5"/><line x1="50" y1="25" x2="54" y2="25" stroke-width="1.5"/><circle cx="56" cy="25" r="3" stroke-width="1.5"/></svg>`,
+'plug':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="18" y="19" width="24" height="12" stroke-width="1.5"/><path d="M42,19 L49,22 L49,28 L42,31" stroke-width="1.5"/><line x1="18" y1="25" x2="10" y2="25" stroke-width="1.5"/><line x1="10" y1="20" x2="10" y2="30" stroke-width="1.5"/></svg>`,
+'cap':`<svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="18" y="19" width="24" height="12" stroke-width="1.5"/><path d="M42,19 L48,22 L48,28 L42,31" stroke-width="1.5"/><line x1="18" y1="25" x2="13" y2="25" stroke-width="1.5"/><circle cx="10" cy="25" r="4" stroke-width="1.5"/></svg>`,
+};
+
+/* ══════════════════════════════════════════════════════
+   DB_OVAL  長円形（末尾コード = '1'）
+   Type A: [tube, conn, matOpt:'G'|'AN'|'A', seal:''|'S']
+   Type B: [tube, conn]
+══════════════════════════════════════════════════════ */
+const DB_OVAL = {
+KQ2H:{n:'ハーフユニオン',nB:'ストレート',cat:'AB',sh:'straight-male',
+A:[['23','M3','G',''],['23','M5','AN',''],['04','M3','G',''],['04','M5','AN',''],['04','M6','AN',''],['06','M5','AN',''],['06','M6','AN',''],['23','01','AN','S'],['23','02','AN','S'],['04','01','AN','S'],['04','02','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['06','03','AN','S']],
+B:[['23','00'],['04','00'],['06','00'],['02','23'],['02','04'],['23','04'],['23','06'],['04','06'],['04','08'],['06','08'],['06','10']]},
+KQ2S:{n:'六角穴付ハーフユニオン',cat:'A',sh:'straight-hex',
+A:[['23','M3','G',''],['23','M5','AN',''],['04','M3','G',''],['04','M5','AN',''],['04','M6','AN',''],['06','M5','AN',''],['06','M6','AN',''],['04','01','AN','S'],['06','01','AN','S'],['06','02','AN','S']]},
+KQ2F:{n:'メスユニオン',cat:'A',sh:'straight-female',
+A:[['23','M3','AN',''],['23','M5','AN',''],['04','M3','AN',''],['04','M5','AN',''],['04','01','AN',''],['04','02','AN',''],['06','M5','AN',''],['06','01','AN',''],['06','02','AN',''],['06','03','AN','']]},
+KQ2L:{n:'エルボユニオン',nB:'エルボ',cat:'ABC',sh:'elbow-male',
+A:[['23','M3','G',''],['23','M5','AN',''],['04','M3','G',''],['04','M5','AN',''],['04','M6','AN',''],['06','M5','AN',''],['06','M6','AN',''],['23','01','AN','S'],['23','02','AN','S'],['04','01','AN','S'],['04','02','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['06','03','AN','S']],
+B:[['23','00'],['04','00'],['06','00']],
+C:[['23','99'],['04','99'],['06','99'],['23','04'],['23','06'],['04','06'],['04','08'],['06','08'],['06','10']]},
+KQ2K:{n:'45°エルボユニオン',cat:'A',sh:'elbow-45',
+A:[['04','M5','AN',''],['04','M6','AN',''],['06','M5','AN',''],['06','M6','AN',''],['04','01','AN','S'],['04','02','AN','S'],['06','02','AN','S'],['06','03','AN','S']]},
+KQ2V:{n:'ユニバーサルエルボ',cat:'A',sh:'swivel-male',
+A:[['04','M5','AN',''],['06','M5','AN',''],['04','01','AN','S'],['06','01','AN','S'],['06','02','AN','S']]},
+KQ2VS:{n:'六角穴付ユニバーサルエルボ',cat:'A',sh:'swivel-hex',
+A:[['04','M5','AN',''],['06','M5','AN',''],['04','01','AN','S'],['06','01','AN','S'],['06','02','AN','S']]},
+KQ2VF:{n:'ユニバーサルメスエルボ',cat:'A',sh:'swivel-female',
+A:[['04','M5','AN',''],['06','M5','AN',''],['04','01','AN','S'],['06','01','AN','S'],['06','02','AN','S']]},
+KQ2LF:{n:'メスエルボ',cat:'A',sh:'elbow-female',
+A:[['04','M5','AN',''],['04','M6','AN',''],['06','M5','AN',''],['06','M6','AN',''],['04','01','AN',''],['04','02','AN',''],['06','01','AN',''],['06','02','AN',''],['06','03','AN','']]},
+KQ2VD:{n:'ダブルユニバーサルエルボ',cat:'A',sh:'dbl-swivel',
+A:[['04','01','AN','S'],['04','02','AN','S'],['04','03','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['06','03','AN','S']]},
+KQ2VT:{n:'トリプルユニバーサルエルボ',cat:'A',sh:'triple-swivel',
+A:[['04','01','AN','S'],['04','02','AN','S'],['04','03','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['06','03','AN','S']]},
+KQ2W:{n:'ロングエルボユニオン',nB:'ロングストリートエルボ',cat:'AC',sh:'elbow-long',
+A:[['23','M3','G',''],['23','M5','AN',''],['04','M3','G',''],['04','M5','AN',''],['06','M5','AN',''],['23','01','AN','S'],['23','02','AN','S'],['04','01','AN','S'],['04','02','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['06','03','AN','S']],
+C:[['23','99'],['04','99'],['06','99']]},
+KQ2T:{n:'両口チーズユニオン',nB:'チーズ',cat:'AB',sh:'tee-male',
+A:[['23','M3','G',''],['23','M5','AN',''],['04','M3','G',''],['04','M5','AN',''],['04','M6','AN',''],['06','M5','AN',''],['06','M6','AN',''],['23','01','AN','S'],['04','01','AN','S'],['04','02','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['06','03','AN','S']],
+B:[['23','00'],['04','00'],['06','00'],['23','04'],['04','06'],['04','08'],['06','04'],['06','08'],['06','10'],['08','04'],['08','06'],['10','06']]},
+KQ2TW:{n:'クロス',cat:'B',sh:'cross',B:[['04','00'],['06','00']]},
+KQ2TX:{n:'異径クロス',cat:'B',sh:'cross-diff',B:[['06','08']]},
+KQ2TY:{n:'異径クロス（Y型）',cat:'B',sh:'cross-y',B:[['06','08']]},
+KQ2Y:{n:'サービスチーズユニオン',cat:'A',sh:'tee-service',
+A:[['23','M3','G',''],['23','M5','AN',''],['04','M3','G',''],['04','M5','AN',''],['04','M6','AN',''],['06','M5','AN',''],['06','M6','AN',''],['23','01','AN','S'],['23','02','AN','S'],['04','01','AN','S'],['04','02','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['06','03','AN','S']]},
+KQ2D:{n:'デルタユニオン',nB:'デルタ',cat:'AB',sh:'delta',
+A:[['04','M5','AN',''],['04','M6','AN',''],['06','M5','AN',''],['06','M6','AN',''],['04','01','AN','S'],['04','02','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['06','03','AN','S']],
+B:[['04','00'],['06','00']]},
+KQ2R:{n:'レジューサ',cat:'C',sh:'reducer',
+C:[['23','04'],['23','06'],['04','06'],['04','08'],['04','10'],['06','04'],['06','08'],['06','10'],['06','12']]},
+KQ2E:{n:'隔壁用メスユニオン',nB:'隔壁用ユニオン（KQ互換）',cat:'AB',sh:'wall-union',
+A:[['23','02','AN',''],['04','01','AN',''],['04','02','AN',''],['06','01','AN',''],['06','02','AN',''],['06','03','AN','']],
+B:[['23','00'],['04','00'],['06','00']]},
+KQ2LE:{n:'隔壁エルボ',cat:'B',sh:'wall-elbow',
+B:[['04','00'],['06','00']]},
+KQ2N:{n:'アダプタ',cat:'D',sh:'straight-male',
+D:[['04','M5','AN',''],['06','M5','AN',''],['04','01','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['04','99'],['06','99'],['04','06'],['06','08']]},
+KQ2C:{n:'チューブキャップ',cat:'D',sh:'cap',D:[['04','00'],['06','00']]},
+KQ2P:{n:'プラグ',cat:'D',sh:'plug',D:[['23'],['04'],['06']]},
+};
+
+/* ══════════════════════════════════════════════════════
+   DB_ROUND  真円形（末尾コード = ''）
+══════════════════════════════════════════════════════ */
+const DB_ROUND = {
+KQ2H:{n:'ハーフユニオン',nB:'ストレート',cat:'AB',sh:'straight-male',
+A:[['02','M3','G',''],['02','M5','AN',''],['23','M3','G',''],['23','M5','AN',''],['04','M3','G',''],['04','M5','AN',''],['04','M6','AN',''],['06','M5','AN',''],['06','M6','AN',''],['23','01','AN','S'],['23','02','AN','S'],['04','01','AN','S'],['04','02','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['06','03','AN','S'],['08','01','AN','S'],['08','02','AN','S'],['08','03','AN','S'],['10','01','AN','S'],['10','02','AN','S'],['10','03','AN','S'],['10','04','AN','S'],['12','02','AN','S'],['12','03','AN','S'],['12','04','AN','S'],['16','02','AN','S'],['16','03','AN','S'],['16','04','AN','S']],
+B:[['02','00'],['23','00'],['04','00'],['06','00'],['08','00'],['10','00'],['12','00'],['16','00'],['02','23'],['02','04'],['23','04'],['23','06'],['04','06'],['06','08'],['08','10'],['08','12'],['10','12'],['12','16']]},
+KQ2S:{n:'六角穴付ハーフユニオン',cat:'A',sh:'straight-hex',
+A:[['02','M3','G',''],['23','M3','G',''],['23','M5','AN',''],['04','M3','G',''],['04','M5','AN',''],['04','M6','AN',''],['06','M5','AN',''],['06','M6','AN',''],['04','01','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['08','01','AN','S'],['08','02','AN','S'],['08','03','AN','S'],['10','01','AN','S'],['10','02','AN','S'],['10','03','AN','S'],['10','04','AN','S'],['12','02','AN','S'],['12','03','AN','S'],['12','04','AN','S'],['16','02','AN','S'],['16','03','AN','S'],['16','04','AN','S']]},
+KQ2F:{n:'メスユニオン',cat:'A',sh:'straight-female',
+A:[['23','M3','AN',''],['23','M5','AN',''],['04','M3','AN',''],['04','M5','AN',''],['06','M5','AN',''],['04','01','AN',''],['04','02','AN',''],['06','01','AN',''],['06','02','AN',''],['06','03','AN',''],['08','01','AN',''],['08','02','AN',''],['08','03','AN',''],['10','02','AN',''],['10','03','AN',''],['12','02','AN',''],['12','03','AN',''],['12','04','AN',''],['16','03','AN',''],['16','04','AN','']]},
+KQ2L:{n:'エルボユニオン',nB:'エルボ',cat:'ABC',sh:'elbow-male',
+A:[['02','M3','G',''],['02','M5','AN',''],['23','M3','G',''],['23','M5','AN',''],['04','M3','G',''],['04','M5','AN',''],['04','M6','AN',''],['06','M5','AN',''],['06','M6','AN',''],['23','01','AN','S'],['23','02','AN','S'],['04','01','AN','S'],['04','02','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['06','03','AN','S'],['08','01','AN','S'],['08','02','AN','S'],['08','03','AN','S'],['10','01','AN','S'],['10','02','AN','S'],['10','03','AN','S'],['10','04','AN','S'],['12','02','AN','S'],['12','03','AN','S'],['12','04','AN','S'],['16','02','AN','S'],['16','03','AN','S'],['16','04','AN','S']],
+B:[['23','00'],['04','00'],['06','00'],['08','00'],['10','00'],['12','00'],['16','00']],
+C:[['23','99'],['04','99'],['06','99'],['08','99'],['10','99'],['12','99'],['16','99'],['23','04'],['23','06'],['04','06'],['04','08'],['06','08'],['08','10'],['10','12'],['12','16']]},
+KQ2LU:{n:'ブランチエルボユニオン',nB:'ブランチエルボ',cat:'AB',sh:'elbow-branch',roundOnly:true,
+A:[['04','M5','AN',''],['04','M6','AN',''],['06','M5','AN',''],['06','M6','AN',''],['04','01','AN','S'],['04','02','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['06','03','AN','S'],['08','01','AN','S'],['08','02','AN','S'],['08','03','AN','S'],['10','02','AN','S'],['10','03','AN','S'],['10','04','AN','S'],['12','02','AN','S'],['12','03','AN','S'],['12','04','AN','S']],
+B:[['04','00'],['06','00'],['10','00'],['12','00']]},
+KQ2K:{n:'45°エルボユニオン',cat:'A',sh:'elbow-45',
+A:[['04','M5','AN',''],['04','M6','AN',''],['06','M5','AN',''],['06','M6','AN',''],['04','01','AN','S'],['04','02','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['06','03','AN','S'],['08','01','AN','S'],['08','02','AN','S'],['08','03','AN','S'],['10','01','AN','S'],['10','02','AN','S'],['10','03','AN','S'],['10','04','AN','S'],['12','02','AN','S'],['12','03','AN','S'],['12','04','AN','S'],['16','02','AN','S'],['16','03','AN','S'],['16','04','AN','S']]},
+KQ2V:{n:'ユニバーサルエルボ',cat:'A',sh:'swivel-male',
+A:[['04','M5','AN',''],['06','M5','AN',''],['04','01','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['08','01','AN','S'],['08','02','AN','S'],['08','03','AN','S'],['10','02','AN','S'],['10','03','AN','S'],['12','03','AN','S'],['12','04','AN','S'],['16','03','AN','S'],['16','04','AN','S']]},
+KQ2VS:{n:'六角穴付ユニバーサルエルボ',cat:'A',sh:'swivel-hex',
+A:[['04','M5','AN',''],['06','M5','AN',''],['04','01','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['08','01','AN','S'],['08','02','AN','S'],['08','03','AN','S'],['10','02','AN','S'],['10','03','AN','S'],['12','03','AN','S'],['12','04','AN','S']]},
+KQ2VF:{n:'ユニバーサルメスエルボ',cat:'A',sh:'swivel-female',
+A:[['04','M5','AN',''],['06','M5','AN',''],['04','01','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['08','01','AN','S'],['08','02','AN','S'],['08','03','AN','S'],['10','02','AN','S'],['10','03','AN','S'],['12','03','AN','S'],['12','04','AN','S']]},
+KQ2LF:{n:'メスエルボ',cat:'A',sh:'elbow-female',
+A:[['04','M5','AN',''],['04','M6','AN',''],['06','M5','AN',''],['06','M6','AN',''],['04','01','AN',''],['04','02','AN',''],['06','01','AN',''],['06','02','AN',''],['06','03','AN',''],['08','01','AN',''],['08','02','AN',''],['08','03','AN',''],['10','02','AN',''],['10','03','AN',''],['10','04','AN',''],['12','02','AN',''],['12','03','AN',''],['12','04','AN','']]},
+KQ2VD:{n:'ダブルユニバーサルエルボ',cat:'A',sh:'dbl-swivel',
+A:[['04','01','AN','S'],['04','02','AN','S'],['04','03','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['06','03','AN','S'],['08','01','AN','S'],['08','02','AN','S'],['08','03','AN','S'],['08','04','AN','S'],['10','02','AN','S'],['10','03','AN','S'],['10','04','AN','S'],['12','02','AN','S'],['12','03','AN','S'],['12','04','AN','S']]},
+KQ2VT:{n:'トリプルユニバーサルエルボ',cat:'A',sh:'triple-swivel',
+A:[['04','01','AN','S'],['04','02','AN','S'],['04','03','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['06','03','AN','S'],['08','01','AN','S'],['08','02','AN','S'],['08','03','AN','S'],['08','04','AN','S'],['10','02','AN','S'],['10','03','AN','S'],['10','04','AN','S'],['12','02','AN','S'],['12','03','AN','S'],['12','04','AN','S']]},
+KQ2Z:{n:'ブランチユニバーサルエルボ',cat:'A',sh:'branch-z',roundOnly:true,
+A:[['04','M5','AN',''],['04','01','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['06','03','AN','S'],['08','01','AN','S'],['08','02','AN','S'],['08','03','AN','S'],['10','02','AN','S'],['10','03','AN','S'],['12','02','AN','S'],['12','03','AN','S'],['12','04','AN','S']]},
+KQ2ZF:{n:'ブランチユニバーサルメスエルボ',cat:'A',sh:'branch-z',roundOnly:true,
+A:[['04','M5','AN',''],['04','01','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['08','01','AN','S'],['08','02','AN','S'],['10','02','AN','S'],['10','03','AN','S'],['12','03','AN','S'],['12','04','AN','S']]},
+KQ2ZD:{n:'ダブルブランチユニバーサルエルボ',cat:'A',sh:'dbl-ud',roundOnly:true,
+A:[['04','01','AN','S'],['04','02','AN','S'],['06','01','AN','S'],['06','03','AN','S'],['08','01','AN','S'],['08','02','AN','S'],['08','03','AN','S'],['08','04','AN','S'],['10','03','AN','S'],['10','04','AN','S'],['12','02','AN','S'],['12','03','AN','S'],['12','04','AN','S']]},
+KQ2ZT:{n:'トリプルブランチユニバーサルエルボ',cat:'A',sh:'branch-xd',roundOnly:true,
+A:[['04','01','AN','S'],['04','02','AN','S'],['04','03','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['06','03','AN','S'],['08','01','AN','S'],['08','02','AN','S'],['08','03','AN','S'],['10','02','AN','S'],['10','03','AN','S'],['10','04','AN','S'],['12','02','AN','S'],['12','03','AN','S'],['12','04','AN','S']]},
+KQ2W:{n:'ロングエルボユニオン',nB:'ロングストリートエルボ',cat:'AC',sh:'elbow-long',
+A:[['02','M3','G',''],['02','M5','AN',''],['23','M3','G',''],['23','M5','AN',''],['04','M3','G',''],['04','M5','AN',''],['06','M5','AN',''],['23','01','AN','S'],['23','02','AN','S'],['04','01','AN','S'],['04','02','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['06','03','AN','S'],['08','01','AN','S'],['08','02','AN','S'],['08','03','AN','S'],['10','02','AN','S'],['10','03','AN','S'],['12','02','AN','S'],['12','03','AN','S'],['12','04','AN','S'],['16','02','AN','S'],['16','03','AN','S'],['16','04','AN','S']],
+C:[['23','99'],['04','99'],['06','99'],['08','99'],['10','99'],['12','99']]},
+KQ2T:{n:'両口チーズユニオン',nB:'チーズ',cat:'AB',sh:'tee-male',
+A:[['02','M3','G',''],['02','M5','AN',''],['23','M3','G',''],['23','M5','AN',''],['04','M3','G',''],['04','M5','AN',''],['04','M6','AN',''],['06','M5','AN',''],['06','M6','AN',''],['23','01','AN','S'],['23','02','AN','S'],['04','01','AN','S'],['04','02','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['06','03','AN','S'],['08','01','AN','S'],['08','02','AN','S'],['08','03','AN','S'],['10','01','AN','S'],['10','02','AN','S'],['10','03','AN','S'],['10','04','AN','S'],['12','02','AN','S'],['12','03','AN','S'],['12','04','AN','S'],['16','02','AN','S'],['16','03','AN','S'],['16','04','AN','S']],
+B:[['02','00'],['23','00'],['04','00'],['06','00'],['08','00'],['10','00'],['12','00'],['16','00'],['23','04'],['04','06'],['06','04'],['06','08'],['08','06'],['08','10'],['08','12'],['10','08'],['10','12'],['12','08'],['12','10'],['12','16']]},
+KQ2TW:{n:'クロス',cat:'B',sh:'cross',B:[['04','00'],['06','00'],['08','00'],['10','00'],['12','00']]},
+KQ2TX:{n:'異径クロス',cat:'B',sh:'cross-diff',B:[['06','08'],['08','10'],['10','12']]},
+KQ2TY:{n:'異径クロス（Y型）',cat:'B',sh:'cross-y',B:[['06','08'],['08','10'],['10','12']]},
+KQ2Y:{n:'サービスチーズユニオン',cat:'A',sh:'tee-service',
+A:[['02','M3','G',''],['02','M5','AN',''],['23','M3','G',''],['23','M5','AN',''],['04','M3','G',''],['04','M5','AN',''],['04','M6','AN',''],['06','M5','AN',''],['06','M6','AN',''],['23','01','AN','S'],['23','02','AN','S'],['04','01','AN','S'],['04','02','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['06','03','AN','S'],['08','01','AN','S'],['08','02','AN','S'],['08','03','AN','S'],['10','01','AN','S'],['10','02','AN','S'],['10','03','AN','S'],['12','02','AN','S'],['12','03','AN','S'],['12','04','AN','S'],['16','02','AN','S'],['16','03','AN','S'],['16','04','AN','S']]},
+KQ2D:{n:'デルタユニオン',nB:'デルタ',cat:'AB',sh:'delta',
+A:[['04','M5','AN',''],['04','M6','AN',''],['06','M5','AN',''],['06','M6','AN',''],['04','01','AN','S'],['04','02','AN','S'],['06','02','AN','S'],['06','03','AN','S'],['08','01','AN','S'],['08','02','AN','S'],['08','03','AN','S'],['10','02','AN','S'],['10','03','AN','S'],['10','04','AN','S'],['12','02','AN','S'],['12','03','AN','S'],['12','04','AN','S']],
+B:[['04','00'],['06','00'],['08','00'],['10','00'],['12','00']]},
+KQ2U:{n:'ブランチ／ユニオンワイ',nB:'ユニオンワイ',cat:'ABC',sh:'union-y',roundOnly:true,
+A:[['23','M5','AN',''],['04','M5','AN',''],['04','M6','AN',''],['06','M5','AN',''],['06','M6','AN',''],['23','01','AN','S'],['23','02','AN','S'],['04','01','AN','S'],['04','02','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['06','03','AN','S'],['08','01','AN','S'],['08','02','AN','S'],['08','03','AN','S'],['10','02','AN','S'],['10','03','AN','S'],['10','04','AN','S'],['12','02','AN','S'],['12','03','AN','S'],['12','04','AN','S'],['16','02','AN','S'],['16','03','AN','S'],['16','04','AN','S']],
+B:[['02','00'],['23','00'],['04','00'],['06','00'],['08','00'],['10','00'],['12','00'],['16','00'],['02','23'],['02','04'],['23','04'],['04','06'],['04','08'],['06','08'],['06','10'],['08','10'],['08','12'],['10','12'],['12','16']],
+C:[['23','99'],['04','99'],['06','99'],['08','99'],['10','99'],['12','99'],['16','99']]},
+KQ2UD:{n:'ダブルブランチ',nB:'異径ダブルユニオンワイ',cat:'AB',sh:'branch-yd',roundOnly:true,
+A:[['04','01','AN','S'],['04','02','AN','S'],['06','01','AN','S'],['06','02','AN','S']],
+B:[['04','06'],['06','08']]},
+KQ2R:{n:'レジューサ',cat:'C',sh:'reducer',
+C:[['02','04'],['23','04'],['23','06'],['04','06'],['04','08'],['04','10'],['06','04'],['06','08'],['06','10'],['06','12'],['08','10'],['08','12'],['10','12'],['10','16'],['12','16']]},
+KQ2XD:{n:'ダブルブランチユニオンワイ',cat:'C',sh:'branch-xd',roundOnly:true,
+C:[['04','06'],['06','08']]},
+KQ2X:{n:'異径ブランチユニオンワイ',cat:'C',sh:'branch-z',roundOnly:true,
+C:[['23','04'],['04','06'],['06','08'],['08','10'],['10','12']]},
+KQ2E:{n:'隔壁用メスユニオン',nB:'隔壁用ユニオン（KQ互換）',cat:'AB',sh:'wall-union',
+A:[['23','02','AN',''],['04','01','AN',''],['04','02','AN',''],['06','01','AN',''],['06','02','AN',''],['06','03','AN',''],['08','02','AN',''],['08','03','AN',''],['10','02','AN',''],['10','03','AN',''],['12','03','AN',''],['12','04','AN',''],['16','03','AN',''],['16','04','AN','']],
+B:[['23','00'],['04','00'],['06','00'],['08','00'],['10','00'],['12','00'],['16','00']]},
+KQ2LE:{n:'隔壁エルボ',cat:'B',sh:'wall-elbow',
+B:[['04','00'],['06','00'],['08','00'],['10','00'],['12','00']]},
+KQ2N:{n:'アダプタ',cat:'D',sh:'straight-male',
+D:[['04','M5','AN',''],['06','M5','AN',''],['04','01','AN','S'],['06','01','AN','S'],['06','02','AN','S'],['08','02','AN','S'],['08','03','AN','S'],['10','03','AN','S'],['04','99'],['06','99'],['08','99'],['10','99'],['12','99'],['16','99'],['04','06'],['06','08'],['08','10'],['10','12'],['12','16']]},
+KQ2C:{n:'チューブキャップ',cat:'D',sh:'cap',D:[['04','00'],['06','00'],['08','00'],['10','00'],['12','00'],['16','00']]},
+KQ2P:{n:'プラグ',cat:'D',sh:'plug',D:[['23'],['04'],['06'],['08'],['10'],['12'],['16']]},
+};
+
+/* ══════════════════════════════════════════════════════
+   ラベル定義
+══════════════════════════════════════════════════════ */
+const TL={'02':'ø2','23':'ø3.2','04':'ø4','06':'ø6','08':'ø8','10':'ø10','12':'ø12','16':'ø16'};
+const CAL={'M3':'M3×0.5','M5':'M5×0.8','M6':'M6×1.0','00':'同径チューブ（隔壁）','01':'R 1/8','02':'R 1/4','03':'R 3/8','04':'R 1/2'};
+const CBL={'00':'同径チューブ','99':'ニップル差込（同径）','02':'ø2（異径）','23':'ø3.2（異径）','04':'ø4（異径）','06':'ø6（異径）','08':'ø8（異径）','10':'ø10（異径）','12':'ø12（異径）','16':'ø16（異径）'};
+const ML={'A':'A（黄銅）','N':'N（黄銅＋Niめっき）','G':'G（SUS303）'};
+const SL={'':'シール剤なし（ガスケットシール）','S':'シール剤付き（Sタイプ）','QS':'有効断面積互換（QSタイプ）'};
+const PL={'1':'長円形（末尾「1」）','':'真円形（末尾コードなし）'};
+/* X35 非適用モデル */
+const X35_EXCL = new Set(['KQ2H','KQ2S','KQ2F','KQ2E','KQ2N','KQ2C','KQ2P']);
+/* QS 適用モデル (真円形 ø8/R1/8 のみ) */
+const QS_MODELS = new Set(['KQ2L','KQ2K','KQ2LF','KQ2W','KQ2T','KQ2Y']);
+
+/* ══════════════════════════════════════════════════════
+   状態
+══════════════════════════════════════════════════════ */
+const S = {push:null,type:null,model:null,tube:null,conn:null,mat:null,diamType:null,screwType:null};
+const FEMALE_MODELS = new Set(['KQ2F','KQ2LF','KQ2E']);
+const BOTH_MODELS = new Set(['KQ2VF','KQ2ZF']);
+const SAME_CONNS = new Set(['00','99']);
+const TUBE_DIAM = {'02':2,'23':3.2,'04':4,'06':6,'08':8,'10':10,'12':12,'16':16};
+function tubeMm(code){ return TUBE_DIAM[code]||parseFloat(code)||0; }
+/* 接続コード別の Type B 製品名テーブル */
+const B_NAMES = {
+  KQ2H:  {'00':'ストレート',     diff:'異径ストレート'},
+  KQ2L:  {'00':'エルボ','99':'ストリートエルボ',  diff:'レジューサエルボ'},
+  KQ2W:  {'99':'ロングストリートエルボ'},
+  KQ2T:  {'00':'チーズ',         diff:'異径チーズ'},
+  KQ2D:  {'00':'デルタ'},
+  KQ2LU: {'00':'ブランチエルボ'},
+  KQ2U:  {'00':'ユニオンワイ','99':'ブランチユニオンワイ', diff:'異径ユニオンワイ'},
+  KQ2UD: {diff:'異径ダブルユニオンワイ'},
+};
+
+function getBName(code, conn){
+  if(S.type==='C'){
+    const db=getDB();
+    if(code==='KQ2L'){
+      /* conn確定時 */
+      if(conn){
+        if(conn==='99') return 'ストリートエルボ';
+        if(!SAME_CONNS.has(conn)) return 'レジューサエルボ';
+      }
+      /* diamTypeフィルタで推定 */
+      if(S.diamType==='same') return 'ストリートエルボ';
+      if(S.diamType==='diff') return 'レジューサエルボ';
+      return 'エルボ（ニップル差込）';
+    }
+    if(code==='KQ2W') return 'ロングストリートエルボ';
+    if(code==='KQ2U'){
+      if(conn==='99') return 'ブランチユニオンワイ';
+      if(S.diamType==='same') return 'ブランチユニオンワイ';
+      return 'ユニオンワイ（ニップル差込）';
+    }
+    if(code==='KQ2R') return 'レジューサ';
+    const cn={'KQ2X':'異径ブランチユニオンワイ','KQ2XD':'ダブルブランチユニオンワイ'};
+    return cn[code]||db[code]?.n||code;
+  }
+  if(S.type==='D'){
+    if(code==='KQ2N'){
+      const SCREW=new Set(['M3','M5','M6','01','02','03']);
+      if(conn) return SCREW.has(conn)?'アダプタ':'ニップル';
+      return 'アダプタ／ニップル';
+    }
+    const dn={'KQ2C':'チューブキャップ','KQ2P':'プラグ','KQ2R':'レジューサ'};
+    const db=getDB(); return dn[code]||db[code]?.n||code;
+  }
+  const db=getDB();
+  const baseA = db[code]?.n||code;
+  const baseB = db[code]?.nB||baseA;
+  if(S.type!=='B') return baseA;
+  const bn = B_NAMES[code];
+  if(!bn) return baseB;
+  /* 接続コードが確定している場合 */
+  if(conn){
+    if(bn[conn]) return bn[conn];
+    if(!SAME_CONNS.has(conn) && bn['diff']) return bn['diff'];
+    return baseB;
+  }
+  /* 接続コードが未確定: diamType で推定 */
+  if(S.diamType==='same') return bn['00']||baseB;
+  if(S.diamType==='diff') return bn['diff']||baseB;
+  return baseB;
+}
+
+function refreshModelNames(){
+  document.querySelectorAll('#model-grid .mc').forEach(el=>{
+    const code=el.dataset.code;
+    const nameEl=el.querySelector('.mc-name');
+    if(nameEl) nameEl.textContent=getBName(code, S.conn);
+  });
+}
+
+function isDiam(conn,dt){ if(!dt||dt==='all') return true; if(dt==='same') return SAME_CONNS.has(conn); return !SAME_CONNS.has(conn); }
+
+/* ══════════════════════════════════════════════════════
+   DB ヘルパー
+══════════════════════════════════════════════════════ */
+function getDB(){ return S.push==='1' ? DB_OVAL : DB_ROUND; }
+function es(type,model){
+  const db=getDB();
+  if(!model||!db[model]) return [];
+  if(type==='A') return db[model].A||[];
+  if(type==='B') return db[model].B||[];
+  if(type==='C') return db[model].C||[];
+  if(type==='D') return db[model].D||[];
+  return [];
+}
+function getE(type,model,tube,conn){
+  return es(type,model).find(e=>e[0]===tube&&e[1]===conn)||null;
+}
+function uniq(a){ return [...new Set(a)]; }
+function validModels(type,tube,conn){
+  const db=getDB();
+  const dt=(type==='B'||type==='C')?S.diamType:null;
+  const st=type==='A'?S.screwType:null;
+  return Object.keys(db).filter(k=>{
+    if(st==='male' && (FEMALE_MODELS.has(k)||BOTH_MODELS.has(k))) return false;
+    if(st==='female' && !FEMALE_MODELS.has(k)) return false;
+    if(st==='both' && !BOTH_MODELS.has(k)) return false;
+    const list=es(type,k);
+    if(!list) return false;
+    return list.some(e=>{
+      if(!isDiam(e[1],dt)) return false;
+      if(!(!tube||e[0]===tube)) return false;
+      if(!(!conn||e[1]===conn)) return false;
+      return true;
+    });
+  });
+}
+function validTubes(type,model,conn){
+  const db=getDB();
+  return uniq(Object.entries(db)
+    .filter(([k])=>!model||k===model)
+    .filter(([k,v])=>es(type,k).length>0)
+    .flatMap(([k,v])=>es(type,k).filter(e=>(!conn||e[1]===conn)&&e[0]).map(e=>e[0]).filter(Boolean)));
+}
+function validConns(type,model,tube){
+  const db=getDB();
+  const dt=(type==='B'||type==='C')?S.diamType:null;
+  return uniq(Object.entries(db)
+    .filter(([k])=>!model||k===model)
+    .filter(([k,v])=>es(type,k).length>0)
+    .flatMap(([k,v])=>es(type,k).filter(e=>{
+      if(!isDiam(e[1],dt)) return false;
+      return true;
+    }).map(e=>e[1]).filter(Boolean)));
+}
+function allTubes(type){
+  const db=getDB();
+  return uniq(Object.values(db).filter(v=>es(type,'_')||true)
+    .flatMap(v=>{
+      const entries = type==='A'?v.A:type==='B'?v.B:type==='C'?v.C:v.D||[];
+      return (entries||[]).map(e=>e[0]).filter(Boolean);
+    })).sort();
+}
+function allConns(type){
+  const db=getDB();
+  return uniq(Object.values(db)
+    .flatMap(v=>{
+      const entries = type==='A'?v.A:type==='B'?v.B:type==='C'?v.C:v.D||[];
+      return (entries||[]).map(e=>e[1]).filter(Boolean);
+    })).sort();
+}
+
+/* ══════════════════════════════════════════════════════
+   品番生成
+══════════════════════════════════════════════════════ */
+function buildPN(){
+  const {push,model,tube,conn,mat}=S;
+  let type=S.type;
+  const ph=v=>`<span class="ph">${v}</span>`;
+  if(push===null) return {pn:null,preview:`${ph('KQ2————')}`,done:false};
+  if(!type) return {pn:null,preview:`${ph('KQ2————')}`,done:false};
+
+  const ordClean = document.getElementById('ord-clean')?.checked;
+  const ordX12   = document.getElementById('ord-x12')?.checked;
+  const ordX35   = document.getElementById('ord-x35')?.checked;
+  const ordQS    = document.getElementById('ord-qs')?.checked;
+
+  const pPu=push; /* '1' or '' */
+
+  let preview,pn,done=false;
+  if(type==='C'||type==='D'){
+    /* Type C: WT+ニップル, Type D: アクセサリ */
+    /* KQ2P special: KQ2P-[size] */
+    if(model==='KQ2P'){
+      const size=tube; const done2=!!tube;
+      const pnStr = size==='02'?'KJP-02':`KQ2P-${size}`;
+      const prev2=`KQ2P<span class='ph'>-</span>${size||'<span class="ph">??</span>'}`;
+      if(done2){
+        let sx='';
+        if(ordX12) sx+='X12'; if(ordX35&&!X35_EXCL.has(model)) sx+='X35';
+        return {pn:pnStr+sx,preview:prev2,done:true};
+      }
+      return {pn:null,preview:prev2,done:false};
+    }
+    /* KQ2N Type D: アダプタ(4el)→Type A形式 / ニップル(2el)→特殊形式 */
+    if(model==='KQ2N'&&type==='D'){
+      const e2=(tube&&conn)?getE('D',model,tube,conn):null;
+      if(e2&&e2.length>=3){
+        type='A'; /* アダプタ: Type A形式で処理 */
+      } else {
+        const pMo=model,pT=tube||ph('??'),pC=conn||ph('??');
+        const done2=!!(tube&&conn);
+        const preview2=`${pMo}${pT}-${pC}`;
+        if(done2) return {pn:`KQ2N${tube}-${conn}`,preview:preview2,done:true};
+        return {pn:null,preview:preview2,done:false};
+      }
+    }
+    /* KQ2N アダプタ in Type C (4-element entry) → Type A format */
+    if(model==='KQ2N'&&type==='C'){
+      /* fall through to Type A logic below with type='A' substitute */
+      const e2=(tube&&conn)?getE(type,model,tube,conn):null;
+      if(e2&&e2.length>=3){
+        /* screw connection entry: use same format as Type A */
+        type='A'; /* local reclassify for format */
+      } else {
+        /* 2-element: treat like Type B */
+        type='B';
+      }
+    } else {
+      /* all other C/D: Type B format (A-fixed, push suffix) */
+      type='B';
+    }
+  }
+  if(type==='A'){
+    const e=(tube&&conn)?getE(type,model,tube,conn):null;
+    let seal=e?e[3]:null;
+    if(ordQS && seal==='S' && push==='' && QS_MODELS.has(model) && tube==='08' && conn==='01') seal='QS';
+    const pT=tube||ph('??'), pC=conn||ph('??');
+    const pM=mat!==null?mat:ph('?'), pS=seal!==null?seal:ph('?');
+    const pMo=model||ph('KQ2——');
+    let suffix='';
+    if(ordX12) suffix+='X12';
+    if(ordX35 && !X35_EXCL.has(model)) suffix+='X35';
+    const previewSuffix=suffix?`<span style="color:var(--ac3);">${suffix}</span>`:'';
+    preview=(ordClean?`<span style="color:var(--ac3);">10-</span>`:'')
+      +`${pMo}${pT}-${pC}${pM}${pS}${pPu}${previewSuffix}`;
+    done=!!(model&&tube&&conn&&mat!==null&&seal!==null);
+    if(done){
+      let s=seal;
+      pn=`${model}${tube}-${conn}${mat}${s}${push}${suffix}`;
+      if(ordClean) pn='10-'+pn;
+    }
+  } else {
+    const pMo=model||ph('KQ2——'), pT=tube||ph('??'), pC=conn||ph('??');
+    let suffix='';
+    if(ordX12) suffix+='X12';
+    if(ordX35 && !X35_EXCL.has(model)) suffix+='X35';
+    const previewSuffix=suffix?`<span style="color:var(--ac3);">${suffix}</span>`:'';
+    preview=(ordClean?`<span style="color:var(--ac3);">10-</span>`:'')
+      +`${pMo}${pT}-${pC}A${pPu}${previewSuffix}`;
+    done=!!(model&&tube&&conn);
+    if(done){
+      pn=`${model}${tube}-${conn}A${push}${suffix}`;
+      if(ordClean) pn='10-'+pn;
+    }
+  }
+  return {pn:pn||null,preview,done};
+}
+
+/* ══════════════════════════════════════════════════════
+   全体更新
+══════════════════════════════════════════════════════ */
+function updateAll(){
+  if(!S.type){ updatePN(); return; }
+  const vM=validModels(S.type,S.tube,S.conn);
+  const vT=validTubes(S.type,S.model,S.conn);
+  const vC=validConns(S.type,S.model,S.tube);
+  document.querySelectorAll('#model-grid .mc').forEach(c=>{
+    const code=c.dataset.code;
+    c.className='mc'+(S.model===code?' sel':vM.includes(code)?'':' dis');
+  });
+  document.querySelectorAll('#tube-chips .chip').forEach(c=>{
+    const v=c.dataset.v;
+    c.className='chip'+(S.tube===v?' sel':vT.includes(v)?'':' dis');
+  });
+  document.querySelectorAll('#conn-chips .chip').forEach(c=>{
+    const v=c.dataset.v;
+    c.className='chip'+(S.conn===v?' sel':vC.includes(v)?'':' dis');
+  });
+  /* 材質更新 */
+  if(S.model&&S.tube&&S.conn){
+    const e=getE(S.type,S.model,S.tube,S.conn);
+    const mOpt=S.type==='B'?'A':(e?e[2]:null);
+    const autoEl=document.getElementById('mat-auto');
+    if(mOpt==='G'){
+      S.mat='G'; autoEl.style.display='inline';
+      document.querySelectorAll('[data-mat]').forEach(c=>{c.className='chip'+(c.dataset.mat==='G'?' sel':' dis');});
+      setCV('ch-mat','G（自動）');
+    } else if(mOpt==='A'){
+      S.mat='A'; autoEl.style.display='inline';
+      document.querySelectorAll('[data-mat]').forEach(c=>{c.className='chip'+(c.dataset.mat==='A'?' sel':' dis');});
+      setCV('ch-mat','A（固定）');
+    } else if(mOpt==='AN'){
+      autoEl.style.display='none';
+      document.querySelectorAll('[data-mat]').forEach(c=>{
+        c.className='chip'+(c.dataset.mat==='G'?' dis':(S.mat===c.dataset.mat?' sel':''));
+      });
+      if(S.mat===null) setCV('ch-mat','—',true);
+    }
+  }
+  /* A専用 ねじ種フィルタ表示制御 */
+  const screwCard = document.getElementById('card-screw');
+  if(screwCard) screwCard.style.display = S.type==='A'?'block':'none';
+  if(S.type!=='A' && S.screwType){
+    S.screwType=null; setCV('ch-screw','—',true);
+    document.querySelectorAll('#card-screw .chip').forEach(c=>c.classList.remove('sel'));
+  }
+  /* QS 表示制御 */
+  const qsRow=document.getElementById('ord-qs-row');
+  const qsApplicable = S.push==='' && S.type==='A' && QS_MODELS.has(S.model) && S.tube==='08' && S.conn==='01';
+  if(qsRow) qsRow.style.display = qsApplicable?'flex':'none';
+  if(!qsApplicable){ const qs=document.getElementById('ord-qs'); if(qs) qs.checked=false; }
+  /* X35 grayout */
+  const x35row=document.getElementById('ord-x35-row');
+  if(x35row) x35row.className = 'order-row'+(X35_EXCL.has(S.model)?' order-dis':'');
+  /* モデル別ラベル更新 */
+  const tubeLblEl = document.getElementById('tube-lbl');
+  const connLblEl2 = document.getElementById('conn-lbl');
+  if(tubeLblEl && S.type==='B'){
+    const isDiff = S.diamType==='diff';
+    if(S.model==='KQ2T' && isDiff){
+      tubeLblEl.textContent = '直管側（2ポート側）外径';
+      if(connLblEl2) connLblEl2.textContent = '分岐側（1ポート側）外径';
+    } else if(S.model==='KQ2TX' || S.model==='KQ2TY'){
+      tubeLblEl.textContent = '直管側（3ポート分）外径';
+      if(connLblEl2) connLblEl2.textContent = '分岐側（1ポート分）外径';
+    } else {
+      tubeLblEl.textContent = 'チューブ外径';
+      if(connLblEl2) connLblEl2.textContent = '接続側コード';
+    }
+  }
+  refreshModelNames();
+  updatePN();
+}
+
+function updatePN(){
+  const {pn,preview,done}=buildPN();
+  const de=document.getElementById('pn-disp'), se=document.getElementById('pn-stat'), be=document.getElementById('copy-btn');
+  de.innerHTML=preview; de.className='pnval'+(done?' done':'');
+  document.getElementById('r-dot').className='dot'+(done?' on':'');
+  if(done){se.textContent='選定完了';se.className='pnstat done';be.disabled=false;be.dataset.pn=pn;}
+  else{se.textContent='未選択の項目があります';se.className='pnstat';be.disabled=true;}
+  /* 結果テーブル */
+  const db=getDB();
+  const m=S.model?db[S.model]:null;
+  const e=(S.type&&S.model&&S.tube&&S.conn)?getE(S.type,S.model,S.tube,S.conn):null;
+  const seal=e?e[3]:null;
+  const ordQS=document.getElementById('ord-qs')?.checked;
+  const effSeal = (ordQS&&seal==='S'&&S.push===''&&QS_MODELS.has(S.model)&&S.tube==='08'&&S.conn==='01')?'QS':seal;
+  const cl=S.conn?(S.type==='A'?CAL[S.conn]:CBL[S.conn]):null;
+  setText('r-pn',pn||'—');
+  setText('r-push',S.push!==null?PL[S.push]:'—');
+  const typeLabels={'A':'Type A　ねじ＋ワンタッチ','B':'Type B　WT＋WT','C':'Type C　ワンタッチ＋ニップル差込','D':'Type D　その他（アクセサリ）'};
+  setText('r-type',typeLabels[S.type]||'—');
+  const dispModelN = S.model ? getBName(S.model, S.conn) : '';
+  setText('r-model',S.model?`${S.model}（${dispModelN}）`:'—');
+  setText('r-tube',S.tube?`${TL[S.tube]}（${S.tube}）`:'—');
+  const ck=document.getElementById('r-ck'); if(ck) ck.textContent=S.type==='B'?'接続側コード':'接続ねじコード';
+  setText('r-conn',S.conn?`${cl||S.conn}（${S.conn}）`:'—');
+  const NO_SEAL_MODELS=new Set(['KQ2F','KQ2VF','KQ2LF','KQ2E','KQ2LE']);
+  const isNoScrew=(S.type==='B'||S.type==='D'||(S.type==='C'&&S.model!=='KQ2N'));
+  setText('r-mat',S.mat?ML[S.mat]:isNoScrew?'A（黄銅/固定）':'—');
+  const srow=document.getElementById('r-seal-row'); if(srow) srow.style.display=isNoScrew?'none':'flex';
+  setText('r-seal',effSeal!==null?SL[effSeal]:'—');
+}
+
+/* ══════════════════════════════════════════════════════
+   イベントハンドラ
+══════════════════════════════════════════════════════ */
+function pickPush(val, el){
+  const prevType=S.type;
+  S.push=val; S.type=null; S.model=null; S.tube=null; S.conn=null; S.mat=null; S.diamType=null; S.screwType=null;
+  const dc=document.getElementById('card-diam'); if(dc) dc.style.display='none';
+  const sc3=document.getElementById('card-screw'); if(sc3) sc3.style.display='none';
+  document.querySelectorAll('#card-push .chip').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  setCV('ch-push',val==='1'?'長円形':'真円形');
+  /* warn-round は常時表示のため制御不要 */
+  ['tc-A','tc-B','tc-C','tc-D'].forEach(id=>{const el=document.getElementById(id);if(el)el.className='tc';});
+  const fmt=val==='1';
+  document.getElementById('tc-fmt-A').textContent=fmt?'KQ2H06-01AS1':'KQ2H06-01AS';
+  document.getElementById('tc-fmt-B').textContent=fmt?'KQ2H06-00A1':'KQ2H06-00A';
+  const tcfC=document.getElementById('tc-fmt-C'); if(tcfC) tcfC.textContent=fmt?'KQ2L06-99A1':'KQ2L06-99A';
+  const tcfD=document.getElementById('tc-fmt-D'); if(tcfD) tcfD.textContent=fmt?'KQ2R06-08A1':'KQ2R06-08A';
+  setCV('ch-type','—',true); setCV('ch-model','—',true); setCV('ch-tube','—',true); setCV('ch-conn','—',true); setCV('ch-mat','—',true);
+  const mg=document.getElementById('model-grid'); mg.innerHTML=''; mg.classList.remove('tb');
+  document.getElementById('tube-chips').innerHTML='';
+  document.getElementById('conn-chips').innerHTML='';
+  document.getElementById('conn-note').style.display='none';
+  document.getElementById('mat-auto').style.display='none';
+  document.querySelectorAll('[data-mat]').forEach(c=>{c.className='chip'+(c.dataset.mat==='G'?' dis':'');});
+  if(prevType){ pickType(prevType); } else { updatePN(); }
+}
+
+function pickScrew(val, el){
+  document.querySelectorAll('#card-screw .chip').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  S.screwType = val==='all'?null:val;
+  const screwLabels={'all':'全て','male':'おねじ（M/R）','female':'めねじ（Rc）','both':'両方（おねじ＋めねじ）'};
+  setCV('ch-screw', screwLabels[val]||val, val==='all');
+  S.model=null; setCV('ch-model','—',true);
+  S.conn=null;  setCV('ch-conn','—',true);
+  S.mat=null;   setCV('ch-mat','—',true);
+  updateAll();
+}
+
+function pickDiam(val, el){
+  document.querySelectorAll('#card-diam .chip').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  S.diamType = val==='all'?null:val;
+  setCV('ch-diam', val==='all'?'全て':val==='same'?'同径':'異径', val==='all');
+  S.conn=null; setCV('ch-conn','—',true);
+  if(S.model&&!validModels(S.type,S.tube,S.conn).includes(S.model)){
+    S.model=null; setCV('ch-model','—',true);
+  }
+  updateAll();
+}
+
+function pickType(t){
+  if(S.push===null) return;
+  if(S.type===t) return;
+  S.type=t; S.model=null; S.tube=null; S.conn=null; S.mat=null; S.diamType=null; S.screwType=null;
+  const dc=document.getElementById('card-diam'); if(dc) dc.style.display=(t==='B'||t==='C')?'block':'none';
+  const tubeLbl2=document.getElementById('tube-lbl');
+  if(tubeLbl2) tubeLbl2.textContent=(t==='D')?'管継手サイズ':'チューブ外径';
+  setCV('ch-diam','—',true); setCV('ch-screw','—',true);
+  document.querySelectorAll('#card-diam .chip,#card-screw .chip').forEach(c=>c.classList.remove('sel'));
+  const sc2=document.getElementById('card-screw'); if(sc2) sc2.style.display=t==='A'?'block':'none';
+  [['tc-A','A','sel-a'],['tc-B','B','sel-b'],['tc-C','C','sel-a'],['tc-D','D','sel-b']].forEach(([id,type,sel])=>{
+    const el=document.getElementById(id); if(el) el.className='tc'+(t===type?' '+sel:'');
+  });
+  setCV('ch-type',t==='A'?'Type A':'Type B');
+  setCV('ch-model','—',true); setCV('ch-tube','—',true); setCV('ch-conn','—',true); setCV('ch-mat','—',true);
+  document.getElementById('mat-auto').style.display='none';
+  document.querySelectorAll('[data-mat]').forEach(c=>{c.className='chip'+(c.dataset.mat==='G'?' dis':'');});
+  const stLabel=S.screwType==='male'?'おねじ':S.screwType==='female'?'めねじ':S.screwType==='both'?'両方':'';
+  const mtitles={'A':`機種（ねじ＋WT${stLabel?'・'+stLabel:''}）`,'B':'機種（WT＋WT）','C':'機種（ワンタッチ＋ニップル差込）','D':'機種（アクセサリ）'};
+  document.getElementById('mzone-title').textContent=mtitles[t]||'機種';
+  buildModelGrid(t); buildTubeChips(t); buildConnChips(t);
+  document.getElementById('model-grid')?.classList.toggle('tb', t==='B');
+  updateAll();
+}
+
+function buildModelGrid(t){
+  const grid=document.getElementById('model-grid');
+  grid.innerHTML='';
+  grid.classList.toggle('tb', t==='B');
+  const db=getDB();
+  Object.entries(db).filter(([k,v])=>es(t,k).length>0).forEach(([k,v])=>{
+    const d=document.createElement('div');
+    d.className='mc'; d.dataset.code=k;
+    const icon=SVG[v.sh]||`<svg viewBox="0 0 60 50"><rect x="10" y="10" width="40" height="30" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>`;
+    const roTag=v.roundOnly?`<span class="round-only">真円のみ</span>`:'';
+    const dispN = getBName(k, S.conn);
+    d.innerHTML=`${roTag}<div class="mc-icon">${icon}</div><div class="mc-code">${k}</div><div class="mc-name">${dispN}</div>`;
+    d.onclick=()=>pickModel(k,d);
+    grid.appendChild(d);
+  });
+}
+
+function buildTubeChips(t){
+  const g=document.getElementById('tube-chips'); g.innerHTML='';
+  allTubes(t).forEach(c=>{
+    const d=document.createElement('div'); d.className='chip'; d.dataset.v=c;
+    d.innerHTML=`<span class="cm">${TL[c]||c}</span><span class="cs">${c}</span>`;
+    d.onclick=()=>pickTube(c,d); g.appendChild(d);
+  });
+}
+
+function buildConnChips(t){
+  const g=document.getElementById('conn-chips');
+  const note=document.getElementById('conn-note');
+  g.innerHTML='';
+  const isA=t==='A';
+  const lm=isA?CAL:CBL;
+  const cLbls={'A':'接続ねじコード','B':'接続側コード','C':'管継手/ねじコード','D':'接続コード'};
+  document.getElementById('conn-lbl').textContent=cLbls[t]||'接続コード';
+  const dt=t==='B'?S.diamType:null;
+  allConns(t).filter(cv=>isDiam(cv,dt)).forEach(c=>{
+    const d=document.createElement('div'); d.className='chip'; d.dataset.v=c;
+    d.innerHTML=`<span class="cm">${c}</span><span class="cs">${lm[c]||c}</span>`;
+    d.onclick=()=>pickConn(c,d); g.appendChild(d);
+  });
+  note.style.display='block';
+  note.textContent=isA?'M系→シール剤なし（ガスケット）　R系→シール剤付き（S自動）':'00=同径　99=ロッド端　径コード=異径接続側外径';
+}
+
+function pickModel(code,el){
+  const db=getDB();
+  if(S.model===code){
+    S.model=null; el.className='mc'; setCV('ch-model','—',true);
+    S.mat=null; setCV('ch-mat','—',true);
+    document.getElementById('mat-auto').style.display='none';
+    document.querySelectorAll('[data-mat]').forEach(c=>{c.className='chip'+(c.dataset.mat==='G'?' dis':'');});
+    updateAll(); return;
+  }
+  if(S.tube&&!validTubes(S.type,code,S.conn).includes(S.tube)){S.tube=null;setCV('ch-tube','—',true);}
+  if(S.conn&&!validConns(S.type,code,S.tube).includes(S.conn)){S.conn=null;setCV('ch-conn','—',true);}
+  S.model=code; S.mat=null;
+  setCV('ch-model',code);
+  updateAll();
+}
+
+function pickTube(code,el){
+  if(S.tube===code){S.tube=null;setCV('ch-tube','—',true);updateAll();return;}
+  if(S.conn&&!validConns(S.type,S.model,code).includes(S.conn)){S.conn=null;setCV('ch-conn','—',true);}
+  if(S.model&&!validModels(S.type,code,S.conn).includes(S.model)){S.model=null;setCV('ch-model','—',true);}
+  S.tube=code; S.mat=null;
+  setCV('ch-tube',TL[code]||code);
+  updateAll();
+}
+
+function pickConn(code,el){
+  if(S.conn===code){S.conn=null;setCV('ch-conn','—',true);updateAll();return;}
+  if(S.tube&&!validTubes(S.type,S.model,code).includes(S.tube)){S.tube=null;setCV('ch-tube','—',true);}
+  if(S.model&&!validModels(S.type,S.tube,code).includes(S.model)){S.model=null;setCV('ch-model','—',true);}
+  S.conn=code; S.mat=null;
+  const lm=S.type==='A'?CAL:CBL;
+  setCV('ch-conn',(lm[code]||code)+' ('+code+')');
+  updateAll();
+}
+
+function pickMat(val,el){
+  const e=S.model&&S.tube&&S.conn?getE(S.type,S.model,S.tube,S.conn):null;
+  const mOpt=S.type==='B'?'A':(e?e[2]:null);
+  if(mOpt!=='AN') return;
+  S.mat=val;
+  document.querySelectorAll('[data-mat]').forEach(c=>{
+    c.className='chip'+(c.dataset.mat==='G'?' dis':(c.dataset.mat===val?' sel':''));
+  });
+  setCV('ch-mat',ML[val]);
+  updatePN();
+}
+
+/* ── ユーティリティ ── */
+function setCV(id,val,empty){const e=document.getElementById(id);if(!e)return;e.textContent=val;e.className='fcv'+(empty?' e':'');}
+function setText(id,val){const e=document.getElementById(id);if(e)e.textContent=val;}
+function doCopy(){
+  const btn=document.getElementById('copy-btn');
+  const p=btn.dataset.pn; if(!p)return;
+  try{navigator.clipboard.writeText(p);}catch(e){}
+  btn.textContent='COPIED!'; btn.classList.add('ok');
+  setTimeout(()=>{btn.textContent='COPY';btn.classList.remove('ok');},2000);
+}
+
+/* ── fcard id for push ── */
+document.getElementById('pn-disp').parentElement;
+/* push card needs id */
+(function(){
+  const cards=document.querySelectorAll('.fcard');
+  for(const c of cards){
+    if(c.querySelector('#ch-push')){c.id='card-push';break;}
+  }
+})();
+/* 初期値：真円形を自動選択 */
+(function(){
+  const el = document.querySelector('#card-push .chip:nth-child(2)');
+  if(el) pickPush('', el);
+})();
+updatePN();
+</script>
+</body>
+</html>
