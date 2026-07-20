@@ -40,6 +40,10 @@ header h1{font-size:13px;font-weight:500;color:#C0BDB5;}
 .cbtn:hover:not(:disabled){border-color:#72E8A8;color:#72E8A8;}
 .cbtn:disabled{opacity:.2;cursor:not-allowed;}
 .cbtn.ok{border-color:#72E8A8;color:#72E8A8;}
+/* SMC WEB catalog link button */
+.wbtn{display:inline-block;padding:3px 10px;border:1px solid #2a6db5;border-radius:4px;color:#2a6db5;text-decoration:none;font-size:12px;background:#f4f9ff}
+.wbtn:hover{background:#2a6db5;color:#fff}
+.wbtn.sm{margin-left:8px;padding:1px 8px;font-size:11px;white-space:nowrap}
 /* Push selector */
 .push-row{display:flex;gap:10px;}
 /* Cards */
@@ -860,10 +864,15 @@ function updateAll(){
   updatePN();
 }
 
+function webBtn(pn){
+  if(!pn||!/^[A-Za-z0-9-]+$/.test(pn)) return '';
+  return '<a class="wbtn sm" target="_blank" rel="noopener" onclick="event.stopPropagation()" href="https://www.smcworld.com/webcatalog/s3s/ja-jp/detail/?partNumber='+encodeURIComponent(pn)+'">SMC WEB ↗</a>';
+}
+
 function updatePN(){
   const {pn,preview,done}=buildPN();
   const de=document.getElementById('pn-disp'), se=document.getElementById('pn-stat'), be=document.getElementById('copy-btn');
-  de.innerHTML=preview; de.className='pnval'+(done?' done':'');
+  de.innerHTML=preview+(done?webBtn(pn):''); de.className='pnval'+(done?' done':'');
   document.getElementById('r-dot').className='dot'+(done?' on':'');
   if(done){se.textContent='選定完了';se.className='pnstat done';be.disabled=false;be.dataset.pn=pn;}
   else{se.textContent='未選択の項目があります';se.className='pnstat';be.disabled=true;}
@@ -875,7 +884,11 @@ function updatePN(){
   const ordQS=document.getElementById('ord-qs')?.checked;
   const effSeal = (ordQS&&seal==='S'&&S.push===''&&QS_MODELS.has(S.model)&&S.tube==='08'&&S.conn==='01')?'QS':seal;
   const cl=S.conn?(S.type==='A'?CAL[S.conn]:CBL[S.conn]):null;
-  setText('r-pn',pn||'—');
+  const rpnEl=document.getElementById('r-pn');
+  if(rpnEl){
+    if(pn&&/^[A-Za-z0-9-]+$/.test(pn)){ rpnEl.innerHTML=pn+webBtn(pn); }
+    else{ rpnEl.textContent=pn||'—'; }
+  }
   setText('r-push',S.push!==null?PL[S.push]:'—');
   const typeLabels={'A':'Type A　ねじ＋ワンタッチ','B':'Type B　WT＋WT','C':'Type C　ワンタッチ＋ニップル差込','D':'Type D　その他（アクセサリ）'};
   setText('r-type',typeLabels[S.type]||'—');
