@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>KQ2 Series ワンタッチ管継手 品番選定（全18セクション）</title>
+<style>
+:root{
+  /* くうあつーる 共通トーン: 薄グレー地 + 白カード + スレート黒 + 差し色ディープブルー */
+  --bg:#f4f5f6;--sf:#ffffff;--sf2:#f5f7f9;--bd:#e1e4e7;--bd2:#cfd4d8;
+  --ink:#2d3642;
+  --tx:#2c3136;--tx2:#4b535c;--tx3:#646b72;
+  --ac:#24527d;--ac2:#edf2f7;--ac3:#1c4266;
+  --ok:#1f6f5b;--ok2:#e9f3f0;
+  /* 接続タイプ A〜D の識別色(ポータルのカテゴリ色に準拠) */
+  --ta:#24527d;--ta2:#edf2f7;--ta3:#1c4266;
+  --tb:#1f6f5b;--tb2:#e9f3f0;--tb3:#175447;
+  --tcc:#8a5a24;--tdd:#5a6570;
+  --ic:#5c646d;
+  --mono:ui-monospace,'Consolas','SFMono-Regular','Menlo',monospace;--sans:'Yu Gothic UI','Meiryo','Hiragino Kaku Gothic ProN',system-ui,sans-serif;
+  --r:6px;--rl:10px;
+  --sh:0 1px 3px rgba(20,30,40,.06);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--sans);background:var(--bg);color:var(--tx);font-size:14px;line-height:1.7;min-height:100vh;}
+/* ── ヘッダー(ポータル共通の型: スレート黒帯 + 3px アクセントライン) ── */
+header{background:var(--ink);border-bottom:3px solid var(--ac);padding:16px 22px 14px;display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;}
+header h1{font-size:19px;font-weight:800;letter-spacing:.02em;color:#fff;line-height:1.4;}
+.hsub{font-size:12.5px;color:#b9c0c7;margin-top:3px;}
+.hr{margin-left:auto;display:flex;align-items:center;gap:8px;padding-bottom:2px;}
+.htag{font-size:11px;color:#b9c0c7;background:rgba(255,255,255,.07);border:1px solid #4a545f;border-radius:4px;padding:3px 9px;white-space:nowrap;}
+.dbtn{background:none;border:1px solid #4a545f;color:#b9c0c7;border-radius:4px;padding:3px 11px;font-family:var(--sans);font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;}
+.dbtn:hover{border-color:#8fa3b5;color:#fff;}
+.page{max-width:1280px;margin:0 auto;padding:14px 14px 60px;display:flex;flex-direction:column;gap:14px;}
+/* ── 品番バー ── */
+.pnbar{position:sticky;top:8px;z-index:100;background:var(--sf);border:1px solid var(--bd);border-radius:var(--rl);box-shadow:0 2px 10px rgba(45,54,66,.10);padding:11px 16px;display:flex;align-items:center;gap:8px 16px;flex-wrap:wrap;}
+.pnlbl{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--tx3);white-space:nowrap;}
+.pnval{font-family:var(--mono);font-size:24px;font-weight:700;letter-spacing:.04em;color:var(--ink);flex:1;line-height:1.25;word-break:break-all;}
+.pnval .ph{color:#aeb5bc;font-weight:400;}
+.pnval.done{color:var(--ac);}
+.pnr{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.pnstat{font-size:12px;color:#8a6d1a;background:#fdf6e3;border:1px solid #ead9a6;border-radius:20px;padding:2px 12px;white-space:nowrap;}
+.pnstat.done{color:var(--ok);background:var(--ok2);border-color:#b8d8cd;}
+.cbtn{background:var(--ac);border:1px solid var(--ac);color:#fff;border-radius:var(--r);padding:6px 18px;font-family:var(--sans);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;}
+.cbtn:hover:not(:disabled){background:var(--ac3);border-color:var(--ac3);}
+.cbtn:disabled{background:#dfe3e7;border-color:#dfe3e7;color:#9aa2aa;cursor:not-allowed;}
+.cbtn.ok{background:var(--ok);border-color:var(--ok);}
+/* SMC WEB カタログ直リンク */
+.wbtn{display:inline-block;padding:3px 10px;border:1px solid var(--ac);border-radius:var(--r);color:var(--ac);text-decoration:none;font-size:12px;font-weight:700;background:#fff;}
+.wbtn:hover{background:var(--ac);color:#fff;}
+.wbtn.sm{margin-left:8px;padding:1px 8px;font-size:11px;white-space:nowrap;}
+.push-row{display:flex;gap:10px;}
+/* ── カード ── */
+.fcard{background:var(--sf);border:1px solid var(--bd);border-radius:var(--rl);box-shadow:var(--sh);overflow:hidden;}
+.fh{background:var(--sf2);border-bottom:1px solid var(--bd);padding:9px 13px;display:flex;align-items:center;gap:8px;}
+.fl{font-size:12.5px;font-weight:800;letter-spacing:.02em;color:var(--ink);border-left:4px solid var(--ac);padding-left:9px;line-height:1.4;}
+.fcv{margin-left:auto;font-family:var(--mono);font-size:11px;font-weight:700;color:var(--ac3);background:var(--ac2);border:1px solid #c3d1e0;border-radius:4px;padding:1px 8px;white-space:nowrap;max-width:200px;overflow:hidden;text-overflow:ellipsis;}
+.fcv.e{color:var(--tx3);background:none;border-color:var(--bd);font-weight:400;}
+.fb{padding:11px 13px;}
+/* ── 接続タイプ ── */
+.tg{display:flex;flex-direction:column;gap:8px;}
+.tc{border:1px solid var(--bd);border-radius:var(--r);padding:10px 12px;cursor:pointer;background:var(--sf);transition:border-color .15s,box-shadow .15s,background .15s;}
+.tc:hover{border-color:var(--bd2);box-shadow:var(--sh);}
+.tc.sel-a{border-color:var(--ta);background:var(--ta2);box-shadow:inset 3px 0 0 var(--ta);}
+.tc.sel-b{border-color:var(--tb);background:var(--tb2);box-shadow:inset 3px 0 0 var(--tb);}
+.tc-hd{display:flex;align-items:center;gap:7px;}
+.tc-badge{font-family:var(--mono);font-size:10px;font-weight:700;padding:1px 7px;border-radius:3px;}
+.ba{background:var(--ta);color:#fff;}.bb{background:var(--tb);color:#fff;}.bc{background:var(--tcc);color:#fff;}.bd{background:var(--tdd);color:#fff;}
+.tc-title{font-size:12.5px;font-weight:700;color:var(--ink);}
+.tc-fmt{font-family:var(--mono);font-size:11px;color:var(--tx3);margin-top:3px;}
+.tc.sel-a .tc-fmt{color:var(--ta3);}.tc.sel-b .tc-fmt{color:var(--tb3);}
+/* ── チップ ── */
+.chips{display:flex;flex-wrap:wrap;align-items:stretch;align-content:flex-start;gap:6px;}
+.chip{display:inline-flex;flex-direction:column;justify-content:center;min-height:46px;padding:6px 11px;border:1px solid var(--bd2);border-radius:18px;cursor:pointer;background:var(--sf);transition:all .12s;user-select:none;line-height:1.4;}
+.chip:hover{border-color:#9db1c6;background:var(--ac2);}
+.chip.sel{border-color:var(--ac);background:var(--ac2);box-shadow:0 0 0 1px var(--ac);}
+.chip.dis{opacity:.35;pointer-events:none;background:var(--sf2);}
+.cm{font-size:12.5px;font-weight:700;color:var(--tx);font-family:var(--mono);}
+.cs{font-size:10.5px;color:var(--tx3);margin-top:1px;line-height:1.35;}
+.chip.sel .cm{color:var(--ac3);}.chip.sel .cs{color:var(--ac);}
+.auto-tag{font-size:10px;font-weight:700;background:var(--ok2);color:var(--ok);border:1px solid #b8d8cd;border-radius:3px;padding:0 6px;margin-left:6px;}
+.fnote{font-size:11px;color:var(--tx3);margin-top:9px;line-height:1.7;background:var(--sf2);border:1px solid var(--bd);border-radius:var(--r);padding:6px 10px;}
+/* ── レイアウト(くうあつーる標準: メイン 1fr + 右サイド 348px) ── */
+.workspace{display:grid;grid-template-columns:1fr 348px;gap:14px;align-items:start;}
+.main{min-width:0;display:flex;flex-direction:column;gap:14px;}
+.side{min-width:0;position:sticky;top:74px;display:flex;flex-direction:column;gap:14px;}
+/* 選択カードはメイン列の幅に合わせて自動折返し */
+.filters{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;align-items:start;}
+.filters>.fcard{min-width:0;}
+/* ── 機種グリッド ── */
+.mzone{background:var(--sf);border:1px solid var(--bd);border-radius:var(--rl);box-shadow:var(--sh);overflow:hidden;}
+.mzone-head{background:var(--sf2);border-bottom:1px solid var(--bd);padding:9px 14px;display:flex;align-items:center;gap:8px;}
+.mzone-title{font-size:12.5px;font-weight:800;color:var(--ink);border-left:4px solid var(--ac);padding-left:9px;line-height:1.4;}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px;padding:12px;}
+.mc{border:1px solid var(--bd);border-radius:var(--r);cursor:pointer;background:var(--sf);padding:8px 7px 6px;transition:border-color .15s,box-shadow .15s,background .15s;display:flex;flex-direction:column;align-items:center;gap:2px;position:relative;}
+.mc:hover{border-color:var(--bd2);box-shadow:var(--sh);}
+.mc.sel{border-color:var(--ac);background:var(--ac2);box-shadow:0 0 0 1px var(--ac);}
+.mc.dis{opacity:.32;pointer-events:none;background:var(--sf2);}
+.mc-icon{width:55px;height:44px;display:flex;align-items:center;justify-content:center;color:var(--ic);}
+.mc.sel .mc-icon{color:var(--ac);}
+.mc-code{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--ink);text-align:center;}
+.mc.sel .mc-code{color:var(--ac3);}
+.mc-name{font-size:10px;color:var(--tx3);text-align:center;line-height:1.3;}
+.mc.sel .mc-name{color:var(--ac);}
+.round-only{position:absolute;top:4px;right:4px;font-family:var(--mono);font-size:9px;background:var(--ac2);color:var(--ac3);border-radius:3px;padding:0 4px;border:1px solid #c3d1e0;}
+/* ── オーダーメイド ── */
+.order-card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--rl);box-shadow:var(--sh);overflow:hidden;}
+.order-body{padding:12px 14px;display:flex;flex-direction:column;gap:10px;}
+.order-row{display:flex;align-items:flex-start;gap:9px;font-size:13px;}
+.order-check{margin-top:4px;cursor:pointer;accent-color:var(--ac);width:15px;height:15px;flex-shrink:0;}
+.order-lbl{cursor:pointer;color:var(--tx);}
+.order-lbl b{font-family:var(--mono);color:var(--ac);}
+.order-lbl small{display:block;font-size:11.5px;color:var(--tx3);margin-top:1px;line-height:1.6;}
+.order-dis .order-lbl{color:var(--tx3);text-decoration:line-through;}
+.order-note{background:var(--sf2);border:1px solid var(--bd);border-radius:var(--r);padding:8px 11px;font-size:11.5px;color:var(--tx3);line-height:1.9;}
+.order-note b{font-family:var(--mono);color:var(--tx2);}
+/* ── 選定結果 ── */
+.rc{background:var(--sf);border:1px solid var(--bd);border-radius:var(--rl);box-shadow:var(--sh);overflow:hidden;}
+.rh{background:var(--sf2);border-bottom:1px solid var(--bd);padding:9px 14px;font-size:12.5px;font-weight:800;letter-spacing:.02em;color:var(--ink);display:flex;align-items:center;gap:8px;}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--bd2);}.dot.on{background:var(--ok);}
+.dr{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 16px;border-bottom:1px solid #eef0f2;font-size:12.5px;}
+.dr:last-child{border-bottom:none;}
+.dk{color:var(--tx3);}
+.dv{font-weight:700;color:var(--tx);font-family:var(--mono);font-size:12.5px;text-align:right;}
+.warn{background:#fdf6e3;border:1px solid #ead9a6;border-left:3px solid #b8860b;border-radius:var(--r);padding:9px 14px;font-size:12px;color:#7a5c12;line-height:1.8;display:none;}
+.warn.show{display:block;}
+.notice{font-size:11.5px;color:var(--tx3);line-height:1.9;background:var(--sf);border:1px solid var(--bd);border-left:3px solid var(--bd2);border-radius:var(--r);padding:11px 16px;}
+.notice a{color:var(--ac);}
+/* ポート種別の色分け: 青=チューブ差込(ワンタッチ) 茶=ねじ */
+.pt{stroke:#24527d;}
+.pm,.pf{stroke:#a0651f;}
+body.dark .pt{stroke:#7fb3e0;}
+body.dark .pm,body.dark .pf{stroke:#d59a56;}
+.plegend{display:flex;gap:20px;align-items:center;padding:10px 14px 0;font-size:11.5px;color:var(--tx2);}
+.plegend svg{width:30px;height:22px;vertical-align:middle;}
+.plegend span{display:flex;align-items:center;gap:6px;}
+.sv-o{display:none;}
+.mgrid.tb .tm{display:none;}
+.mgrid.tb .sv-o{display:inline;}
+/* アイコン本体のうっすら塗り(バッジ用.bdと衝突しない専用クラス) */
+.bdy{fill:currentColor;fill-opacity:.09;}
+/* 画面が狭いときは右サイドを縮め → 900px で1カラム */
+@media(max-width:1100px){
+  .workspace{grid-template-columns:1fr 300px;}
+}
+@media(max-width:900px){
+  header{padding:14px 16px 12px;}
+  header h1{font-size:16px;}
+  .page{padding:12px 12px 40px;}
+  .workspace{grid-template-columns:1fr;}
+  .side{position:static;}
+  .pnval{font-size:19px;}
+}
+@media(max-width:520px){
+  .filters{grid-template-columns:1fr;}
+  .htag{white-space:normal;}
+}
+/* 未選択時もカードの白地を見せる(空のチップ欄には案内文) */
+.fb{min-height:64px;}
+#tube-chips:empty,#conn-chips:empty{min-height:44px;display:flex;align-items:center;justify-content:center;}
+#tube-chips:empty::after,#conn-chips:empty::after{content:"接続タイプを選択すると表示されます";font-size:11px;color:var(--tx3);}
+/* リリースブッシュ形状の見た目イラスト(上面視) */
+.push-chip{flex-direction:row;align-items:center;gap:10px;border-radius:var(--rl);padding:8px 13px;}
+.push-txt{display:flex;flex-direction:column;}
+.pushpic{width:44px;height:30px;flex-shrink:0;color:var(--ic);}
+.chip.sel .pushpic{color:var(--ac);}
+/* ②接続タイプを最初に選ぶ誘導: 選択されるまで枠を強調しバッジを表示 */
+.filters>.fcard:first-child{border-color:var(--ac);box-shadow:0 0 0 1px var(--ac);}
+.filters>.fcard:first-child .fh::after{content:"まずはここを選択";font-size:10.5px;font-weight:700;color:#fff;background:var(--ac);border-radius:20px;padding:1px 10px;margin-left:auto;white-space:nowrap;}
+.filters>.fcard:first-child .fh .fcv.e{display:none;}
+.filters>.fcard:first-child:has(.tc.sel-a),.filters>.fcard:first-child:has(.tc.sel-b){border-color:var(--bd);box-shadow:var(--sh);}
+.filters>.fcard:first-child:has(.tc.sel-a) .fh::after,.filters>.fcard:first-child:has(.tc.sel-b) .fh::after{display:none;}
+/* ── ①②③ セクション選択(ラベル＋チップ列の横1行 × 3段) ── */
+.steps{background:var(--sf);border:1px solid var(--bd);border-radius:var(--rl);box-shadow:var(--sh);overflow:hidden;}
+.steprow{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:center;padding:8px 13px;border-bottom:1px solid var(--bd);}
+.steprow:last-child{border-bottom:none;}
+.steplbl{font-size:12.5px;font-weight:800;letter-spacing:.02em;color:var(--ink);border-left:4px solid var(--ac);padding-left:9px;line-height:1.4;}
+.steplbl .fcv{display:none;}
+.steprow .chips{gap:6px;}
+.steprow .chip{min-height:42px;}
+.sectag{font-family:var(--mono);font-size:9.5px;font-weight:700;background:var(--ac2);color:var(--ac3);border:1px solid #c3d1e0;border-radius:3px;padding:0 4px;margin-left:5px;}
+#st-chips .chip{min-width:152px;}
+#sm-chips .chip{min-width:186px;}
+/* 上部の注意書き(1〜2行 + 折りたたみ) */
+.topnote{padding:8px 14px;}
+.topnote details{margin-top:3px;}
+.topnote summary{cursor:pointer;font-weight:700;font-size:11.5px;list-style:none;}
+.topnote summary::-webkit-details-marker{display:none;}
+.topnote summary::before{content:"▸ ";}
+.topnote details[open] summary::before{content:"▾ ";}
+.topnote .wdet{margin-top:4px;padding-top:5px;border-top:1px dashed #ead9a6;}
+body.dark .topnote .wdet{border-top-color:#5a4c22;}
+/* 900px 以下: ①②③ はラベルを上に、チップを下へ折り返す */
+@media(max-width:900px){
+  .steprow{grid-template-columns:1fr;gap:6px;padding:9px 12px;}
+  .steplbl{align-self:start;}
+  #sm-chips .chip,#st-chips .chip{min-width:0;flex:1 1 auto;}
+}
+/* ── ダークテーマ(同系スレート) ── */
+body.dark{
+  --bg:#1f242b;--sf:#272d35;--sf2:#2d343d;--bd:#3a424c;--bd2:#4d5661;
+  --ink:#e8ebee;
+  --tx:#e2e6ea;--tx2:#b3bac1;--tx3:#8b939b;
+  --ac:#6ba3d8;--ac2:#1d2c3c;--ac3:#9cc5ea;
+  --ok:#5cb894;--ok2:#16302a;
+  --ta:#6ba3d8;--ta2:#1d2c3c;--ta3:#9cc5ea;
+  --tb:#5cb894;--tb2:#16302a;--tb3:#8fd6bb;
+  --tcc:#c08c4a;--tdd:#7b8794;
+  --ic:#9ba3ab;
+  --sh:0 1px 3px rgba(0,0,0,.3);
+  background:var(--bg);
+}
+body.dark header{background:#161b21;}
+body.dark .pnval{color:var(--ac3);}
+body.dark .pnval .ph{color:#5a636d;}
+body.dark .pnstat{color:#e0c47a;background:#332c17;border-color:#5a4c22;}
+body.dark .pnstat.done{color:var(--ok);background:var(--ok2);border-color:#2f5c4c;}
+body.dark .cbtn{background:var(--ac);border-color:var(--ac);color:#12202e;}
+body.dark .cbtn:disabled{background:#3a424c;border-color:#3a424c;color:#767e87;}
+body.dark .wbtn{background:transparent;}
+body.dark .dr{border-bottom-color:#333b44;}
+body.dark .warn{background:#332c17;border-color:#5a4c22;border-left-color:#b8860b;color:#e2cf9a;}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>KQ2 Series　ワンタッチ管継手　品番選定</h1>
+    <p class="hsub">リリースブッシュ形状・シール方式・サイズ系×ねじ系を選ぶと、そのセクションの実在品番だけを提示します</p>
+  </div>
+  <div class="hr">
+    <span class="htag">CAT.S50-37D ／ 全18セクション ／ ミリ・インチ ／ 7,424組合せ</span>
+    <button class="dbtn" onclick="document.body.classList.toggle('dark')">ダーク</button>
+  </div>
+</header>
+<div class="page">
+  <!-- 注意書き(最上部・1〜2行に圧縮／詳細は折りたたみ) -->
+  <div class="warn show topnote" id="warn-round">
+    <b>ご注意：</b>①②③の組合せでカタログのセクション（S1〜S9）が決まります。選べない組合せはグレー表示になります。提示する組合せは <b>SMC品番確認で実在を確認済み</b>（全18セクション7,424品番）。
+    <details>
+      <summary>詳細（アクセサリの扱い・確認先）</summary>
+      <div class="wdet">アクセサリ（KQ2C・KQ2P・KQ2Nのニップル）のみ未確認のため「要確認」表示にしています。ご注文前に <a href="https://www.smcworld.com/products/ja-jp/fitting/kq2/" target="_blank" style="color:var(--ac3);text-decoration:underline;">SMC公式サイト</a> でご確認ください。</div>
+    </details>
+  </div>
+  <!-- 品番バー(スクロール追従) -->
+  <div class="pnbar">
+    <span class="pnlbl">型式</span>
+    <div class="pnval" id="pn-disp"><span class="ph">KQ2————</span></div>
+    <div class="pnr">
+      <span class="pnstat" id="pn-stat">未選択の項目があります</span>
+      <button class="cbtn" id="copy-btn" onclick="doCopy()" disabled>コピー</button>
+    </div>
+  </div>
+  <!-- Step 1-3: セクション選択(形状 / シール方式 / サイズ系×ねじ系) -->
+  <div class="steps">
+    <!-- Step 1: リリースブッシュ形状 -->
+    <div class="steprow" id="card-push">
+      <div class="steplbl">① リリースブッシュ形状<span class="fcv e" id="ch-push">—</span></div>
+      <div class="chips">
+        <div class="chip push-chip" onclick="pickPush('1',this)">
+          <svg class="pushpic" viewBox="0 0 44 30" fill="none" stroke="currentColor"><rect x="5" y="5" width="34" height="20" rx="10" stroke-width="2"/><circle cx="22" cy="15" r="5.5" stroke-width="1.6"/></svg><span class="push-txt"><span class="cm">長円形</span><span class="cs">末尾「1」　P.5〜　ø2〜ø6（ねじ付）</span></span>
+        </div>
+        <div class="chip push-chip" onclick="pickPush('',this)">
+          <svg class="pushpic" viewBox="0 0 44 30" fill="none" stroke="currentColor"><circle cx="22" cy="15" r="11.5" stroke-width="2"/><circle cx="22" cy="15" r="5.5" stroke-width="1.6"/></svg><span class="push-txt"><span class="cm">真円形</span><span class="cs">末尾コードなし　P.101〜　ø2〜ø16対応</span></span>
+        </div>
+      </div>
+    </div>
+    <!-- Step 2: シール方式 -->
+    <div class="steprow" id="card-sm">
+      <div class="steplbl">② シール方式<span class="fcv e" id="ch-sm">—</span></div>
+      <div class="chips" id="sm-chips"></div>
+    </div>
+    <!-- Step 3: サイズ系 × 接続ねじ -->
+    <div class="steprow" id="card-st">
+      <div class="steplbl">③ サイズ系 × 接続ねじ<span class="fcv e" id="ch-st">—</span></div>
+      <div class="chips" id="st-chips"></div>
+    </div>
+  </div>
+
+  <!-- Workspace: メイン(選択カード群) + 右サイド(選定結果) -->
+  <div class="workspace">
+    <div class="main">
+    <div class="filters">
+      <!-- Type -->
+      <div class="fcard">
+        <div class="fh"><span class="fl">④ 接続タイプ</span><span class="fcv e" id="ch-type">—</span></div>
+        <div class="fb">
+          <div class="tg">
+            <div class="tc" id="tc-A" onclick="pickType('A')">
+              <div class="tc-hd"><span class="tc-badge ba">A</span><span class="tc-title">ねじ＋ワンタッチ</span></div>
+              <div class="tc-fmt" id="tc-fmt-A">KQ2H06-01AS1</div>
+            </div>
+            <div class="tc" id="tc-B" onclick="pickType('B')">
+              <div class="tc-hd"><span class="tc-badge bb">B</span><span class="tc-title">ワンタッチ＋ワンタッチ</span></div>
+              <div class="tc-fmt" id="tc-fmt-B">KQ2H06-00A1</div>
+            </div>
+            <div class="tc" id="tc-C" onclick="pickType('C')">
+              <div class="tc-hd"><span class="tc-badge bc">C</span><span class="tc-title">ワンタッチ＋ニップル差込</span></div>
+              <div class="tc-fmt" id="tc-fmt-C">KQ2L06-99A1</div>
+            </div>
+            <div class="tc" id="tc-D" onclick="pickType('D')">
+              <div class="tc-hd"><span class="tc-badge bd">D</span><span class="tc-title">その他（アクセサリ）</span></div>
+              <div class="tc-fmt" id="tc-fmt-D">KQ2R06-08A1</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Tube -->
+      <div class="fcard">
+        <div class="fh"><span class="fl" id="tube-lbl">チューブ外径</span><span class="fcv e" id="ch-tube">—</span></div>
+        <div class="fb"><div class="chips" id="tube-chips"></div></div>
+      </div>
+      <!-- A専用: ねじ種フィルタ -->
+      <div class="fcard" id="card-screw" style="display:none;">
+        <div class="fh"><span class="fl">ねじ種</span><span class="fcv e" id="ch-screw">—</span></div>
+        <div class="fb">
+          <div class="chips">
+            <div class="chip" onclick="pickScrew('all',this)"><span class="cm">全て</span></div>
+            <div class="chip" onclick="pickScrew('male',this)"><span class="cm">おねじ</span><span class="cs">M・R系（外ねじ）</span></div>
+            <div class="chip" onclick="pickScrew('female',this)"><span class="cm">めねじ</span><span class="cs">Rc系（内ねじ）</span></div>
+            <div class="chip" onclick="pickScrew('both',this)"><span class="cm">両方</span><span class="cs">おねじ＋めねじ<br>（KQ2VF・KQ2ZF）</span></div>
+          </div>
+        </div>
+      </div>
+      <!-- B専用: 接続径タイプ -->
+      <div class="fcard" id="card-diam" style="display:none;">
+        <div class="fh"><span class="fl">接続径タイプ</span><span class="fcv e" id="ch-diam">—</span></div>
+        <div class="fb">
+          <div class="chips">
+            <div class="chip" onclick="pickDiam('all',this)"><span class="cm">全て</span></div>
+            <div class="chip" onclick="pickDiam('same',this)"><span class="cm">同径</span><span class="cs">両端同じ径<br>（00・99）</span></div>
+            <div class="chip" onclick="pickDiam('diff',this)"><span class="cm">異径</span><span class="cs">両端異なる径<br>（径コード指定）</span></div>
+          </div>
+        </div>
+      </div>
+      <!-- Conn -->
+      <div class="fcard">
+        <div class="fh"><span class="fl" id="conn-lbl">接続コード</span><span class="fcv e" id="ch-conn">—</span></div>
+        <div class="fb">
+          <div class="chips" id="conn-chips"></div>
+          <div class="fnote" id="conn-note" style="display:none;"></div>
+        </div>
+      </div>
+      <!-- Mat -->
+      <div class="fcard" id="card-mat">
+        <div class="fh">
+          <span class="fl">ねじ部材質・表面処理<span class="auto-tag" id="mat-auto" style="display:none;">自動</span></span>
+          <span class="fcv e" id="ch-mat">—</span>
+        </div>
+        <div class="fb"><div class="chips" id="mat-chips"></div></div>
+      </div>
+      <!-- Seal (S1〜S3 のおねじシール剤有無) -->
+      <div class="fcard" id="card-seal" style="display:none;">
+        <div class="fh">
+          <span class="fl">おねじシール<span class="auto-tag" id="seal-auto" style="display:none;">自動</span></span>
+          <span class="fcv e" id="ch-seal">—</span>
+        </div>
+        <div class="fb"><div class="chips" id="seal-chips"></div></div>
+      </div>
+    </div>
+
+    <!-- Model grid -->
+    <div class="mzone">
+      <div class="mzone-head"><span class="mzone-title" id="mzone-title">機種を選択してください</span></div>
+      <div class="plegend"><span><svg viewBox="18 2 24 22" fill="none" stroke-linecap="round"><rect x="22" y="16" width="16" height="8" stroke="currentColor" stroke-width="1.5"/><g class="pt"><rect x="25.5" y="12.6" width="9" height="3.4" stroke-width="1.6"/><line x1="27.4" y1="12.6" x2="27.4" y2="5" stroke-width="1.6"/><line x1="32.6" y1="12.6" x2="32.6" y2="5" stroke-width="1.6"/><line x1="27.4" y1="5" x2="32.6" y2="5" stroke-width="1.6"/></g></svg>チューブ差込み（ワンタッチ）</span><span><svg viewBox="18 2 24 22" fill="none" stroke-linecap="round"><rect x="22" y="16" width="16" height="8" stroke="currentColor" stroke-width="1.5"/><g class="pm"><rect x="26.6" y="7" width="6.8" height="9" stroke-width="1.5"/><line x1="25.2" y1="13.6" x2="34.8" y2="13.6" stroke-width="1.3"/><line x1="25.2" y1="11.2" x2="34.8" y2="11.2" stroke-width="1.3"/><line x1="25.2" y1="8.8" x2="34.8" y2="8.8" stroke-width="1.3"/></g></svg>ねじ接続</span></div><div class="mgrid" id="model-grid"></div>
+    </div>
+
+    <!-- Order options -->
+    <div class="order-card">
+    <div class="fh"><span class="fl">オーダーメイド・特殊仕様（任意）</span></div>
+    <div class="order-body">
+      <div class="order-row" id="ord-clean-row">
+        <input type="checkbox" class="order-check" id="ord-clean" onchange="ordExcl(this)">
+        <label class="order-lbl" for="ord-clean">
+          <b>10-</b>（クリーンシリーズ）
+          <small>黄銅部無電解Niめっき・フッ素系グリース・クリーンルームエアブロー・二重梱包 / 品番先頭に付加。材質はN推奨。X12・X35とは併用不可。</small>
+        </label>
+      </div>
+      <div class="order-row">
+        <input type="checkbox" class="order-check" id="ord-x12" onchange="ordExcl(this)">
+        <label class="order-lbl" for="ord-x12">
+          <b>X12</b>（潤滑剤：白色ワセリン・プッシュ色：白）
+          <small>品番末尾に「-X12」を付加（例：KQ2H06-01AS-X12）。10-・X35とは併用不可。</small>
+        </label>
+      </div>
+      <div class="order-row" id="ord-x35-row">
+        <input type="checkbox" class="order-check" id="ord-x35" onchange="ordExcl(this)">
+        <label class="order-lbl" for="ord-x35">
+          <b>X35</b>（ボディ色：黒・プッシュ色：ライトグレー）
+          <small>品番末尾に「-X35」を付加（例：KQ2L06-01AS-X35）／ KQ2H・S・F・E・N・C・P には適用不可。10-・X12とは併用不可。</small>
+        </label>
+      </div>
+      <div class="order-row" id="ord-qs-row" style="display:none;">
+        <input type="checkbox" class="order-check" id="ord-qs" onchange="updatePN()">
+        <label class="order-lbl" for="ord-qs">
+          <b>QS</b>（従来品KQシリーズ 有効断面積互換・真円形のみ）
+          <small>ø8 / R1/8 のみ対応。シール記号Sが QS に変わります（例：KQ2L08-01AQS）※現行WEBカタログの品番検索には未登録＝SMC営業へ要確認</small>
+        </label>
+      </div>
+      <div class="order-note">
+        以下はSMC営業への要確認品：
+        <b>X41</b>（固定絞り付き）、
+        <b>X17</b>（ノングリース/NBR）、
+        <b>X29</b>（X17+Niめっき）、
+        <b>X34</b>（FKMゴム）、
+        <b>X39</b>（X29+クリーン）、
+        <b>X94</b>（ノングリース/FKM）
+      </div>
+    </div>
+    </div><!-- /order-card -->
+    </div><!-- /main -->
+
+    <!-- Result (右サイド・スクロール追従) -->
+    <div class="side">
+    <div class="rc">
+    <div class="rh"><div class="dot" id="r-dot"></div>選定結果</div>
+    <div class="dr"><span class="dk">型式</span><span class="dv" id="r-pn">—</span></div>
+    <div class="dr"><span class="dk">リリースブッシュ</span><span class="dv" id="r-push">—</span></div>
+    <div class="dr"><span class="dk">シール方式</span><span class="dv" id="r-sm">—</span></div>
+    <div class="dr"><span class="dk">サイズ系・接続ねじ</span><span class="dv" id="r-st">—</span></div>
+    <div class="dr"><span class="dk">接続タイプ</span><span class="dv" id="r-type">—</span></div>
+    <div class="dr"><span class="dk">機種</span><span class="dv" id="r-model">—</span></div>
+    <div class="dr"><span class="dk">チューブ外径</span><span class="dv" id="r-tube">—</span></div>
+    <div class="dr"><span class="dk" id="r-ck">接続コード</span><span class="dv" id="r-conn">—</span></div>
+    <div class="dr"><span class="dk">ねじ部材質・表面処理</span><span class="dv" id="r-mat">—</span></div>
+    <div class="dr" id="r-seal-row"><span class="dk">おねじシール</span><span class="dv" id="r-seal">—</span></div>
+    </div><!-- /rc -->
+    </div><!-- /side -->
+  </div><!-- /workspace -->
+
+  <p class="notice">
+    ※ CAT.S50-37D の KQ2 全18セクション（長円形9・真円形9／ミリ・インチ／シール剤・パッキンシール・ガスケット(Uni)）に対応。組合せは SMC品番確認で全数実証した実在集合（7,424件）に基づきます。<br>
+    ※ アクセサリ KQ2C（チューブキャップ）・KQ2P（プラグ）・KQ2N のニップル形状は実証対象外のため、従来データのまま「要確認」として残しています。<br>
+    ※ 発注前に必ず <a href="https://www.smcworld.com/ja-jp/">SMC 公式カタログ</a> で最終確認してください。
+  </p>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════
+   SVG イラスト（機種コード → shape キー）
+══════════════════════════════════════════════════════ */
+const SVG = {
+'straight-male':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="19" y="19" width="22" height="12" class="bdy" stroke-width="1.5"/><g class="pt"><rect x="25.5" y="15.6" width="9.0" height="3.4" stroke-width="1.6"/><line x1="27.4" y1="15.6" x2="27.4" y2="8.0" stroke-width="1.6"/><line x1="32.6" y1="15.6" x2="32.6" y2="8.0" stroke-width="1.6"/><line x1="27.4" y1="8.0" x2="32.6" y2="8.0" stroke-width="1.6"/></g><g transform="rotate(180 30 31)"><g class="tm"><g class="pm"><rect x="26.6" y="22.0" width="6.8" height="9.0" stroke-width="1.5"/><line x1="25.2" y1="28.6" x2="34.8" y2="28.6" stroke-width="1.27"/><line x1="25.2" y1="26.2" x2="34.8" y2="26.2" stroke-width="1.27"/><line x1="25.2" y1="23.8" x2="34.8" y2="23.8" stroke-width="1.27"/></g></g><g class="sv-o pt"><rect x="25.5" y="27.6" width="9.0" height="3.4" stroke-width="1.6"/><line x1="27.4" y1="27.6" x2="27.4" y2="20.0" stroke-width="1.6"/><line x1="32.6" y1="27.6" x2="32.6" y2="20.0" stroke-width="1.6"/><line x1="27.4" y1="20.0" x2="32.6" y2="20.0" stroke-width="1.6"/></g></g></svg>`,
+'straight-hex':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><polygon points="30,9 41,15 41,27 30,33 19,27 19,15" class="bdy" stroke-width="1.5"/><g class="pt"><rect x="25.5" y="5.6" width="9.0" height="3.4" stroke-width="1.6"/><line x1="27.4" y1="5.6" x2="27.4" y2="-2.0" stroke-width="1.6"/><line x1="32.6" y1="5.6" x2="32.6" y2="-2.0" stroke-width="1.6"/><line x1="27.4" y1="-2.0" x2="32.6" y2="-2.0" stroke-width="1.6"/></g><g transform="rotate(180 30 33)"><g class="tm"><g class="pm"><rect x="26.6" y="24.0" width="6.8" height="9.0" stroke-width="1.5"/><line x1="25.2" y1="30.6" x2="34.8" y2="30.6" stroke-width="1.27"/><line x1="25.2" y1="28.2" x2="34.8" y2="28.2" stroke-width="1.27"/><line x1="25.2" y1="25.8" x2="34.8" y2="25.8" stroke-width="1.27"/></g></g><g class="sv-o pt"><rect x="25.5" y="29.6" width="9.0" height="3.4" stroke-width="1.6"/><line x1="27.4" y1="29.6" x2="27.4" y2="22.0" stroke-width="1.6"/><line x1="32.6" y1="29.6" x2="32.6" y2="22.0" stroke-width="1.6"/><line x1="27.4" y1="22.0" x2="32.6" y2="22.0" stroke-width="1.6"/></g></g></svg>`,
+'straight-female':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="19" y="19" width="22" height="12" class="bdy" stroke-width="1.5"/><g class="pt"><rect x="25.5" y="15.6" width="9.0" height="3.4" stroke-width="1.6"/><line x1="27.4" y1="15.6" x2="27.4" y2="8.0" stroke-width="1.6"/><line x1="32.6" y1="15.6" x2="32.6" y2="8.0" stroke-width="1.6"/><line x1="27.4" y1="8.0" x2="32.6" y2="8.0" stroke-width="1.6"/></g><g transform="rotate(180 30 31)"><rect class="bdy" x="24.8" y="22.5" width="10.4" height="8.5" stroke-width="1.5"/><g class="pf"><line x1="26.8" y1="28.7" x2="33.2" y2="28.7" stroke-width="1.20"/><line x1="26.8" y1="26.6" x2="33.2" y2="26.6" stroke-width="1.20"/><line x1="26.8" y1="24.5" x2="33.2" y2="24.5" stroke-width="1.20"/></g></g></svg>`,
+'elbow-male':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><polygon points="18,10 32,10 32,30 46,30 46,42 18,42" class="bdy" stroke-width="1.5"/><g class="pt"><rect x="20.5" y="6.6" width="9.0" height="3.4" stroke-width="1.6"/><line x1="22.4" y1="6.6" x2="22.4" y2="-1.0" stroke-width="1.6"/><line x1="27.6" y1="6.6" x2="27.6" y2="-1.0" stroke-width="1.6"/><line x1="22.4" y1="-1.0" x2="27.6" y2="-1.0" stroke-width="1.6"/></g><g transform="rotate(90 46 36)"><g class="tm"><g class="pm"><rect x="42.6" y="27.0" width="6.8" height="9.0" stroke-width="1.5"/><line x1="41.2" y1="33.6" x2="50.8" y2="33.6" stroke-width="1.27"/><line x1="41.2" y1="31.2" x2="50.8" y2="31.2" stroke-width="1.27"/><line x1="41.2" y1="28.8" x2="50.8" y2="28.8" stroke-width="1.27"/></g></g><g class="sv-o pt"><rect x="41.5" y="32.6" width="9.0" height="3.4" stroke-width="1.6"/><line x1="43.4" y1="32.6" x2="43.4" y2="25.0" stroke-width="1.6"/><line x1="48.6" y1="32.6" x2="48.6" y2="25.0" stroke-width="1.6"/><line x1="43.4" y1="25.0" x2="48.6" y2="25.0" stroke-width="1.6"/></g></g></svg>`,
+'elbow-branch':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><polygon points="18,10 32,10 32,30 46,30 46,42 18,42" class="bdy" stroke-width="1.5"/><g class="pt"><rect x="18.7" y="7.9" width="5.6" height="2.1" stroke-width="1.25"/><line x1="19.9" y1="7.9" x2="19.9" y2="3.2" stroke-width="1.25"/><line x1="23.1" y1="7.9" x2="23.1" y2="3.2" stroke-width="1.25"/><line x1="19.9" y1="3.2" x2="23.1" y2="3.2" stroke-width="1.25"/></g><g class="pt"><rect x="25.7" y="7.9" width="5.6" height="2.1" stroke-width="1.25"/><line x1="26.9" y1="7.9" x2="26.9" y2="3.2" stroke-width="1.25"/><line x1="30.1" y1="7.9" x2="30.1" y2="3.2" stroke-width="1.25"/><line x1="26.9" y1="3.2" x2="30.1" y2="3.2" stroke-width="1.25"/></g><g transform="rotate(90 46 36)"><g class="tm"><g class="pm"><rect x="42.6" y="27.0" width="6.8" height="9.0" stroke-width="1.5"/><line x1="41.2" y1="33.6" x2="50.8" y2="33.6" stroke-width="1.27"/><line x1="41.2" y1="31.2" x2="50.8" y2="31.2" stroke-width="1.27"/><line x1="41.2" y1="28.8" x2="50.8" y2="28.8" stroke-width="1.27"/></g></g><g class="sv-o pt"><rect x="41.5" y="32.6" width="9.0" height="3.4" stroke-width="1.6"/><line x1="43.4" y1="32.6" x2="43.4" y2="25.0" stroke-width="1.6"/><line x1="48.6" y1="32.6" x2="48.6" y2="25.0" stroke-width="1.6"/><line x1="43.4" y1="25.0" x2="48.6" y2="25.0" stroke-width="1.6"/></g></g></svg>`,
+'elbow-45':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><polygon points="20,42 20,28.9 32.1,16.6 39.9,24.4 31,33.5 31,42" class="bdy" stroke-width="1.5"/><g transform="rotate(45 36 20.5)"><g class="pt"><rect x="31.9" y="17.4" width="8.1" height="3.1" stroke-width="1.6"/><line x1="33.7" y1="17.4" x2="33.7" y2="10.6" stroke-width="1.6"/><line x1="38.3" y1="17.4" x2="38.3" y2="10.6" stroke-width="1.6"/><line x1="33.7" y1="10.6" x2="38.3" y2="10.6" stroke-width="1.6"/></g></g><g transform="rotate(180 25.5 42)"><g class="tm"><g class="pm"><rect x="22.1" y="33.0" width="6.8" height="9.0" stroke-width="1.5"/><line x1="20.7" y1="39.6" x2="30.3" y2="39.6" stroke-width="1.27"/><line x1="20.7" y1="37.2" x2="30.3" y2="37.2" stroke-width="1.27"/><line x1="20.7" y1="34.8" x2="30.3" y2="34.8" stroke-width="1.27"/></g></g><g class="sv-o pt"><rect x="21.0" y="38.6" width="9.0" height="3.4" stroke-width="1.6"/><line x1="22.9" y1="38.6" x2="22.9" y2="31.0" stroke-width="1.6"/><line x1="28.1" y1="38.6" x2="28.1" y2="31.0" stroke-width="1.6"/><line x1="22.9" y1="31.0" x2="28.1" y2="31.0" stroke-width="1.6"/></g></g></svg>`,
+'elbow-female':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><polygon points="18,10 32,10 32,30 46,30 46,42 18,42" class="bdy" stroke-width="1.5"/><g class="pt"><rect x="20.5" y="6.6" width="9.0" height="3.4" stroke-width="1.6"/><line x1="22.4" y1="6.6" x2="22.4" y2="-1.0" stroke-width="1.6"/><line x1="27.6" y1="6.6" x2="27.6" y2="-1.0" stroke-width="1.6"/><line x1="22.4" y1="-1.0" x2="27.6" y2="-1.0" stroke-width="1.6"/></g><g transform="rotate(90 46 36)"><rect class="bdy" x="40.8" y="27.5" width="10.4" height="8.5" stroke-width="1.5"/><g class="pf"><line x1="42.8" y1="33.7" x2="49.2" y2="33.7" stroke-width="1.20"/><line x1="42.8" y1="31.6" x2="49.2" y2="31.6" stroke-width="1.20"/><line x1="42.8" y1="29.5" x2="49.2" y2="29.5" stroke-width="1.20"/></g></g></svg>`,
+'elbow-long':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><polygon points="14,10 28,10 28,28 50,28 50,42 14,42" class="bdy" stroke-width="1.5"/><g class="pt"><rect x="16.5" y="6.6" width="9.0" height="3.4" stroke-width="1.6"/><line x1="18.4" y1="6.6" x2="18.4" y2="-1.0" stroke-width="1.6"/><line x1="23.6" y1="6.6" x2="23.6" y2="-1.0" stroke-width="1.6"/><line x1="18.4" y1="-1.0" x2="23.6" y2="-1.0" stroke-width="1.6"/></g><g transform="rotate(90 50 35)"><g class="tm"><g class="pm"><rect x="46.6" y="26.0" width="6.8" height="9.0" stroke-width="1.5"/><line x1="45.2" y1="32.6" x2="54.8" y2="32.6" stroke-width="1.27"/><line x1="45.2" y1="30.2" x2="54.8" y2="30.2" stroke-width="1.27"/><line x1="45.2" y1="27.8" x2="54.8" y2="27.8" stroke-width="1.27"/></g></g><g class="sv-o pt"><rect x="45.5" y="31.6" width="9.0" height="3.4" stroke-width="1.6"/><line x1="47.4" y1="31.6" x2="47.4" y2="24.0" stroke-width="1.6"/><line x1="52.6" y1="31.6" x2="52.6" y2="24.0" stroke-width="1.6"/><line x1="47.4" y1="24.0" x2="52.6" y2="24.0" stroke-width="1.6"/></g></g></svg>`,
+'swivel-male':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><polygon points="18,10 32,10 32,30 46,30 46,42 18,42" class="bdy" stroke-width="1.5"/><circle cx="25" cy="36" r="7" stroke-width="1.2" stroke-dasharray="3,2"/><g class="pt"><rect x="20.5" y="6.6" width="9.0" height="3.4" stroke-width="1.6"/><line x1="22.4" y1="6.6" x2="22.4" y2="-1.0" stroke-width="1.6"/><line x1="27.6" y1="6.6" x2="27.6" y2="-1.0" stroke-width="1.6"/><line x1="22.4" y1="-1.0" x2="27.6" y2="-1.0" stroke-width="1.6"/></g><g transform="rotate(90 46 36)"><g class="tm"><g class="pm"><rect x="42.6" y="27.0" width="6.8" height="9.0" stroke-width="1.5"/><line x1="41.2" y1="33.6" x2="50.8" y2="33.6" stroke-width="1.27"/><line x1="41.2" y1="31.2" x2="50.8" y2="31.2" stroke-width="1.27"/><line x1="41.2" y1="28.8" x2="50.8" y2="28.8" stroke-width="1.27"/></g></g><g class="sv-o pt"><rect x="41.5" y="32.6" width="9.0" height="3.4" stroke-width="1.6"/><line x1="43.4" y1="32.6" x2="43.4" y2="25.0" stroke-width="1.6"/><line x1="48.6" y1="32.6" x2="48.6" y2="25.0" stroke-width="1.6"/><line x1="43.4" y1="25.0" x2="48.6" y2="25.0" stroke-width="1.6"/></g></g></svg>`,
+'swivel-hex':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><polygon points="18,10 32,10 32,30 46,30 46,42 18,42" class="bdy" stroke-width="1.5"/><circle cx="25" cy="36" r="7" stroke-width="1.2" stroke-dasharray="3,2"/><polygon points="27.8,17.1 25.0,18.7 22.2,17.1 22.2,13.9 25.0,12.3 27.8,13.9" stroke-width="1.1"/><g class="pt"><rect x="20.5" y="6.6" width="9.0" height="3.4" stroke-width="1.6"/><line x1="22.4" y1="6.6" x2="22.4" y2="-1.0" stroke-width="1.6"/><line x1="27.6" y1="6.6" x2="27.6" y2="-1.0" stroke-width="1.6"/><line x1="22.4" y1="-1.0" x2="27.6" y2="-1.0" stroke-width="1.6"/></g><g transform="rotate(90 46 36)"><g class="tm"><g class="pm"><rect x="42.6" y="27.0" width="6.8" height="9.0" stroke-width="1.5"/><line x1="41.2" y1="33.6" x2="50.8" y2="33.6" stroke-width="1.27"/><line x1="41.2" y1="31.2" x2="50.8" y2="31.2" stroke-width="1.27"/><line x1="41.2" y1="28.8" x2="50.8" y2="28.8" stroke-width="1.27"/></g></g><g class="sv-o pt"><rect x="41.5" y="32.6" width="9.0" height="3.4" stroke-width="1.6"/><line x1="43.4" y1="32.6" x2="43.4" y2="25.0" stroke-width="1.6"/><line x1="48.6" y1="32.6" x2="48.6" y2="25.0" stroke-width="1.6"/><line x1="43.4" y1="25.0" x2="48.6" y2="25.0" stroke-width="1.6"/></g></g></svg>`,
+'swivel-female':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><polygon points="18,10 32,10 32,30 46,30 46,42 18,42" class="bdy" stroke-width="1.5"/><circle cx="25" cy="36" r="7" stroke-width="1.2" stroke-dasharray="3,2"/><g class="pt"><rect x="20.5" y="6.6" width="9.0" height="3.4" stroke-width="1.6"/><line x1="22.4" y1="6.6" x2="22.4" y2="-1.0" stroke-width="1.6"/><line x1="27.6" y1="6.6" x2="27.6" y2="-1.0" stroke-width="1.6"/><line x1="22.4" y1="-1.0" x2="27.6" y2="-1.0" stroke-width="1.6"/></g><g transform="rotate(90 46 36)"><rect class="bdy" x="40.8" y="27.5" width="10.4" height="8.5" stroke-width="1.5"/><g class="pf"><line x1="42.8" y1="33.7" x2="49.2" y2="33.7" stroke-width="1.20"/><line x1="42.8" y1="31.6" x2="49.2" y2="31.6" stroke-width="1.20"/><line x1="42.8" y1="29.5" x2="49.2" y2="29.5" stroke-width="1.20"/></g></g></svg>`,
+'dbl-swivel':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="16" y="16" width="28" height="18" class="bdy" stroke-width="1.5"/><g transform="rotate(270 16 25)"><g class="pt"><rect x="12.4" y="22.3" width="7.2" height="2.7" stroke-width="1.6"/><line x1="13.9" y1="22.3" x2="13.9" y2="16.2" stroke-width="1.6"/><line x1="18.1" y1="22.3" x2="18.1" y2="16.2" stroke-width="1.6"/><line x1="13.9" y1="16.2" x2="18.1" y2="16.2" stroke-width="1.6"/></g></g><g transform="rotate(90 44 25)"><g class="pt"><rect x="40.4" y="22.3" width="7.2" height="2.7" stroke-width="1.6"/><line x1="41.9" y1="22.3" x2="41.9" y2="16.2" stroke-width="1.6"/><line x1="46.1" y1="22.3" x2="46.1" y2="16.2" stroke-width="1.6"/><line x1="41.9" y1="16.2" x2="46.1" y2="16.2" stroke-width="1.6"/></g></g><g transform="rotate(180 30 34)"><g class="tm"><g class="pm"><rect x="26.6" y="25.0" width="6.8" height="9.0" stroke-width="1.5"/><line x1="25.2" y1="31.6" x2="34.8" y2="31.6" stroke-width="1.27"/><line x1="25.2" y1="29.2" x2="34.8" y2="29.2" stroke-width="1.27"/><line x1="25.2" y1="26.8" x2="34.8" y2="26.8" stroke-width="1.27"/></g></g><g class="sv-o pt"><rect x="25.5" y="30.6" width="9.0" height="3.4" stroke-width="1.6"/><line x1="27.4" y1="30.6" x2="27.4" y2="23.0" stroke-width="1.6"/><line x1="32.6" y1="30.6" x2="32.6" y2="23.0" stroke-width="1.6"/><line x1="27.4" y1="23.0" x2="32.6" y2="23.0" stroke-width="1.6"/></g></g></svg>`,
+'triple-swivel':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="16" y="16" width="28" height="18" class="bdy" stroke-width="1.5"/><g class="pt"><rect x="26.4" y="13.3" width="7.2" height="2.7" stroke-width="1.6"/><line x1="27.9" y1="13.3" x2="27.9" y2="7.2" stroke-width="1.6"/><line x1="32.1" y1="13.3" x2="32.1" y2="7.2" stroke-width="1.6"/><line x1="27.9" y1="7.2" x2="32.1" y2="7.2" stroke-width="1.6"/></g><g transform="rotate(270 16 25)"><g class="pt"><rect x="12.4" y="22.3" width="7.2" height="2.7" stroke-width="1.6"/><line x1="13.9" y1="22.3" x2="13.9" y2="16.2" stroke-width="1.6"/><line x1="18.1" y1="22.3" x2="18.1" y2="16.2" stroke-width="1.6"/><line x1="13.9" y1="16.2" x2="18.1" y2="16.2" stroke-width="1.6"/></g></g><g transform="rotate(90 44 25)"><g class="pt"><rect x="40.4" y="22.3" width="7.2" height="2.7" stroke-width="1.6"/><line x1="41.9" y1="22.3" x2="41.9" y2="16.2" stroke-width="1.6"/><line x1="46.1" y1="22.3" x2="46.1" y2="16.2" stroke-width="1.6"/><line x1="41.9" y1="16.2" x2="46.1" y2="16.2" stroke-width="1.6"/></g></g><g transform="rotate(180 30 34)"><g class="tm"><g class="pm"><rect x="26.6" y="25.0" width="6.8" height="9.0" stroke-width="1.5"/><line x1="25.2" y1="31.6" x2="34.8" y2="31.6" stroke-width="1.27"/><line x1="25.2" y1="29.2" x2="34.8" y2="29.2" stroke-width="1.27"/><line x1="25.2" y1="26.8" x2="34.8" y2="26.8" stroke-width="1.27"/></g></g><g class="sv-o pt"><rect x="25.5" y="30.6" width="9.0" height="3.4" stroke-width="1.6"/><line x1="27.4" y1="30.6" x2="27.4" y2="23.0" stroke-width="1.6"/><line x1="32.6" y1="30.6" x2="32.6" y2="23.0" stroke-width="1.6"/><line x1="27.4" y1="23.0" x2="32.6" y2="23.0" stroke-width="1.6"/></g></g></svg>`,
+'tee-male':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="9" y="18" width="42" height="12" class="bdy" stroke-width="1.5"/><rect x="24" y="30" width="12" height="9" class="bdy" stroke-width="1.5"/><g transform="rotate(270 9 24)"><g class="pt"><rect x="5.4" y="21.3" width="7.2" height="2.7" stroke-width="1.6"/><line x1="6.9" y1="21.3" x2="6.9" y2="15.2" stroke-width="1.6"/><line x1="11.1" y1="21.3" x2="11.1" y2="15.2" stroke-width="1.6"/><line x1="6.9" y1="15.2" x2="11.1" y2="15.2" stroke-width="1.6"/></g></g><g transform="rotate(90 51 24)"><g class="pt"><rect x="47.4" y="21.3" width="7.2" height="2.7" stroke-width="1.6"/><line x1="48.9" y1="21.3" x2="48.9" y2="15.2" stroke-width="1.6"/><line x1="53.1" y1="21.3" x2="53.1" y2="15.2" stroke-width="1.6"/><line x1="48.9" y1="15.2" x2="53.1" y2="15.2" stroke-width="1.6"/></g></g><g transform="rotate(180 30 39)"><g class="tm"><g class="pm"><rect x="26.9" y="30.9" width="6.1" height="8.1" stroke-width="1.5"/><line x1="25.7" y1="36.8" x2="34.3" y2="36.8" stroke-width="1.27"/><line x1="25.7" y1="34.7" x2="34.3" y2="34.7" stroke-width="1.27"/><line x1="25.7" y1="32.5" x2="34.3" y2="32.5" stroke-width="1.27"/></g></g><g class="sv-o pt"><rect x="25.9" y="35.9" width="8.1" height="3.1" stroke-width="1.6"/><line x1="27.7" y1="35.9" x2="27.7" y2="29.1" stroke-width="1.6"/><line x1="32.3" y1="35.9" x2="32.3" y2="29.1" stroke-width="1.6"/><line x1="27.7" y1="29.1" x2="32.3" y2="29.1" stroke-width="1.6"/></g></g></svg>`,
+'tee-service':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="24" y="12" width="12" height="28" class="bdy" stroke-width="1.5"/><rect x="36" y="20" width="12" height="10" class="bdy" stroke-width="1.5"/><g class="pt"><rect x="26.4" y="9.3" width="7.2" height="2.7" stroke-width="1.6"/><line x1="27.9" y1="9.3" x2="27.9" y2="3.2" stroke-width="1.6"/><line x1="32.1" y1="9.3" x2="32.1" y2="3.2" stroke-width="1.6"/><line x1="27.9" y1="3.2" x2="32.1" y2="3.2" stroke-width="1.6"/></g><g transform="rotate(90 48 25)"><g class="pt"><rect x="44.4" y="22.3" width="7.2" height="2.7" stroke-width="1.6"/><line x1="45.9" y1="22.3" x2="45.9" y2="16.2" stroke-width="1.6"/><line x1="50.1" y1="22.3" x2="50.1" y2="16.2" stroke-width="1.6"/><line x1="45.9" y1="16.2" x2="50.1" y2="16.2" stroke-width="1.6"/></g></g><g transform="rotate(180 30 40)"><g class="tm"><g class="pm"><rect x="26.9" y="31.9" width="6.1" height="8.1" stroke-width="1.5"/><line x1="25.7" y1="37.8" x2="34.3" y2="37.8" stroke-width="1.27"/><line x1="25.7" y1="35.7" x2="34.3" y2="35.7" stroke-width="1.27"/><line x1="25.7" y1="33.5" x2="34.3" y2="33.5" stroke-width="1.27"/></g></g><g class="sv-o pt"><rect x="25.9" y="36.9" width="8.1" height="3.1" stroke-width="1.6"/><line x1="27.7" y1="36.9" x2="27.7" y2="30.1" stroke-width="1.6"/><line x1="32.3" y1="36.9" x2="32.3" y2="30.1" stroke-width="1.6"/><line x1="27.7" y1="30.1" x2="32.3" y2="30.1" stroke-width="1.6"/></g></g></svg>`,
+'cross':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="16" y="10" width="28" height="30" class="bdy" stroke-width="1.5"/><rect x="9" y="18" width="42" height="14" class="bdy" stroke-width="1.5"/><g class="pt"><rect x="26.6" y="7.5" width="6.8" height="2.5" stroke-width="1.25"/><line x1="28.1" y1="7.5" x2="28.1" y2="1.8" stroke-width="1.25"/><line x1="31.9" y1="7.5" x2="31.9" y2="1.8" stroke-width="1.25"/><line x1="28.1" y1="1.8" x2="31.9" y2="1.8" stroke-width="1.25"/></g><g transform="rotate(270 9 25)"><g class="pt"><rect x="5.6" y="22.4" width="6.8" height="2.5" stroke-width="1.25"/><line x1="7.0" y1="22.4" x2="7.0" y2="16.8" stroke-width="1.25"/><line x1="10.9" y1="22.4" x2="10.9" y2="16.8" stroke-width="1.25"/><line x1="7.0" y1="16.8" x2="10.9" y2="16.8" stroke-width="1.25"/></g></g><g transform="rotate(90 51 25)"><g class="pt"><rect x="47.6" y="22.4" width="6.8" height="2.5" stroke-width="1.25"/><line x1="49.0" y1="22.4" x2="49.0" y2="16.8" stroke-width="1.25"/><line x1="53.0" y1="22.4" x2="53.0" y2="16.8" stroke-width="1.25"/><line x1="49.0" y1="16.8" x2="53.0" y2="16.8" stroke-width="1.25"/></g></g><g transform="rotate(180 30 40)"><g class="pt"><rect x="26.6" y="37.5" width="6.8" height="2.5" stroke-width="1.25"/><line x1="28.1" y1="37.5" x2="28.1" y2="31.8" stroke-width="1.25"/><line x1="31.9" y1="37.5" x2="31.9" y2="31.8" stroke-width="1.25"/><line x1="28.1" y1="31.8" x2="31.9" y2="31.8" stroke-width="1.25"/></g></g></svg>`,
+'cross-diff':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="16" y="10" width="28" height="30" class="bdy" stroke-width="1.5"/><rect x="9" y="18" width="42" height="14" class="bdy" stroke-width="1.5"/><g class="pt"><rect x="26.4" y="7.3" width="7.2" height="2.7" stroke-width="1.6"/><line x1="27.9" y1="7.3" x2="27.9" y2="1.2" stroke-width="1.6"/><line x1="32.1" y1="7.3" x2="32.1" y2="1.2" stroke-width="1.6"/><line x1="27.9" y1="1.2" x2="32.1" y2="1.2" stroke-width="1.6"/></g><g transform="rotate(270 9 25)"><g class="pt"><rect x="6.8" y="23.3" width="4.5" height="1.7" stroke-width="1.25"/><line x1="7.7" y1="23.3" x2="7.7" y2="19.5" stroke-width="1.25"/><line x1="10.3" y1="23.3" x2="10.3" y2="19.5" stroke-width="1.25"/><line x1="7.7" y1="19.5" x2="10.3" y2="19.5" stroke-width="1.25"/></g></g><g transform="rotate(90 51 25)"><g class="pt"><rect x="48.8" y="23.3" width="4.5" height="1.7" stroke-width="1.25"/><line x1="49.7" y1="23.3" x2="49.7" y2="19.5" stroke-width="1.25"/><line x1="52.3" y1="23.3" x2="52.3" y2="19.5" stroke-width="1.25"/><line x1="49.7" y1="19.5" x2="52.3" y2="19.5" stroke-width="1.25"/></g></g><g transform="rotate(180 30 40)"><g class="pt"><rect x="26.4" y="37.3" width="7.2" height="2.7" stroke-width="1.6"/><line x1="27.9" y1="37.3" x2="27.9" y2="31.2" stroke-width="1.6"/><line x1="32.1" y1="37.3" x2="32.1" y2="31.2" stroke-width="1.6"/><line x1="27.9" y1="31.2" x2="32.1" y2="31.2" stroke-width="1.6"/></g></g></svg>`,
+'cross-y':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="16" y="10" width="28" height="30" class="bdy" stroke-width="1.5"/><rect x="9" y="18" width="42" height="14" class="bdy" stroke-width="1.5"/><g class="pt"><rect x="27.8" y="8.3" width="4.5" height="1.7" stroke-width="1.25"/><line x1="28.7" y1="8.3" x2="28.7" y2="4.5" stroke-width="1.25"/><line x1="31.3" y1="8.3" x2="31.3" y2="4.5" stroke-width="1.25"/><line x1="28.7" y1="4.5" x2="31.3" y2="4.5" stroke-width="1.25"/></g><g transform="rotate(270 9 25)"><g class="pt"><rect x="6.8" y="23.3" width="4.5" height="1.7" stroke-width="1.25"/><line x1="7.7" y1="23.3" x2="7.7" y2="19.5" stroke-width="1.25"/><line x1="10.3" y1="23.3" x2="10.3" y2="19.5" stroke-width="1.25"/><line x1="7.7" y1="19.5" x2="10.3" y2="19.5" stroke-width="1.25"/></g></g><g transform="rotate(90 51 25)"><g class="pt"><rect x="48.8" y="23.3" width="4.5" height="1.7" stroke-width="1.25"/><line x1="49.7" y1="23.3" x2="49.7" y2="19.5" stroke-width="1.25"/><line x1="52.3" y1="23.3" x2="52.3" y2="19.5" stroke-width="1.25"/><line x1="49.7" y1="19.5" x2="52.3" y2="19.5" stroke-width="1.25"/></g></g><g transform="rotate(180 30 40)"><g class="pt"><rect x="26.2" y="37.1" width="7.6" height="2.9" stroke-width="1.6"/><line x1="27.8" y1="37.1" x2="27.8" y2="30.6" stroke-width="1.6"/><line x1="32.2" y1="37.1" x2="32.2" y2="30.6" stroke-width="1.6"/><line x1="27.8" y1="30.6" x2="32.2" y2="30.6" stroke-width="1.6"/></g></g></svg>`,
+'delta':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><polygon points="30,8 7,44 53,44" class="bdy" stroke-width="1.5"/><g class="pt"><rect x="26.4" y="5.3" width="7.2" height="2.7" stroke-width="1.6"/><line x1="27.9" y1="5.3" x2="27.9" y2="-0.8" stroke-width="1.6"/><line x1="32.1" y1="5.3" x2="32.1" y2="-0.8" stroke-width="1.6"/><line x1="27.9" y1="-0.8" x2="32.1" y2="-0.8" stroke-width="1.6"/></g><g transform="rotate(180 44 44)"><g class="pt"><rect x="40.9" y="41.6" width="6.3" height="2.4" stroke-width="1.25"/><line x1="42.2" y1="41.6" x2="42.2" y2="36.3" stroke-width="1.25"/><line x1="45.8" y1="41.6" x2="45.8" y2="36.3" stroke-width="1.25"/><line x1="42.2" y1="36.3" x2="45.8" y2="36.3" stroke-width="1.25"/></g></g><g transform="rotate(180 15 44)"><g class="tm"><g class="pm"><rect x="12.3" y="36.8" width="5.4" height="7.2" stroke-width="1.5"/><line x1="11.2" y1="42.1" x2="18.8" y2="42.1" stroke-width="1.27"/><line x1="11.2" y1="40.2" x2="18.8" y2="40.2" stroke-width="1.27"/><line x1="11.2" y1="38.2" x2="18.8" y2="38.2" stroke-width="1.27"/></g></g><g class="sv-o pt"><rect x="11.4" y="41.3" width="7.2" height="2.7" stroke-width="1.6"/><line x1="12.9" y1="41.3" x2="12.9" y2="35.2" stroke-width="1.6"/><line x1="17.1" y1="41.3" x2="17.1" y2="35.2" stroke-width="1.6"/><line x1="12.9" y1="35.2" x2="17.1" y2="35.2" stroke-width="1.6"/></g></g></svg>`,
+'union-y':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><polygon points="27,42 27,26 12,12 18,8 30,22 42,8 48,12 33,26 33,42" class="bdy" stroke-width="1.5"/><g transform="rotate(-42 15 10)"><g class="pt"><rect x="11.8" y="7.6" width="6.5" height="2.4" stroke-width="1.25"/><line x1="13.1" y1="7.6" x2="13.1" y2="2.1" stroke-width="1.25"/><line x1="16.9" y1="7.6" x2="16.9" y2="2.1" stroke-width="1.25"/><line x1="13.1" y1="2.1" x2="16.9" y2="2.1" stroke-width="1.25"/></g></g><g transform="rotate(42 45 10)"><g class="pt"><rect x="41.8" y="7.6" width="6.5" height="2.4" stroke-width="1.25"/><line x1="43.1" y1="7.6" x2="43.1" y2="2.1" stroke-width="1.25"/><line x1="46.9" y1="7.6" x2="46.9" y2="2.1" stroke-width="1.25"/><line x1="43.1" y1="2.1" x2="46.9" y2="2.1" stroke-width="1.25"/></g></g><g transform="rotate(180 30 42)"><g class="tm"><g class="pm"><rect x="26.6" y="33.0" width="6.8" height="9.0" stroke-width="1.5"/><line x1="25.2" y1="39.6" x2="34.8" y2="39.6" stroke-width="1.27"/><line x1="25.2" y1="37.2" x2="34.8" y2="37.2" stroke-width="1.27"/><line x1="25.2" y1="34.8" x2="34.8" y2="34.8" stroke-width="1.27"/></g></g><g class="sv-o pt"><rect x="25.5" y="38.6" width="9.0" height="3.4" stroke-width="1.6"/><line x1="27.4" y1="38.6" x2="27.4" y2="31.0" stroke-width="1.6"/><line x1="32.6" y1="38.6" x2="32.6" y2="31.0" stroke-width="1.6"/><line x1="27.4" y1="31.0" x2="32.6" y2="31.0" stroke-width="1.6"/></g></g></svg>`,
+'branch-yd':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="23" y="20" width="14" height="22" class="bdy" stroke-width="1.5"/><rect x="9" y="20" width="16" height="11" class="bdy" stroke-width="1.5"/><rect x="35" y="20" width="16" height="11" class="bdy" stroke-width="1.5"/><g transform="rotate(270 9 24.5)"><g class="pt"><rect x="6.8" y="22.8" width="4.5" height="1.7" stroke-width="1.25"/><line x1="7.7" y1="22.8" x2="7.7" y2="19.0" stroke-width="1.25"/><line x1="10.3" y1="22.8" x2="10.3" y2="19.0" stroke-width="1.25"/><line x1="7.7" y1="19.0" x2="10.3" y2="19.0" stroke-width="1.25"/></g></g><g transform="rotate(270 9 29)"><g class="pt"><rect x="6.8" y="27.3" width="4.5" height="1.7" stroke-width="1.25"/><line x1="7.7" y1="27.3" x2="7.7" y2="23.5" stroke-width="1.25"/><line x1="10.3" y1="27.3" x2="10.3" y2="23.5" stroke-width="1.25"/><line x1="7.7" y1="23.5" x2="10.3" y2="23.5" stroke-width="1.25"/></g></g><g transform="rotate(90 51 24.5)"><g class="pt"><rect x="48.8" y="22.8" width="4.5" height="1.7" stroke-width="1.25"/><line x1="49.7" y1="22.8" x2="49.7" y2="19.0" stroke-width="1.25"/><line x1="52.3" y1="22.8" x2="52.3" y2="19.0" stroke-width="1.25"/><line x1="49.7" y1="19.0" x2="52.3" y2="19.0" stroke-width="1.25"/></g></g><g transform="rotate(90 51 29)"><g class="pt"><rect x="48.8" y="27.3" width="4.5" height="1.7" stroke-width="1.25"/><line x1="49.7" y1="27.3" x2="49.7" y2="23.5" stroke-width="1.25"/><line x1="52.3" y1="27.3" x2="52.3" y2="23.5" stroke-width="1.25"/><line x1="49.7" y1="23.5" x2="52.3" y2="23.5" stroke-width="1.25"/></g></g><g transform="rotate(180 30 42)"><g class="tm"><g class="pm"><rect x="26.9" y="33.9" width="6.1" height="8.1" stroke-width="1.5"/><line x1="25.7" y1="39.8" x2="34.3" y2="39.8" stroke-width="1.27"/><line x1="25.7" y1="37.7" x2="34.3" y2="37.7" stroke-width="1.27"/><line x1="25.7" y1="35.5" x2="34.3" y2="35.5" stroke-width="1.27"/></g></g><g class="sv-o pt"><rect x="25.9" y="38.9" width="8.1" height="3.1" stroke-width="1.6"/><line x1="27.7" y1="38.9" x2="27.7" y2="32.1" stroke-width="1.6"/><line x1="32.3" y1="38.9" x2="32.3" y2="32.1" stroke-width="1.6"/><line x1="27.7" y1="32.1" x2="32.3" y2="32.1" stroke-width="1.6"/></g></g></svg>`,
+'branch-z':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><polygon points="18,10 32,10 32,30 46,30 46,42 18,42" class="bdy" stroke-width="1.5"/><g class="pt"><rect x="18.7" y="7.9" width="5.6" height="2.1" stroke-width="1.25"/><line x1="19.9" y1="7.9" x2="19.9" y2="3.2" stroke-width="1.25"/><line x1="23.1" y1="7.9" x2="23.1" y2="3.2" stroke-width="1.25"/><line x1="19.9" y1="3.2" x2="23.1" y2="3.2" stroke-width="1.25"/></g><g class="pt"><rect x="25.7" y="7.9" width="5.6" height="2.1" stroke-width="1.25"/><line x1="26.9" y1="7.9" x2="26.9" y2="3.2" stroke-width="1.25"/><line x1="30.1" y1="7.9" x2="30.1" y2="3.2" stroke-width="1.25"/><line x1="26.9" y1="3.2" x2="30.1" y2="3.2" stroke-width="1.25"/></g><g transform="rotate(90 46 36)"><g class="tm"><g class="pm"><rect x="42.6" y="27.0" width="6.8" height="9.0" stroke-width="1.5"/><line x1="41.2" y1="33.6" x2="50.8" y2="33.6" stroke-width="1.27"/><line x1="41.2" y1="31.2" x2="50.8" y2="31.2" stroke-width="1.27"/><line x1="41.2" y1="28.8" x2="50.8" y2="28.8" stroke-width="1.27"/></g></g><g class="sv-o pt"><rect x="41.5" y="32.6" width="9.0" height="3.4" stroke-width="1.6"/><line x1="43.4" y1="32.6" x2="43.4" y2="25.0" stroke-width="1.6"/><line x1="48.6" y1="32.6" x2="48.6" y2="25.0" stroke-width="1.6"/><line x1="43.4" y1="25.0" x2="48.6" y2="25.0" stroke-width="1.6"/></g></g></svg>`,
+'dbl-ud':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="20" y="12" width="20" height="28" class="bdy" stroke-width="1.5"/><g transform="rotate(270 20 16)"><g class="pt"><rect x="17.5" y="14.1" width="5.0" height="1.9" stroke-width="1.25"/><line x1="18.6" y1="14.1" x2="18.6" y2="9.9" stroke-width="1.25"/><line x1="21.4" y1="14.1" x2="21.4" y2="9.9" stroke-width="1.25"/><line x1="18.6" y1="9.9" x2="21.4" y2="9.9" stroke-width="1.25"/></g></g><g transform="rotate(270 20 22)"><g class="pt"><rect x="17.5" y="20.1" width="5.0" height="1.9" stroke-width="1.25"/><line x1="18.6" y1="20.1" x2="18.6" y2="15.9" stroke-width="1.25"/><line x1="21.4" y1="20.1" x2="21.4" y2="15.9" stroke-width="1.25"/><line x1="18.6" y1="15.9" x2="21.4" y2="15.9" stroke-width="1.25"/></g></g><g transform="rotate(270 20 30)"><g class="pt"><rect x="17.5" y="28.1" width="5.0" height="1.9" stroke-width="1.25"/><line x1="18.6" y1="28.1" x2="18.6" y2="23.9" stroke-width="1.25"/><line x1="21.4" y1="28.1" x2="21.4" y2="23.9" stroke-width="1.25"/><line x1="18.6" y1="23.9" x2="21.4" y2="23.9" stroke-width="1.25"/></g></g><g transform="rotate(270 20 36)"><g class="pt"><rect x="17.5" y="34.1" width="5.0" height="1.9" stroke-width="1.25"/><line x1="18.6" y1="34.1" x2="18.6" y2="29.9" stroke-width="1.25"/><line x1="21.4" y1="34.1" x2="21.4" y2="29.9" stroke-width="1.25"/><line x1="18.6" y1="29.9" x2="21.4" y2="29.9" stroke-width="1.25"/></g></g><g transform="rotate(90 40 26)"><g class="tm"><g class="pm"><rect x="36.9" y="17.9" width="6.1" height="8.1" stroke-width="1.5"/><line x1="35.7" y1="23.8" x2="44.3" y2="23.8" stroke-width="1.27"/><line x1="35.7" y1="21.7" x2="44.3" y2="21.7" stroke-width="1.27"/><line x1="35.7" y1="19.5" x2="44.3" y2="19.5" stroke-width="1.27"/></g></g><g class="sv-o pt"><rect x="36.0" y="22.9" width="8.1" height="3.1" stroke-width="1.6"/><line x1="37.7" y1="22.9" x2="37.7" y2="16.1" stroke-width="1.6"/><line x1="42.3" y1="22.9" x2="42.3" y2="16.1" stroke-width="1.6"/><line x1="37.7" y1="16.1" x2="42.3" y2="16.1" stroke-width="1.6"/></g></g></svg>`,
+'branch-xd':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="20" y="8" width="20" height="36" class="bdy" stroke-width="1.5"/><g transform="rotate(270 20 12)"><g class="pt"><rect x="17.8" y="10.3" width="4.5" height="1.7" stroke-width="1.25"/><line x1="18.7" y1="10.3" x2="18.7" y2="6.5" stroke-width="1.25"/><line x1="21.3" y1="10.3" x2="21.3" y2="6.5" stroke-width="1.25"/><line x1="18.7" y1="6.5" x2="21.3" y2="6.5" stroke-width="1.25"/></g></g><g transform="rotate(270 20 18)"><g class="pt"><rect x="17.8" y="16.3" width="4.5" height="1.7" stroke-width="1.25"/><line x1="18.7" y1="16.3" x2="18.7" y2="12.5" stroke-width="1.25"/><line x1="21.3" y1="16.3" x2="21.3" y2="12.5" stroke-width="1.25"/><line x1="18.7" y1="12.5" x2="21.3" y2="12.5" stroke-width="1.25"/></g></g><g transform="rotate(270 20 24)"><g class="pt"><rect x="17.8" y="22.3" width="4.5" height="1.7" stroke-width="1.25"/><line x1="18.7" y1="22.3" x2="18.7" y2="18.5" stroke-width="1.25"/><line x1="21.3" y1="22.3" x2="21.3" y2="18.5" stroke-width="1.25"/><line x1="18.7" y1="18.5" x2="21.3" y2="18.5" stroke-width="1.25"/></g></g><g transform="rotate(270 20 30)"><g class="pt"><rect x="17.8" y="28.3" width="4.5" height="1.7" stroke-width="1.25"/><line x1="18.7" y1="28.3" x2="18.7" y2="24.5" stroke-width="1.25"/><line x1="21.3" y1="28.3" x2="21.3" y2="24.5" stroke-width="1.25"/><line x1="18.7" y1="24.5" x2="21.3" y2="24.5" stroke-width="1.25"/></g></g><g transform="rotate(270 20 36)"><g class="pt"><rect x="17.8" y="34.3" width="4.5" height="1.7" stroke-width="1.25"/><line x1="18.7" y1="34.3" x2="18.7" y2="30.5" stroke-width="1.25"/><line x1="21.3" y1="34.3" x2="21.3" y2="30.5" stroke-width="1.25"/><line x1="18.7" y1="30.5" x2="21.3" y2="30.5" stroke-width="1.25"/></g></g><g transform="rotate(270 20 42)"><g class="pt"><rect x="17.8" y="40.3" width="4.5" height="1.7" stroke-width="1.25"/><line x1="18.7" y1="40.3" x2="18.7" y2="36.5" stroke-width="1.25"/><line x1="21.3" y1="40.3" x2="21.3" y2="36.5" stroke-width="1.25"/><line x1="18.7" y1="36.5" x2="21.3" y2="36.5" stroke-width="1.25"/></g></g><g transform="rotate(90 40 26)"><g class="tm"><g class="pm"><rect x="36.9" y="17.9" width="6.1" height="8.1" stroke-width="1.5"/><line x1="35.7" y1="23.8" x2="44.3" y2="23.8" stroke-width="1.27"/><line x1="35.7" y1="21.7" x2="44.3" y2="21.7" stroke-width="1.27"/><line x1="35.7" y1="19.5" x2="44.3" y2="19.5" stroke-width="1.27"/></g></g><g class="sv-o pt"><rect x="36.0" y="22.9" width="8.1" height="3.1" stroke-width="1.6"/><line x1="37.7" y1="22.9" x2="37.7" y2="16.1" stroke-width="1.6"/><line x1="42.3" y1="22.9" x2="42.3" y2="16.1" stroke-width="1.6"/><line x1="37.7" y1="16.1" x2="42.3" y2="16.1" stroke-width="1.6"/></g></g></svg>`,
+'wall-union':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="3" y="21" width="54" height="8" stroke-width="2.5" rx="1"/><g class="pt"><rect x="26.2" y="18.1" width="7.6" height="2.9" stroke-width="1.6"/><line x1="27.8" y1="18.1" x2="27.8" y2="11.7" stroke-width="1.6"/><line x1="32.2" y1="18.1" x2="32.2" y2="11.7" stroke-width="1.6"/><line x1="27.8" y1="11.7" x2="32.2" y2="11.7" stroke-width="1.6"/></g><g transform="rotate(180 30 29)"><g class="pt"><rect x="26.2" y="26.1" width="7.6" height="2.9" stroke-width="1.6"/><line x1="27.8" y1="26.1" x2="27.8" y2="19.6" stroke-width="1.6"/><line x1="32.2" y1="26.1" x2="32.2" y2="19.6" stroke-width="1.6"/><line x1="27.8" y1="19.6" x2="32.2" y2="19.6" stroke-width="1.6"/></g></g></svg>`,
+'wall-elbow':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="3" y="21" width="54" height="8" stroke-width="2.5" rx="1"/><g class="pt"><rect x="11.2" y="18.1" width="7.6" height="2.9" stroke-width="1.6"/><line x1="12.8" y1="18.1" x2="12.8" y2="11.7" stroke-width="1.6"/><line x1="17.2" y1="18.1" x2="17.2" y2="11.7" stroke-width="1.6"/><line x1="12.8" y1="11.7" x2="17.2" y2="11.7" stroke-width="1.6"/></g><g transform="rotate(180 42 29)"><g class="pt"><rect x="38.2" y="26.1" width="7.6" height="2.9" stroke-width="1.6"/><line x1="39.8" y1="26.1" x2="39.8" y2="19.6" stroke-width="1.6"/><line x1="44.2" y1="26.1" x2="44.2" y2="19.6" stroke-width="1.6"/><line x1="39.8" y1="19.6" x2="44.2" y2="19.6" stroke-width="1.6"/></g></g></svg>`,
+'reducer':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><polygon points="10,20 10,30 26,34 26,16" class="bdy" stroke-width="1.5"/><polygon points="26,16 26,34 50,32 50,18" class="bdy" stroke-width="1.5"/><g transform="rotate(270 10 25)"><g class="pt"><rect x="6.0" y="21.9" width="8.1" height="3.1" stroke-width="1.6"/><line x1="7.7" y1="21.9" x2="7.7" y2="15.1" stroke-width="1.6"/><line x1="12.3" y1="21.9" x2="12.3" y2="15.1" stroke-width="1.6"/><line x1="7.7" y1="15.1" x2="12.3" y2="15.1" stroke-width="1.6"/></g></g><g transform="rotate(90 50 25)"><line x1="47.7" y1="25.0" x2="47.7" y2="16.9" stroke-width="1.5"/><line x1="52.3" y1="25.0" x2="52.3" y2="16.9" stroke-width="1.5"/><line x1="47.7" y1="16.9" x2="52.3" y2="16.9" stroke-width="1.5"/></g></svg>`,
+'plug':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="18" y="19" width="24" height="12" class="bdy" stroke-width="1.5"/><path d="M42,19 L49,22 L49,28 L42,31" class="bdy" stroke-width="1.5"/><g transform="rotate(270 18 25)"><line x1="15.4" y1="25.0" x2="15.4" y2="16.0" stroke-width="1.5"/><line x1="20.6" y1="25.0" x2="20.6" y2="16.0" stroke-width="1.5"/><line x1="15.4" y1="16.0" x2="20.6" y2="16.0" stroke-width="1.5"/></g></svg>`,
+'cap':`<svg viewBox="-3 -4 66 60" fill="none" stroke="currentColor" stroke-linecap="round"><rect x="18" y="19" width="24" height="12" class="bdy" stroke-width="1.5"/><path d="M42,19 L48,22 L48,28 L42,31" class="bdy" stroke-width="1.5"/><g transform="rotate(270 18 25)"><g class="pt"><rect x="14.2" y="22.1" width="7.6" height="2.9" stroke-width="1.6"/><line x1="15.8" y1="22.1" x2="15.8" y2="15.7" stroke-width="1.6"/><line x1="20.2" y1="22.1" x2="20.2" y2="15.7" stroke-width="1.6"/><line x1="15.8" y1="15.7" x2="20.2" y2="15.7" stroke-width="1.6"/></g></g></svg>`,
+};
+
+/* ══════════════════════════════════════════════════════
+   実在品番データ（SMC WEBカタログ「品番確認」で全数実証）
+   18セクション22エントリ / 7,424組合せ。ここに無い組合せは実在しない
+══════════════════════════════════════════════════════ */
+const KQ2DATA={"sections":{"oval-S1-thread":{"label":"長円形 シール剤/ガスケットシール ミリ 接続ねじM,R,Rc（ねじ接続タイプ）","releaseBush":"oval","sealType":"sealant","sizeSystem":"milli","threadFamily":"M,R,Rc","template":"KQ2{shape}{dia}-{bore}{finish}{seal}1","fieldOrder":["dia","bore","finish","seal"],"count":543,"shapes":{"H":["23|M3|G|","23|M5|A|","23|M5|N|","23|01|A|","23|01|A|S","23|01|N|","23|01|N|S","23|02|A|","23|02|A|S","23|02|N|","23|02|N|S","23|00|A|","04|M3|G|","04|M5|A|","04|M5|N|","04|M5|G|","04|M6|A|","04|M6|N|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","04|01|G|","04|01|G|S","04|02|A|","04|02|A|S","04|02|N|","04|02|N|S","04|02|G|","04|02|G|S","04|00|A|","06|M5|A|","06|M5|N|","06|M5|G|","06|M6|A|","06|M6|N|","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|01|G|","06|01|G|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|02|G|","06|02|G|S","06|03|A|","06|03|A|S","06|03|N|","06|03|N|S","06|03|G|","06|03|G|S","06|00|A|"],"S":["23|M3|G|","23|M5|A|","23|M5|N|","04|M3|G|","04|M5|A|","04|M5|N|","04|M5|G|","04|M6|A|","04|M6|N|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","04|01|G|","04|01|G|S","06|M5|A|","06|M5|N|","06|M5|G|","06|M6|A|","06|M6|N|","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|01|G|","06|01|G|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|02|G|","06|02|G|S"],"F":["23|M3|A|","23|M3|N|","23|M5|A|","23|M5|N|","04|M3|A|","04|M3|N|","04|M5|A|","04|M5|N|","04|01|A|","04|01|N|","04|01|G|","04|02|A|","04|02|N|","04|02|G|","06|M5|A|","06|M5|N|","06|01|A|","06|01|N|","06|01|G|","06|02|A|","06|02|N|","06|02|G|","06|03|A|","06|03|N|","06|03|G|"],"L":["23|M3|G|","23|M5|A|","23|M5|N|","23|01|A|","23|01|A|S","23|01|N|","23|01|N|S","23|02|A|","23|02|A|S","23|02|N|","23|02|N|S","23|00|A|","04|M3|G|","04|M5|A|","04|M5|N|","04|M5|G|","04|M6|A|","04|M6|N|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","04|01|G|","04|01|G|S","04|02|A|","04|02|A|S","04|02|N|","04|02|N|S","04|02|G|","04|02|G|S","04|00|A|","06|M5|A|","06|M5|N|","06|M5|G|","06|M6|A|","06|M6|N|","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|01|G|","06|01|G|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|02|G|","06|02|G|S","06|03|A|","06|03|A|S","06|03|N|","06|03|N|S","06|03|G|","06|03|G|S","06|00|A|"],"K":["04|M5|A|","04|M5|N|","04|M6|A|","04|M6|N|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","04|02|A|","04|02|A|S","04|02|N|","04|02|N|S","06|M5|A|","06|M5|N|","06|M6|A|","06|M6|N|","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|03|A|","06|03|A|S","06|03|N|","06|03|N|S"],"V":["04|M5|A|","04|M5|N|","04|M5|G|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","04|01|G|","04|01|G|S","06|M5|A|","06|M5|N|","06|M5|G|","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|01|G|","06|01|G|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|02|G|","06|02|G|S"],"VS":["04|M5|A|","04|M5|N|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","06|M5|A|","06|M5|N|","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S"],"VF":["04|M5|A|","04|M5|N|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","06|M5|A|","06|M5|N|","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S"],"LF":["04|M5|A|","04|M5|N|","04|M6|A|","04|M6|N|","04|01|A|","04|01|N|","04|02|A|","04|02|N|","06|M5|A|","06|M5|N|","06|M6|A|","06|M6|N|","06|01|A|","06|01|N|","06|02|A|","06|02|N|","06|03|A|","06|03|N|"],"VD":["04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","04|02|A|","04|02|A|S","04|02|N|","04|02|N|S","04|03|A|","04|03|A|S","04|03|N|","04|03|N|S","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|03|A|","06|03|A|S","06|03|N|","06|03|N|S"],"VT":["04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","04|02|A|","04|02|A|S","04|02|N|","04|02|N|S","04|03|A|","04|03|A|S","04|03|N|","04|03|N|S","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|03|A|","06|03|A|S","06|03|N|","06|03|N|S"],"W":["23|M3|G|","23|M5|A|","23|M5|N|","23|01|A|","23|01|A|S","23|01|N|","23|01|N|S","23|02|A|","23|02|A|S","23|02|N|","23|02|N|S","04|M3|G|","04|M5|A|","04|M5|N|","04|M5|G|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","04|01|G|","04|01|G|S","04|02|A|","04|02|A|S","04|02|N|","04|02|N|S","04|02|G|","04|02|G|S","06|M5|A|","06|M5|N|","06|M5|G|","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|01|G|","06|01|G|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|02|G|","06|02|G|S","06|03|A|","06|03|A|S","06|03|N|","06|03|N|S","06|03|G|","06|03|G|S"],"T":["23|M3|G|","23|M5|A|","23|M5|N|","23|01|A|","23|01|A|S","23|01|N|","23|01|N|S","23|02|A|","23|02|A|S","23|02|N|","23|02|N|S","23|00|A|","04|M3|G|","04|M5|A|","04|M5|N|","04|M5|G|","04|M6|A|","04|M6|N|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","04|01|G|","04|01|G|S","04|02|A|","04|02|A|S","04|02|N|","04|02|N|S","04|02|G|","04|02|G|S","04|00|A|","06|M5|A|","06|M5|N|","06|M5|G|","06|M6|A|","06|M6|N|","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|01|G|","06|01|G|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|02|G|","06|02|G|S","06|03|A|","06|03|A|S","06|03|N|","06|03|N|S","06|03|G|","06|03|G|S","06|00|A|"],"Y":["23|M3|G|","23|M5|A|","23|M5|N|","23|01|A|","23|01|A|S","23|01|N|","23|01|N|S","23|02|A|","23|02|A|S","23|02|N|","23|02|N|S","04|M3|G|","04|M5|A|","04|M5|N|","04|M5|G|","04|M6|A|","04|M6|N|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","04|01|G|","04|01|G|S","04|02|A|","04|02|A|S","04|02|N|","04|02|N|S","04|02|G|","04|02|G|S","06|M5|A|","06|M5|N|","06|M5|G|","06|M6|A|","06|M6|N|","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|01|G|","06|01|G|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|02|G|","06|02|G|S","06|03|A|","06|03|A|S","06|03|N|","06|03|N|S","06|03|G|","06|03|G|S"],"D":["04|M5|A|","04|M5|N|","04|M5|G|","04|M6|A|","04|M6|N|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","04|01|G|","04|01|G|S","04|02|A|","04|02|A|S","04|02|N|","04|02|N|S","04|02|G|","04|02|G|S","04|00|A|","06|M5|A|","06|M5|N|","06|M5|G|","06|M6|A|","06|M6|N|","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|01|G|","06|01|G|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|02|G|","06|02|G|S","06|03|A|","06|03|A|S","06|03|N|","06|03|N|S","06|03|G|","06|03|G|S","06|00|A|"],"E":["23|02|A|","23|02|N|","23|00|A|","23|00|N|","04|01|A|","04|01|N|","04|01|G|","04|02|A|","04|02|N|","04|02|G|","04|00|A|","04|00|N|","04|00|G|","06|01|A|","06|01|N|","06|01|G|","06|02|A|","06|02|N|","06|02|G|","06|03|A|","06|03|N|","06|03|G|","06|00|A|","06|00|N|","06|00|G|"],"LE":["04|00|A|","04|00|N|","06|00|A|","06|00|N|"]}},"oval-S1-tube":{"label":"長円形 チューブ接続タイプ ミリ（樹脂ボディ・接続ねじなし）","releaseBush":"oval","sealType":"none","sizeSystem":"milli","threadFamily":"none","template":"KQ2{shape}{dia}-{mate}A1","fieldOrder":["dia","mate"],"count":53,"shapes":{"H":["02|23","02|04","23|00","23|04","23|06","04|00","04|06","04|08","06|00","06|08","06|10"],"L":["23|00","23|99","23|04","23|06","04|00","04|99","04|06","04|08","06|00","06|99","06|08","06|10"],"W":["23|99","04|99","06|99"],"T":["23|00","23|04","04|00","04|06","04|08","06|00","06|04","06|08","06|10","08|04","08|06","10|06"],"TW":["04|00","06|00"],"TX":["06|08"],"TY":["06|08"],"D":["04|00","06|00"],"R":["23|04","23|06","04|06","04|08","04|10","06|04","06|08","06|10","06|12"]}},"oval-S2-thread":{"label":"長円形 シール剤/ガスケットシール インチ 接続ねじUNF,NPT（ねじ接続タイプ）","releaseBush":"oval","sealType":"sealant","sizeSystem":"inch","threadFamily":"UNF,NPT","template":"KQ2{shape}{dia}-{bore}{finish}{seal}1","fieldOrder":["dia","bore","finish","seal"],"count":343,"shapes":{"H":["01|32|A|","01|32|N|","01|33|A|","01|33|A|S","01|33|N|","01|33|N|S","01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","01|35|A|","01|35|A|S","01|35|N|","01|35|N|S","01|00|A|","03|32|A|","03|32|N|","03|33|A|","03|33|A|S","03|33|N|","03|33|N|S","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","03|35|A|","03|35|A|S","03|35|N|","03|35|N|S","03|00|A|","05|32|A|","05|32|N|","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S","05|35|A|","05|35|A|S","05|35|N|","05|35|N|S","05|00|A|"],"S":["01|32|A|","01|32|N|","03|32|A|","03|32|N|","03|33|A|","03|33|A|S","03|33|N|","03|33|N|S","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S"],"F":["01|32|A|","01|32|N|","01|34|A|","01|34|N|","01|35|A|","01|35|N|","03|32|A|","03|32|N|","03|34|A|","03|34|N|","03|35|A|","03|35|N|"],"L":["01|32|A|","01|32|N|","01|33|A|","01|33|A|S","01|33|N|","01|33|N|S","01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","01|35|A|","01|35|A|S","01|35|N|","01|35|N|S","01|00|A|","03|32|A|","03|32|N|","03|33|A|","03|33|A|S","03|33|N|","03|33|N|S","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","03|35|A|","03|35|A|S","03|35|N|","03|35|N|S","03|00|A|","05|32|A|","05|32|N|","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S","05|35|A|","05|35|A|S","05|35|N|","05|35|N|S","05|00|A|"],"K":["01|32|A|","01|32|N|","01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","03|32|A|","03|32|N|","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S"],"V":["01|32|A|","01|32|N|","01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","03|32|A|","03|32|N|","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S"],"VS":["01|32|A|","01|32|N|","01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","03|32|A|","03|32|N|","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S"],"VF":["01|32|A|","01|32|N|","01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","03|32|A|","03|32|N|","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S"],"LF":["01|34|A|","01|34|N|","01|35|A|","01|35|N|","03|34|A|","03|34|N|","03|35|A|","03|35|N|"],"VD":["01|32|A|","01|32|N|","01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","03|32|A|","03|32|N|","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S"],"VT":["01|32|A|","01|32|N|","01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","03|32|A|","03|32|N|","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S"],"W":["01|32|A|","01|32|N|","01|33|A|","01|33|A|S","01|33|N|","01|33|N|S","01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","01|35|A|","01|35|A|S","01|35|N|","01|35|N|S","03|32|A|","03|32|N|","03|33|A|","03|33|A|S","03|33|N|","03|33|N|S","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","03|35|A|","03|35|A|S","03|35|N|","03|35|N|S","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S","05|35|A|","05|35|A|S","05|35|N|","05|35|N|S"],"T":["01|32|A|","01|32|N|","01|33|A|","01|33|A|S","01|33|N|","01|33|N|S","01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","01|35|A|","01|35|A|S","01|35|N|","01|35|N|S","01|00|A|","03|32|A|","03|32|N|","03|33|A|","03|33|A|S","03|33|N|","03|33|N|S","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","03|35|A|","03|35|A|S","03|35|N|","03|35|N|S","03|00|A|","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S","05|35|A|","05|35|A|S","05|35|N|","05|35|N|S","05|00|A|"],"Y":["01|32|A|","01|32|N|","01|33|A|","01|33|A|S","01|33|N|","01|33|N|S","01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","01|35|A|","01|35|A|S","01|35|N|","01|35|N|S","03|32|A|","03|32|N|","03|33|A|","03|33|A|S","03|33|N|","03|33|N|S","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","03|35|A|","03|35|A|S","03|35|N|","03|35|N|S","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S","05|35|A|","05|35|A|S","05|35|N|","05|35|N|S"],"E":["01|35|A|","01|35|N|","01|00|A|","01|00|N|","03|35|A|","03|35|N|","03|00|A|","03|00|N|","05|34|A|","05|34|N|","05|00|A|","05|00|N|"],"LE":["01|00|A|","01|00|N|","03|00|A|","03|00|N|","05|00|A|","05|00|N|"]}},"oval-S2-tube":{"label":"長円形 チューブ接続タイプ インチ（樹脂ボディ・接続ねじなし）","releaseBush":"oval","sealType":"none","sizeSystem":"inch","threadFamily":"none","template":"KQ2{shape}{dia}-{mate}A1","fieldOrder":["dia","mate"],"count":39,"shapes":{"H":["01|00","01|01","01|03","01|07","03|00","03|05","03|07","05|00","05|01","05|07"],"L":["01|00","01|99","01|03","01|05","01|07","03|00","03|99","03|05","03|07","05|00","05|99","05|01","05|07"],"R":["01|03","01|05","01|07","03|05","03|07","05|07"],"T":["01|00","01|03","01|07","03|00","03|05","03|07","05|00","05|01","05|07"],"TW":["03|00"]}},"oval-S3-thread":{"label":"長円形 シール剤/ガスケットシール インチチューブ×接続ねじM,R,Rc","releaseBush":"oval","sealType":"sealant","sizeSystem":"inch","threadFamily":"M,R,Rc","template":"KQ2{shape}{dia}-{bore}{finish}{seal}1","fieldOrder":["dia","bore","finish","seal"],"count":68,"shapes":{"H":["01|M5|A|","01|M5|N|","01|01|A|","01|01|A|S","01|01|N|","01|01|N|S","01|02|A|","01|02|A|S","01|02|N|","01|02|N|S","01|00|A|","05|M5|A|","05|M5|N|","05|01|A|","05|01|A|S","05|01|N|","05|01|N|S","05|02|A|","05|02|A|S","05|02|N|","05|02|N|S","05|00|A|"],"L":["01|M5|A|","01|M5|N|","01|00|A|","05|01|A|","05|01|A|S","05|01|N|","05|01|N|S","05|02|A|","05|02|A|S","05|02|N|","05|02|N|S","05|00|A|"],"T":["01|00|A|","05|01|A|","05|01|A|S","05|01|N|","05|01|N|S","05|02|A|","05|02|A|S","05|02|N|","05|02|N|S","05|00|A|"],"W":["05|01|A|","05|01|A|S","05|01|N|","05|01|N|S","05|02|A|","05|02|A|S","05|02|N|","05|02|N|S"],"Y":["05|01|A|","05|01|A|S","05|01|N|","05|01|N|S","05|02|A|","05|02|A|S","05|02|N|","05|02|N|S"],"E":["01|00|A|","01|00|N|","05|01|A|","05|01|N|","05|00|A|","05|00|N|","05|00|MA|","05|00|MN|"]}},"oval-S4":{"label":"長円形 パッキンシール ミリ 接続ねじG","releaseBush":"oval","sealType":"packing","sizeSystem":"milli","threadFamily":"G","template":"KQ2{shape}{dia}-{bore}{finish}1","fieldOrder":["dia","bore","finish"],"count":82,"shapes":{"H":["04|G01|A","04|G01|N","04|G02|A","04|G02|N","06|G01|A","06|G01|N","06|G02|A","06|G02|N","06|G03|A","06|G03|N"],"S":["04|G01|A","04|G01|N","06|G01|A","06|G01|N","06|G02|A","06|G02|N"],"F":["04|G01|A","04|G01|N","04|G02|A","04|G02|N","06|G01|A","06|G01|N","06|G02|A","06|G02|N","06|G03|A","06|G03|N"],"L":["04|G01|A","04|G01|N","04|G02|A","04|G02|N","06|G01|A","06|G01|N","06|G02|A","06|G02|N","06|G03|A","06|G03|N"],"V":["04|G01|A","04|G01|N","06|G01|A","06|G01|N","06|G02|A","06|G02|N"],"W":["04|G01|A","04|G01|N","04|G02|A","04|G02|N","06|G01|A","06|G01|N","06|G02|A","06|G02|N","06|G03|A","06|G03|N"],"T":["04|G01|A","04|G01|N","04|G02|A","04|G02|N","06|G01|A","06|G01|N","06|G02|A","06|G02|N","06|G03|A","06|G03|N"],"Y":["04|G01|A","04|G01|N","04|G02|A","04|G02|N","06|G01|A","06|G01|N","06|G02|A","06|G02|N","06|G03|A","06|G03|N"],"E":["04|G01|A","04|G01|N","04|G02|A","04|G02|N","06|G01|A","06|G01|N","06|G02|A","06|G02|N","06|G03|A","06|G03|N"]}},"oval-S5":{"label":"長円形 パッキンシール ミリ 接続ねじR,Rc","releaseBush":"oval","sealType":"packing","sizeSystem":"milli","threadFamily":"R,Rc","template":"KQ2{shape}{dia}-{bore}{finish}P1","fieldOrder":["dia","bore","finish"],"count":138,"shapes":{"H":["23|01|A","23|01|N","23|02|A","23|02|N","04|01|A","04|01|N","04|02|A","04|02|N","06|01|A","06|01|N","06|02|A","06|02|N","06|03|A","06|03|N"],"S":["04|01|A","04|01|N","06|01|A","06|01|N","06|02|A","06|02|N"],"L":["23|01|A","23|01|N","23|02|A","23|02|N","04|01|A","04|01|N","04|02|A","04|02|N","06|01|A","06|01|N","06|02|A","06|02|N","06|03|A","06|03|N"],"K":["04|01|A","04|01|N","04|02|A","04|02|N","06|01|A","06|01|N","06|02|A","06|02|N","06|03|A","06|03|N"],"V":["04|01|A","04|01|N","06|01|A","06|01|N","06|02|A","06|02|N"],"VS":["04|01|A","04|01|N","06|01|A","06|01|N","06|02|A","06|02|N"],"VF":["04|01|A","04|01|N","06|01|A","06|01|N","06|02|A","06|02|N"],"VD":["04|01|A","04|01|N","04|02|A","04|02|N","04|03|A","04|03|N","06|01|A","06|01|N","06|02|A","06|02|N","06|03|A","06|03|N"],"VT":["04|01|A","04|01|N","04|02|A","04|02|N","04|03|A","04|03|N","06|01|A","06|01|N","06|02|A","06|02|N","06|03|A","06|03|N"],"W":["23|01|A","23|01|N","23|02|A","23|02|N","04|01|A","04|01|N","04|02|A","04|02|N","06|01|A","06|01|N","06|02|A","06|02|N","06|03|A","06|03|N"],"T":["23|01|A","23|01|N","23|02|A","23|02|N","04|01|A","04|01|N","04|02|A","04|02|N","06|01|A","06|01|N","06|02|A","06|02|N","06|03|A","06|03|N"],"Y":["23|01|A","23|01|N","23|02|A","23|02|N","04|01|A","04|01|N","04|02|A","04|02|N","06|01|A","06|01|N","06|02|A","06|02|N","06|03|A","06|03|N"],"D":["04|01|A","04|01|N","04|02|A","04|02|N","06|01|A","06|01|N","06|02|A","06|02|N","06|03|A","06|03|N"]}},"oval-S6":{"label":"長円形 パッキンシール インチ 接続ねじNPT","releaseBush":"oval","sealType":"packing","sizeSystem":"inch","threadFamily":"NPT","template":"KQ2{shape}{dia}-{bore}{finish}P1","fieldOrder":["dia","bore","finish"],"count":122,"shapes":{"H":["01|33|A","01|33|N","01|34|A","01|34|N","01|35|A","01|35|N","03|33|A","03|33|N","03|34|A","03|34|N","03|35|A","03|35|N","05|34|A","05|34|N","05|35|A","05|35|N"],"S":["03|33|A","03|33|N","03|34|A","03|34|N","05|34|A","05|34|N"],"L":["01|33|A","01|33|N","01|34|A","01|34|N","01|35|A","01|35|N","03|33|A","03|33|N","03|34|A","03|34|N","03|35|A","03|35|N","05|34|A","05|34|N","05|35|A","05|35|N"],"K":["01|34|A","01|34|N","03|34|A","03|34|N","05|34|A","05|34|N"],"V":["01|34|A","01|34|N","03|34|A","03|34|N","05|34|A","05|34|N"],"VS":["01|34|A","01|34|N","03|34|A","03|34|N","05|34|A","05|34|N"],"VF":["01|34|A","01|34|N","03|34|A","03|34|N","05|34|A","05|34|N"],"VD":["01|34|A","01|34|N","03|34|A","03|34|N","05|34|A","05|34|N"],"VT":["01|34|A","01|34|N","03|34|A","03|34|N","05|34|A","05|34|N"],"W":["01|33|A","01|33|N","01|34|A","01|34|N","01|35|A","01|35|N","03|33|A","03|33|N","03|34|A","03|34|N","03|35|A","03|35|N","05|34|A","05|34|N","05|35|A","05|35|N"],"T":["01|33|A","01|33|N","01|34|A","01|34|N","01|35|A","01|35|N","03|33|A","03|33|N","03|34|A","03|34|N","03|35|A","03|35|N","05|34|A","05|34|N","05|35|A","05|35|N"],"Y":["01|33|A","01|33|N","01|34|A","01|34|N","01|35|A","01|35|N","03|33|A","03|33|N","03|34|A","03|34|N","03|35|A","03|35|N","05|34|A","05|34|N","05|35|A","05|35|N"]}},"oval-S7":{"label":"長円形 パッキンシール インチ 接続ねじR","releaseBush":"oval","sealType":"packing","sizeSystem":"inch","threadFamily":"R","template":"KQ2{shape}{dia}-{bore}{finish}P1","fieldOrder":["dia","bore","finish"],"count":24,"shapes":{"H":["01|01|A","01|01|N","01|02|A","01|02|N","05|01|A","05|01|N","05|02|A","05|02|N"],"L":["05|01|A","05|01|N","05|02|A","05|02|N"],"T":["05|01|A","05|01|N","05|02|A","05|02|N"],"W":["05|01|A","05|01|N","05|02|A","05|02|N"],"Y":["05|01|A","05|01|N","05|02|A","05|02|N"]}},"oval-S8":{"label":"長円形 ガスケットシール(Uniねじ) ミリ","releaseBush":"oval","sealType":"gasket-uni","sizeSystem":"milli","threadFamily":"Uni","template":"KQ2{shape}{dia}-{bore}{finish}1","fieldOrder":["dia","bore","finish"],"count":72,"shapes":{"H":["04|U01|A","04|U01|N","04|U02|A","04|U02|N","06|U01|A","06|U01|N","06|U02|A","06|U02|N","06|U03|A","06|U03|N"],"S":["04|U01|A","04|U01|N","06|U01|A","06|U01|N","06|U02|A","06|U02|N"],"L":["04|U01|A","04|U01|N","04|U02|A","04|U02|N","06|U01|A","06|U01|N","06|U02|A","06|U02|N","06|U03|A","06|U03|N"],"K":["04|U01|A","04|U01|N","04|U02|A","04|U02|N","06|U01|A","06|U01|N","06|U02|A","06|U02|N","06|U03|A","06|U03|N"],"V":["04|U01|A","04|U01|N","06|U01|A","06|U01|N","06|U02|A","06|U02|N"],"T":["04|U01|A","04|U01|N","04|U02|A","04|U02|N","06|U01|A","06|U01|N","06|U02|A","06|U02|N","06|U03|A","06|U03|N"],"W":["04|U01|A","04|U01|N","04|U02|A","04|U02|N","06|U01|A","06|U01|N","06|U02|A","06|U02|N","06|U03|A","06|U03|N"],"Y":["04|U01|A","04|U01|N","04|U02|A","04|U02|N","06|U01|A","06|U01|N","06|U02|A","06|U02|N","06|U03|A","06|U03|N"]}},"oval-S9":{"label":"長円形 ガスケットシール(Uniねじ) インチ","releaseBush":"oval","sealType":"gasket-uni","sizeSystem":"inch","threadFamily":"Uni","template":"KQ2{shape}{dia}-{bore}{finish}1","fieldOrder":["dia","bore","finish"],"count":60,"shapes":{"H":["01|U01|A","01|U01|N","01|U02|A","01|U02|N","03|U01|A","03|U01|N","03|U02|A","03|U02|N","05|U01|A","05|U01|N","05|U02|A","05|U02|N"],"L":["01|U01|A","01|U01|N","01|U02|A","01|U02|N","03|U01|A","03|U01|N","03|U02|A","03|U02|N","05|U01|A","05|U01|N","05|U02|A","05|U02|N"],"T":["01|U01|A","01|U01|N","01|U02|A","01|U02|N","03|U01|A","03|U01|N","03|U02|A","03|U02|N","05|U01|A","05|U01|N","05|U02|A","05|U02|N"],"W":["01|U01|A","01|U01|N","01|U02|A","01|U02|N","03|U01|A","03|U01|N","03|U02|A","03|U02|N","05|U01|A","05|U01|N","05|U02|A","05|U02|N"],"Y":["01|U01|A","01|U01|N","01|U02|A","01|U02|N","03|U01|A","03|U01|N","03|U02|A","03|U02|N","05|U01|A","05|U01|N","05|U02|A","05|U02|N"]}},"round-S1-thread":{"label":"真円形 シール剤/ガスケットシール ミリ 接続ねじM,R,Rc（ねじ接続タイプ）","releaseBush":"round","sealType":"sealant","sizeSystem":"milli","threadFamily":"M,R,Rc","template":"KQ2{shape}{dia}-{bore}{finish}{seal}","fieldOrder":["dia","bore","finish","seal"],"count":1803,"shapes":{"H":["02|M3|G|","02|M5|A|","02|M5|N|","02|04|A|","02|00|A|","23|M3|G|","23|M5|A|","23|M5|N|","23|01|A|","23|01|A|S","23|01|N|","23|01|N|S","23|02|A|","23|02|A|S","23|02|N|","23|02|N|S","23|04|A|","23|00|A|","04|M3|G|","04|M5|A|","04|M5|N|","04|M6|A|","04|M6|N|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","04|02|A|","04|02|A|S","04|02|N|","04|02|N|S","04|00|A|","06|M5|A|","06|M5|N|","06|M6|A|","06|M6|N|","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|03|A|","06|03|A|S","06|03|N|","06|03|N|S","06|00|A|","08|01|A|","08|01|A|S","08|01|N|","08|01|N|S","08|01|G|","08|01|G|S","08|02|A|","08|02|A|S","08|02|N|","08|02|N|S","08|02|G|","08|02|G|S","08|03|A|","08|03|A|S","08|03|N|","08|03|N|S","08|03|G|","08|03|G|S","08|00|A|","10|01|A|","10|01|A|S","10|01|N|","10|01|N|S","10|01|G|","10|01|G|S","10|02|A|","10|02|A|S","10|02|N|","10|02|N|S","10|02|G|","10|02|G|S","10|03|A|","10|03|A|S","10|03|N|","10|03|N|S","10|03|G|","10|03|G|S","10|04|A|","10|04|A|S","10|04|N|","10|04|N|S","10|04|G|","10|04|G|S","10|00|A|","12|02|A|","12|02|A|S","12|02|N|","12|02|N|S","12|02|G|","12|02|G|S","12|03|A|","12|03|A|S","12|03|N|","12|03|N|S","12|03|G|","12|03|G|S","12|04|A|","12|04|A|S","12|04|N|","12|04|N|S","12|04|G|","12|04|G|S","12|00|A|","16|02|A|","16|02|A|S","16|02|N|","16|02|N|S","16|03|A|","16|03|A|S","16|03|N|","16|03|N|S","16|03|G|","16|03|G|S","16|04|A|","16|04|A|S","16|04|N|","16|04|N|S","16|04|G|","16|04|G|S","16|00|A|"],"S":["02|M3|G|","23|M3|G|","23|M5|A|","23|M5|N|","04|M3|G|","04|M5|A|","04|M5|N|","04|M6|A|","04|M6|N|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","06|M5|A|","06|M5|N|","06|M6|A|","06|M6|N|","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","08|01|A|","08|01|A|S","08|01|N|","08|01|N|S","08|01|G|","08|01|G|S","08|02|A|","08|02|A|S","08|02|N|","08|02|N|S","08|02|G|","08|02|G|S","08|03|A|","08|03|A|S","08|03|N|","08|03|N|S","08|03|G|","08|03|G|S","10|01|A|","10|01|A|S","10|01|N|","10|01|N|S","10|01|G|","10|01|G|S","10|02|A|","10|02|A|S","10|02|N|","10|02|N|S","10|02|G|","10|02|G|S","10|03|A|","10|03|A|S","10|03|N|","10|03|N|S","10|03|G|","10|03|G|S","10|04|A|","10|04|A|S","10|04|N|","10|04|N|S","10|04|G|","10|04|G|S","12|02|A|","12|02|A|S","12|02|N|","12|02|N|S","12|02|G|","12|02|G|S","12|03|A|","12|03|A|S","12|03|N|","12|03|N|S","12|03|G|","12|03|G|S","12|04|A|","12|04|A|S","12|04|N|","12|04|N|S","12|04|G|","12|04|G|S","16|02|A|","16|02|A|S","16|02|N|","16|02|N|S","16|03|A|","16|03|A|S","16|03|N|","16|03|N|S","16|04|A|","16|04|A|S","16|04|N|","16|04|N|S"],"F":["23|M3|A|","23|M3|N|","23|M5|A|","23|M5|N|","04|M3|A|","04|M3|N|","04|M5|A|","04|M5|N|","04|01|A|","04|01|N|","04|02|A|","04|02|N|","06|M5|A|","06|M5|N|","06|01|A|","06|01|N|","06|02|A|","06|02|N|","06|03|A|","06|03|N|","08|01|A|","08|01|N|","08|01|G|","08|02|A|","08|02|N|","08|02|G|","08|03|A|","08|03|N|","08|03|G|","10|02|A|","10|02|N|","10|02|G|","10|03|A|","10|03|N|","10|03|G|","12|02|A|","12|02|N|","12|02|G|","12|03|A|","12|03|N|","12|03|G|","12|04|A|","12|04|N|","12|04|G|","16|03|A|","16|03|N|","16|04|A|","16|04|N|"],"L":["02|M3|G|","02|M5|A|","02|M5|N|","23|M3|G|","23|M5|A|","23|M5|N|","23|01|A|","23|01|A|S","23|01|N|","23|01|N|S","23|02|A|","23|02|A|S","23|02|N|","23|02|N|S","23|04|A|","23|00|A|","04|M3|G|","04|M5|A|","04|M5|N|","04|M6|A|","04|M6|N|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","04|02|A|","04|02|A|S","04|02|N|","04|02|N|S","04|00|A|","06|M5|A|","06|M5|N|","06|M6|A|","06|M6|N|","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|03|A|","06|03|A|S","06|03|N|","06|03|N|S","06|00|A|","08|01|A|","08|01|A|S","08|01|N|","08|01|N|S","08|01|G|","08|01|G|S","08|02|A|","08|02|A|S","08|02|N|","08|02|N|S","08|02|G|","08|02|G|S","08|03|A|","08|03|A|S","08|03|N|","08|03|N|S","08|03|G|","08|03|G|S","08|00|A|","10|01|A|","10|01|A|S","10|01|N|","10|01|N|S","10|01|G|","10|01|G|S","10|02|A|","10|02|A|S","10|02|N|","10|02|N|S","10|02|G|","10|02|G|S","10|03|A|","10|03|A|S","10|03|N|","10|03|N|S","10|03|G|","10|03|G|S","10|04|A|","10|04|A|S","10|04|N|","10|04|N|S","10|04|G|","10|04|G|S","10|00|A|","12|02|A|","12|02|A|S","12|02|N|","12|02|N|S","12|02|G|","12|02|G|S","12|03|A|","12|03|A|S","12|03|N|","12|03|N|S","12|03|G|","12|03|G|S","12|04|A|","12|04|A|S","12|04|N|","12|04|N|S","12|04|G|","12|04|G|S","12|00|A|","16|02|A|","16|02|A|S","16|02|N|","16|02|N|S","16|03|A|","16|03|A|S","16|03|N|","16|03|N|S","16|03|G|","16|03|G|S","16|04|A|","16|04|A|S","16|04|N|","16|04|N|S","16|04|G|","16|04|G|S","16|00|A|"],"LU":["04|M5|A|","04|M5|N|","04|M5|G|","04|M6|A|","04|M6|N|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","04|01|G|","04|01|G|S","04|02|A|","04|02|A|S","04|02|N|","04|02|N|S","04|02|G|","04|02|G|S","04|00|A|","06|M5|A|","06|M5|N|","06|M5|G|","06|M6|A|","06|M6|N|","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|01|G|","06|01|G|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|02|G|","06|02|G|S","06|03|A|","06|03|A|S","06|03|N|","06|03|N|S","06|03|G|","06|03|G|S","06|00|A|","08|01|A|","08|01|A|S","08|01|N|","08|01|N|S","08|01|G|","08|01|G|S","08|02|A|","08|02|A|S","08|02|N|","08|02|N|S","08|02|G|","08|02|G|S","08|03|A|","08|03|A|S","08|03|N|","08|03|N|S","08|03|G|","08|03|G|S","08|00|A|","10|02|A|","10|02|A|S","10|02|N|","10|02|N|S","10|02|G|","10|02|G|S","10|03|A|","10|03|A|S","10|03|N|","10|03|N|S","10|03|G|","10|03|G|S","10|04|A|","10|04|A|S","10|04|N|","10|04|N|S","10|04|G|","10|04|G|S","10|00|A|","12|02|A|","12|02|A|S","12|02|N|","12|02|N|S","12|02|G|","12|02|G|S","12|03|A|","12|03|A|S","12|03|N|","12|03|N|S","12|03|G|","12|03|G|S","12|04|A|","12|04|A|S","12|04|N|","12|04|N|S","12|04|G|","12|04|G|S","12|00|A|"],"K":["04|M5|A|","04|M5|N|","04|M6|A|","04|M6|N|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","04|02|A|","04|02|A|S","04|02|N|","04|02|N|S","06|M5|A|","06|M5|N|","06|M6|A|","06|M6|N|","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|03|A|","06|03|A|S","06|03|N|","06|03|N|S","08|01|A|","08|01|A|S","08|01|N|","08|01|N|S","08|02|A|","08|02|A|S","08|02|N|","08|02|N|S","08|03|A|","08|03|A|S","08|03|N|","08|03|N|S","10|01|A|","10|01|A|S","10|01|N|","10|01|N|S","10|02|A|","10|02|A|S","10|02|N|","10|02|N|S","10|03|A|","10|03|A|S","10|03|N|","10|03|N|S","10|04|A|","10|04|A|S","10|04|N|","10|04|N|S","12|02|A|","12|02|A|S","12|02|N|","12|02|N|S","12|03|A|","12|03|A|S","12|03|N|","12|03|N|S","12|04|A|","12|04|A|S","12|04|N|","12|04|N|S","16|02|A|","16|02|A|S","16|02|N|","16|02|N|S","16|03|A|","16|03|A|S","16|03|N|","16|03|N|S","16|04|A|","16|04|A|S","16|04|N|","16|04|N|S"],"V":["04|M5|A|","04|M5|N|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","06|M5|A|","06|M5|N|","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","08|01|A|","08|01|A|S","08|01|N|","08|01|N|S","08|01|G|","08|01|G|S","08|02|A|","08|02|A|S","08|02|N|","08|02|N|S","08|02|G|","08|02|G|S","08|03|A|","08|03|A|S","08|03|N|","08|03|N|S","08|03|G|","08|03|G|S","10|02|A|","10|02|A|S","10|02|N|","10|02|N|S","10|02|G|","10|02|G|S","10|03|A|","10|03|A|S","10|03|N|","10|03|N|S","10|03|G|","10|03|G|S","12|03|A|","12|03|A|S","12|03|N|","12|03|N|S","12|03|G|","12|03|G|S","12|04|A|","12|04|A|S","12|04|N|","12|04|N|S","12|04|G|","12|04|G|S","16|03|A|","16|03|A|S","16|03|N|","16|03|N|S","16|04|A|","16|04|A|S","16|04|N|","16|04|N|S"],"VS":["04|M5|A|","04|M5|N|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","06|M5|A|","06|M5|N|","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","08|01|A|","08|01|A|S","08|01|N|","08|01|N|S","08|02|A|","08|02|A|S","08|02|N|","08|02|N|S","08|03|A|","08|03|A|S","08|03|N|","08|03|N|S","10|02|A|","10|02|A|S","10|02|N|","10|02|N|S","10|03|A|","10|03|A|S","10|03|N|","10|03|N|S","12|03|A|","12|03|A|S","12|03|N|","12|03|N|S","12|04|A|","12|04|A|S","12|04|N|","12|04|N|S"],"VF":["04|M5|A|","04|M5|N|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","06|M5|A|","06|M5|N|","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","08|01|A|","08|01|A|S","08|01|N|","08|01|N|S","08|02|A|","08|02|A|S","08|02|N|","08|02|N|S","08|03|A|","08|03|A|S","08|03|N|","08|03|N|S","10|02|A|","10|02|A|S","10|02|N|","10|02|N|S","10|03|A|","10|03|A|S","10|03|N|","10|03|N|S","12|03|A|","12|03|A|S","12|03|N|","12|03|N|S","12|04|A|","12|04|A|S","12|04|N|","12|04|N|S"],"LF":["04|M5|A|","04|M5|N|","04|M6|A|","04|M6|N|","04|01|A|","04|01|N|","04|02|A|","04|02|N|","06|M5|A|","06|M5|N|","06|M6|A|","06|M6|N|","06|01|A|","06|01|N|","06|02|A|","06|02|N|","06|03|A|","06|03|N|","08|01|A|","08|01|N|","08|02|A|","08|02|N|","08|03|A|","08|03|N|","10|02|A|","10|02|N|","10|03|A|","10|03|N|","10|04|A|","10|04|N|","12|02|A|","12|02|N|","12|03|A|","12|03|N|","12|04|A|","12|04|N|"],"VD":["04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","04|02|A|","04|02|A|S","04|02|N|","04|02|N|S","04|03|A|","04|03|A|S","04|03|N|","04|03|N|S","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|03|A|","06|03|A|S","06|03|N|","06|03|N|S","08|01|A|","08|01|A|S","08|01|N|","08|01|N|S","08|02|A|","08|02|A|S","08|02|N|","08|02|N|S","08|03|A|","08|03|A|S","08|03|N|","08|03|N|S","08|04|A|","08|04|A|S","08|04|N|","08|04|N|S","10|02|A|","10|02|A|S","10|02|N|","10|02|N|S","10|03|A|","10|03|A|S","10|03|N|","10|03|N|S","10|04|A|","10|04|A|S","10|04|N|","10|04|N|S","12|02|A|","12|02|A|S","12|02|N|","12|02|N|S","12|03|A|","12|03|A|S","12|03|N|","12|03|N|S","12|04|A|","12|04|A|S","12|04|N|","12|04|N|S"],"VT":["04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","04|02|A|","04|02|A|S","04|02|N|","04|02|N|S","04|03|A|","04|03|A|S","04|03|N|","04|03|N|S","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|03|A|","06|03|A|S","06|03|N|","06|03|N|S","08|01|A|","08|01|A|S","08|01|N|","08|01|N|S","08|02|A|","08|02|A|S","08|02|N|","08|02|N|S","08|03|A|","08|03|A|S","08|03|N|","08|03|N|S","08|04|A|","08|04|A|S","08|04|N|","08|04|N|S","10|02|A|","10|02|A|S","10|02|N|","10|02|N|S","10|03|A|","10|03|A|S","10|03|N|","10|03|N|S","10|04|A|","10|04|A|S","10|04|N|","10|04|N|S","12|02|A|","12|02|A|S","12|02|N|","12|02|N|S","12|03|A|","12|03|A|S","12|03|N|","12|03|N|S","12|04|A|","12|04|A|S","12|04|N|","12|04|N|S"],"Z":["04|M5|A|","04|M5|N|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|03|A|","06|03|A|S","06|03|N|","06|03|N|S","08|01|A|","08|01|A|S","08|01|N|","08|01|N|S","08|02|A|","08|02|A|S","08|02|N|","08|02|N|S","08|03|A|","08|03|A|S","08|03|N|","08|03|N|S","10|02|A|","10|02|A|S","10|02|N|","10|02|N|S","10|03|A|","10|03|A|S","10|03|N|","10|03|N|S","12|03|A|","12|03|A|S","12|03|N|","12|03|N|S","12|04|A|","12|04|A|S","12|04|N|","12|04|N|S"],"ZF":["04|M5|A|","04|M5|N|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","08|01|A|","08|01|A|S","08|01|N|","08|01|N|S","08|02|A|","08|02|A|S","08|02|N|","08|02|N|S","10|02|A|","10|02|A|S","10|02|N|","10|02|N|S","10|03|A|","10|03|A|S","10|03|N|","10|03|N|S","12|03|A|","12|03|A|S","12|03|N|","12|03|N|S","12|04|A|","12|04|A|S","12|04|N|","12|04|N|S"],"ZD":["04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","04|02|A|","04|02|A|S","04|02|N|","04|02|N|S","04|03|A|","04|03|A|S","04|03|N|","04|03|N|S","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|03|A|","06|03|A|S","06|03|N|","06|03|N|S","08|01|A|","08|01|A|S","08|01|N|","08|01|N|S","08|02|A|","08|02|A|S","08|02|N|","08|02|N|S","08|03|A|","08|03|A|S","08|03|N|","08|03|N|S","08|04|A|","08|04|A|S","08|04|N|","08|04|N|S","10|02|A|","10|02|A|S","10|02|N|","10|02|N|S","10|03|A|","10|03|A|S","10|03|N|","10|03|N|S","10|04|A|","10|04|A|S","10|04|N|","10|04|N|S","12|02|A|","12|02|A|S","12|02|N|","12|02|N|S","12|03|A|","12|03|A|S","12|03|N|","12|03|N|S","12|04|A|","12|04|A|S","12|04|N|","12|04|N|S"],"ZT":["04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","04|02|A|","04|02|A|S","04|02|N|","04|02|N|S","04|03|A|","04|03|A|S","04|03|N|","04|03|N|S","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|03|A|","06|03|A|S","06|03|N|","06|03|N|S","08|01|A|","08|01|A|S","08|01|N|","08|01|N|S","08|02|A|","08|02|A|S","08|02|N|","08|02|N|S","08|03|A|","08|03|A|S","08|03|N|","08|03|N|S","08|04|A|","08|04|A|S","08|04|N|","08|04|N|S","10|02|A|","10|02|A|S","10|02|N|","10|02|N|S","10|03|A|","10|03|A|S","10|03|N|","10|03|N|S","10|04|A|","10|04|A|S","10|04|N|","10|04|N|S","12|02|A|","12|02|A|S","12|02|N|","12|02|N|S","12|03|A|","12|03|A|S","12|03|N|","12|03|N|S","12|04|A|","12|04|A|S","12|04|N|","12|04|N|S"],"W":["02|M3|G|","02|M5|A|","02|M5|N|","23|M3|G|","23|M5|A|","23|M5|N|","23|01|A|","23|01|A|S","23|01|N|","23|01|N|S","23|02|A|","23|02|A|S","23|02|N|","23|02|N|S","04|M3|G|","04|M5|A|","04|M5|N|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","04|02|A|","04|02|A|S","04|02|N|","04|02|N|S","06|M5|A|","06|M5|N|","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|03|A|","06|03|A|S","06|03|N|","06|03|N|S","08|01|A|","08|01|A|S","08|01|N|","08|01|N|S","08|01|G|","08|01|G|S","08|02|A|","08|02|A|S","08|02|N|","08|02|N|S","08|02|G|","08|02|G|S","08|03|A|","08|03|A|S","08|03|N|","08|03|N|S","08|03|G|","08|03|G|S","10|02|A|","10|02|A|S","10|02|N|","10|02|N|S","10|02|G|","10|02|G|S","10|03|A|","10|03|A|S","10|03|N|","10|03|N|S","10|03|G|","10|03|G|S","10|04|A|","10|04|A|S","10|04|N|","10|04|N|S","10|04|G|","10|04|G|S","12|02|A|","12|02|A|S","12|02|N|","12|02|N|S","12|02|G|","12|02|G|S","12|03|A|","12|03|A|S","12|03|N|","12|03|N|S","12|03|G|","12|03|G|S","12|04|A|","12|04|A|S","12|04|N|","12|04|N|S","12|04|G|","12|04|G|S","16|02|A|","16|02|A|S","16|02|N|","16|02|N|S","16|03|A|","16|03|A|S","16|03|N|","16|03|N|S","16|04|A|","16|04|A|S","16|04|N|","16|04|N|S"],"T":["02|M3|G|","02|M5|A|","02|M5|N|","02|00|A|","23|M3|G|","23|M5|A|","23|M5|N|","23|01|A|","23|01|A|S","23|01|N|","23|01|N|S","23|02|A|","23|02|A|S","23|02|N|","23|02|N|S","23|04|A|","23|00|A|","04|M3|G|","04|M5|A|","04|M5|N|","04|M6|A|","04|M6|N|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","04|02|A|","04|02|A|S","04|02|N|","04|02|N|S","04|00|A|","06|M5|A|","06|M5|N|","06|M6|A|","06|M6|N|","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|03|A|","06|03|A|S","06|03|N|","06|03|N|S","06|04|A|","06|00|A|","08|01|A|","08|01|A|S","08|01|N|","08|01|N|S","08|01|G|","08|01|G|S","08|02|A|","08|02|A|S","08|02|N|","08|02|N|S","08|02|G|","08|02|G|S","08|03|A|","08|03|A|S","08|03|N|","08|03|N|S","08|03|G|","08|03|G|S","08|00|A|","10|01|A|","10|01|A|S","10|01|N|","10|01|N|S","10|01|G|","10|01|G|S","10|02|A|","10|02|A|S","10|02|N|","10|02|N|S","10|02|G|","10|02|G|S","10|03|A|","10|03|A|S","10|03|N|","10|03|N|S","10|03|G|","10|03|G|S","10|04|A|","10|04|A|S","10|04|N|","10|04|N|S","10|04|G|","10|04|G|S","10|00|A|","12|02|A|","12|02|A|S","12|02|N|","12|02|N|S","12|02|G|","12|02|G|S","12|03|A|","12|03|A|S","12|03|N|","12|03|N|S","12|03|G|","12|03|G|S","12|04|A|","12|04|A|S","12|04|N|","12|04|N|S","12|04|G|","12|04|G|S","12|00|A|","16|02|A|","16|02|A|S","16|02|N|","16|02|N|S","16|03|A|","16|03|A|S","16|03|N|","16|03|N|S","16|03|G|","16|03|G|S","16|04|A|","16|04|A|S","16|04|N|","16|04|N|S","16|04|G|","16|04|G|S","16|00|A|"],"Y":["02|M3|G|","02|M5|A|","02|M5|N|","23|M3|G|","23|M5|A|","23|M5|N|","23|01|A|","23|01|A|S","23|01|N|","23|01|N|S","23|02|A|","23|02|A|S","23|02|N|","23|02|N|S","04|M3|G|","04|M5|A|","04|M5|N|","04|M6|A|","04|M6|N|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","04|02|A|","04|02|A|S","04|02|N|","04|02|N|S","06|M5|A|","06|M5|N|","06|M6|A|","06|M6|N|","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|03|A|","06|03|A|S","06|03|N|","06|03|N|S","08|01|A|","08|01|A|S","08|01|N|","08|01|N|S","08|01|G|","08|01|G|S","08|02|A|","08|02|A|S","08|02|N|","08|02|N|S","08|02|G|","08|02|G|S","08|03|A|","08|03|A|S","08|03|N|","08|03|N|S","08|03|G|","08|03|G|S","10|01|A|","10|01|A|S","10|01|N|","10|01|N|S","10|01|G|","10|01|G|S","10|02|A|","10|02|A|S","10|02|N|","10|02|N|S","10|02|G|","10|02|G|S","10|03|A|","10|03|A|S","10|03|N|","10|03|N|S","10|03|G|","10|03|G|S","10|04|A|","10|04|A|S","10|04|N|","10|04|N|S","10|04|G|","10|04|G|S","12|02|A|","12|02|A|S","12|02|N|","12|02|N|S","12|02|G|","12|02|G|S","12|03|A|","12|03|A|S","12|03|N|","12|03|N|S","12|03|G|","12|03|G|S","12|04|A|","12|04|A|S","12|04|N|","12|04|N|S","12|04|G|","12|04|G|S","16|02|A|","16|02|A|S","16|02|N|","16|02|N|S","16|03|A|","16|03|A|S","16|03|N|","16|03|N|S","16|03|G|","16|03|G|S","16|04|A|","16|04|A|S","16|04|N|","16|04|N|S","16|04|G|","16|04|G|S"],"D":["04|M5|A|","04|M5|N|","04|M6|A|","04|M6|N|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","04|02|A|","04|02|A|S","04|02|N|","04|02|N|S","04|00|A|","06|M5|A|","06|M5|N|","06|M6|A|","06|M6|N|","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|03|A|","06|03|A|S","06|03|N|","06|03|N|S","06|00|A|","08|01|A|","08|01|A|S","08|01|N|","08|01|N|S","08|01|G|","08|01|G|S","08|02|A|","08|02|A|S","08|02|N|","08|02|N|S","08|02|G|","08|02|G|S","08|03|A|","08|03|A|S","08|03|N|","08|03|N|S","08|03|G|","08|03|G|S","08|00|A|","10|02|A|","10|02|A|S","10|02|N|","10|02|N|S","10|02|G|","10|02|G|S","10|03|A|","10|03|A|S","10|03|N|","10|03|N|S","10|03|G|","10|03|G|S","10|04|A|","10|04|A|S","10|04|N|","10|04|N|S","10|04|G|","10|04|G|S","10|00|A|","12|02|A|","12|02|A|S","12|02|N|","12|02|N|S","12|02|G|","12|02|G|S","12|03|A|","12|03|A|S","12|03|N|","12|03|N|S","12|03|G|","12|03|G|S","12|04|A|","12|04|A|S","12|04|N|","12|04|N|S","12|04|G|","12|04|G|S","12|00|A|"],"U":["02|04|A|","02|00|A|","23|M5|A|","23|M5|N|","23|01|A|","23|01|A|S","23|01|N|","23|01|N|S","23|02|A|","23|02|A|S","23|02|N|","23|02|N|S","23|04|A|","23|00|A|","04|M5|A|","04|M5|N|","04|M5|G|","04|M6|A|","04|M6|N|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","04|01|G|","04|01|G|S","04|02|A|","04|02|A|S","04|02|N|","04|02|N|S","04|02|G|","04|02|G|S","04|00|A|","06|M5|A|","06|M5|N|","06|M5|G|","06|M6|A|","06|M6|N|","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|01|G|","06|01|G|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|02|G|","06|02|G|S","06|03|A|","06|03|A|S","06|03|N|","06|03|N|S","06|03|G|","06|03|G|S","06|00|A|","08|01|A|","08|01|A|S","08|01|N|","08|01|N|S","08|01|G|","08|01|G|S","08|02|A|","08|02|A|S","08|02|N|","08|02|N|S","08|02|G|","08|02|G|S","08|03|A|","08|03|A|S","08|03|N|","08|03|N|S","08|03|G|","08|03|G|S","08|00|A|","10|02|A|","10|02|A|S","10|02|N|","10|02|N|S","10|02|G|","10|02|G|S","10|03|A|","10|03|A|S","10|03|N|","10|03|N|S","10|03|G|","10|03|G|S","10|04|A|","10|04|A|S","10|04|N|","10|04|N|S","10|04|G|","10|04|G|S","10|00|A|","12|02|A|","12|02|A|S","12|02|N|","12|02|N|S","12|02|G|","12|02|G|S","12|03|A|","12|03|A|S","12|03|N|","12|03|N|S","12|03|G|","12|03|G|S","12|04|A|","12|04|A|S","12|04|N|","12|04|N|S","12|04|G|","12|04|G|S","12|00|A|","16|02|A|","16|02|A|S","16|02|N|","16|02|N|S","16|03|A|","16|03|A|S","16|03|N|","16|03|N|S","16|04|A|","16|04|A|S","16|04|N|","16|04|N|S","16|00|A|"],"UD":["04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","04|01|G|","04|01|G|S","04|02|A|","04|02|A|S","04|02|N|","04|02|N|S","04|02|G|","04|02|G|S","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|01|G|","06|01|G|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","06|02|G|","06|02|G|S"],"E":["02|00|AJ|","02|00|NJ|","23|02|A|","23|02|N|","23|00|A|","23|00|N|","23|00|AJ|","23|00|NJ|","04|01|A|","04|01|N|","04|02|A|","04|02|N|","04|00|A|","04|00|N|","04|00|AJ|","04|00|NJ|","06|01|A|","06|01|N|","06|02|A|","06|02|N|","06|03|A|","06|03|N|","06|00|A|","06|00|N|","06|00|AJ|","06|00|NJ|","08|01|A|","08|01|N|","08|01|G|","08|02|A|","08|02|N|","08|02|G|","08|03|A|","08|03|N|","08|03|G|","08|00|A|","08|00|N|","08|00|G|","10|02|A|","10|02|N|","10|02|G|","10|03|A|","10|03|N|","10|03|G|","10|00|A|","10|00|N|","10|00|G|","12|03|A|","12|03|N|","12|03|G|","12|04|A|","12|04|N|","12|04|G|","12|00|A|","12|00|N|","12|00|G|","16|03|A|","16|03|N|","16|03|G|","16|04|A|","16|04|N|","16|04|G|","16|00|A|","16|00|N|","16|00|G|"],"LE":["04|00|A|","04|00|N|","06|00|A|","06|00|N|","08|00|A|","08|00|N|","10|00|A|","10|00|N|","12|00|A|","12|00|N|"],"N":["04|M5|A|","04|M5|N|","04|01|A|","04|01|A|S","04|01|N|","04|01|N|S","06|M5|A|","06|M5|N|","06|01|A|","06|01|A|S","06|01|N|","06|01|N|S","06|02|A|","06|02|A|S","06|02|N|","06|02|N|S","08|02|A|","08|02|A|S","08|02|N|","08|02|N|S","08|03|A|","08|03|A|S","08|03|N|","08|03|N|S","10|03|A|","10|03|A|S","10|03|N|","10|03|N|S"]}},"round-S1-tube":{"label":"真円形 チューブ接続タイプ ミリ（樹脂ボディ・接続ねじなし）","releaseBush":"round","sealType":"none","sizeSystem":"milli","threadFamily":"none","template":"KQ2{shape}{dia}-{mate}A","fieldOrder":["dia","mate"],"count":158,"shapes":{"H":["02|00","02|23","02|04","23|00","23|04","23|06","04|00","04|06","06|00","06|08","08|00","08|10","08|12","10|00","10|04","10|12","12|00","12|04","12|16","16|00","16|04"],"L":["23|00","23|99","23|04","23|06","04|00","04|99","04|06","04|08","06|00","06|99","06|08","06|10","08|00","08|99","08|10","08|12","10|00","10|99","10|04","10|12","12|00","12|99","12|04","12|16","16|00","16|99","16|04"],"LU":["04|00","06|00","08|00","10|00","10|04","12|00","12|04"],"W":["23|99","04|99","06|99","08|99","10|99","10|04","12|99","12|04","16|04"],"T":["02|00","23|00","23|04","04|00","04|06","06|00","06|04","06|08","08|00","08|06","08|10","08|12","10|00","10|04","10|08","10|12","12|00","12|04","12|08","12|10","12|16","16|00","16|04"],"TW":["04|00","06|00","08|00","10|00","12|00"],"TX":["06|08","08|10","10|12"],"TY":["06|08","08|10","10|12"],"D":["04|00","06|00","08|00","10|00","10|04","12|00","12|04"],"U":["02|00","02|23","02|04","23|00","23|99","23|04","04|00","04|99","04|06","04|08","06|00","06|99","06|08","06|10","08|00","08|99","08|10","08|12","10|00","10|99","10|04","10|12","12|00","12|99","12|04","12|16","16|00","16|99","16|04"],"UD":["04|06","06|08"],"X":["23|04","04|06","06|08","08|10","10|12"],"R":["02|04","23|04","23|06","04|06","04|08","04|10","06|04","06|08","06|10","06|12","08|10","08|12","10|12","10|16","12|16"],"XD":["04|06","06|08"]}},"round-S2-thread":{"label":"真円形 シール剤/ガスケットシール インチ 接続ねじUNF,NPT（ねじ接続タイプ）","releaseBush":"round","sealType":"sealant","sizeSystem":"inch","threadFamily":"UNF,NPT","template":"KQ2{shape}{dia}-{bore}{finish}{seal}","fieldOrder":["dia","bore","finish","seal"],"count":1290,"shapes":{"H":["01|32|A|","01|32|N|","01|33|A|","01|33|A|S","01|33|N|","01|33|N|S","01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","01|35|A|","01|35|A|S","01|35|N|","01|35|N|S","01|00|A|","03|32|A|","03|32|N|","03|33|A|","03|33|A|S","03|33|N|","03|33|N|S","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","03|35|A|","03|35|A|S","03|35|N|","03|35|N|S","03|00|A|","05|32|A|","05|32|N|","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S","05|35|A|","05|35|A|S","05|35|N|","05|35|N|S","05|00|A|","07|32|A|","07|32|N|","07|33|A|","07|33|A|S","07|33|N|","07|33|N|S","07|34|A|","07|34|A|S","07|34|N|","07|34|N|S","07|35|A|","07|35|A|S","07|35|N|","07|35|N|S","07|36|A|","07|36|A|S","07|36|N|","07|36|N|S","07|00|A|","09|34|A|","09|34|A|S","09|34|N|","09|34|N|S","09|35|A|","09|35|A|S","09|35|N|","09|35|N|S","09|36|A|","09|36|A|S","09|36|N|","09|36|N|S","09|00|A|","11|34|A|","11|34|A|S","11|34|N|","11|34|N|S","11|35|A|","11|35|A|S","11|35|N|","11|35|N|S","11|36|A|","11|36|A|S","11|36|N|","11|36|N|S","11|37|A|","11|37|A|S","11|37|N|","11|37|N|S","11|00|A|","13|35|A|","13|35|A|S","13|35|N|","13|35|N|S","13|36|A|","13|36|A|S","13|36|N|","13|36|N|S","13|37|A|","13|37|A|S","13|37|N|","13|37|N|S","13|00|A|"],"S":["01|32|A|","01|32|N|","03|32|A|","03|32|N|","03|33|A|","03|33|A|S","03|33|N|","03|33|N|S","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S","07|32|A|","07|32|N|","07|33|A|","07|33|A|S","07|33|N|","07|33|N|S","07|34|A|","07|34|A|S","07|34|N|","07|34|N|S","07|35|A|","07|35|A|S","07|35|N|","07|35|N|S","07|36|A|","07|36|A|S","07|36|N|","07|36|N|S","09|34|A|","09|34|A|S","09|34|N|","09|34|N|S","09|35|A|","09|35|A|S","09|35|N|","09|35|N|S","09|36|A|","09|36|A|S","09|36|N|","09|36|N|S","11|34|A|","11|34|A|S","11|34|N|","11|34|N|S","11|35|A|","11|35|A|S","11|35|N|","11|35|N|S","11|36|A|","11|36|A|S","11|36|N|","11|36|N|S","11|37|A|","11|37|A|S","11|37|N|","11|37|N|S","13|35|A|","13|35|A|S","13|35|N|","13|35|N|S","13|36|A|","13|36|A|S","13|36|N|","13|36|N|S","13|37|A|","13|37|A|S","13|37|N|","13|37|N|S"],"F":["01|32|A|","01|32|N|","01|34|A|","01|34|N|","01|35|A|","01|35|N|","03|32|A|","03|32|N|","03|34|A|","03|34|N|","03|35|A|","03|35|N|","07|32|A|","07|32|N|","07|34|A|","07|34|N|","07|35|A|","07|35|N|","07|36|A|","07|36|N|","09|34|A|","09|34|N|","09|35|A|","09|35|N|","09|36|A|","09|36|N|","11|35|A|","11|35|N|","11|36|A|","11|36|N|","11|37|A|","11|37|N|","13|36|A|","13|36|N|","13|37|A|","13|37|N|"],"L":["01|32|A|","01|32|N|","01|33|A|","01|33|A|S","01|33|N|","01|33|N|S","01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","01|35|A|","01|35|A|S","01|35|N|","01|35|N|S","01|00|A|","03|32|A|","03|32|N|","03|33|A|","03|33|A|S","03|33|N|","03|33|N|S","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","03|35|A|","03|35|A|S","03|35|N|","03|35|N|S","03|00|A|","05|32|A|","05|32|N|","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S","05|35|A|","05|35|A|S","05|35|N|","05|35|N|S","05|00|A|","07|32|A|","07|32|N|","07|33|A|","07|33|A|S","07|33|N|","07|33|N|S","07|34|A|","07|34|A|S","07|34|N|","07|34|N|S","07|35|A|","07|35|A|S","07|35|N|","07|35|N|S","07|36|A|","07|36|A|S","07|36|N|","07|36|N|S","07|00|A|","09|34|A|","09|34|A|S","09|34|N|","09|34|N|S","09|35|A|","09|35|A|S","09|35|N|","09|35|N|S","09|36|A|","09|36|A|S","09|36|N|","09|36|N|S","09|00|A|","11|34|A|","11|34|A|S","11|34|N|","11|34|N|S","11|35|A|","11|35|A|S","11|35|N|","11|35|N|S","11|36|A|","11|36|A|S","11|36|N|","11|36|N|S","11|37|A|","11|37|A|S","11|37|N|","11|37|N|S","11|00|A|","13|35|A|","13|35|A|S","13|35|N|","13|35|N|S","13|36|A|","13|36|A|S","13|36|N|","13|36|N|S","13|37|A|","13|37|A|S","13|37|N|","13|37|N|S","13|00|A|"],"K":["01|32|A|","01|32|N|","01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","03|32|A|","03|32|N|","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S","07|32|A|","07|32|N|","07|34|A|","07|34|A|S","07|34|N|","07|34|N|S","07|35|A|","07|35|A|S","07|35|N|","07|35|N|S","07|36|A|","07|36|A|S","07|36|N|","07|36|N|S","09|34|A|","09|34|A|S","09|34|N|","09|34|N|S","09|35|A|","09|35|A|S","09|35|N|","09|35|N|S","09|36|A|","09|36|A|S","09|36|N|","09|36|N|S","11|34|A|","11|34|A|S","11|34|N|","11|34|N|S","11|35|A|","11|35|A|S","11|35|N|","11|35|N|S","11|36|A|","11|36|A|S","11|36|N|","11|36|N|S","11|37|A|","11|37|A|S","11|37|N|","11|37|N|S","13|35|A|","13|35|A|S","13|35|N|","13|35|N|S","13|36|A|","13|36|A|S","13|36|N|","13|36|N|S","13|37|A|","13|37|A|S","13|37|N|","13|37|N|S"],"V":["01|32|A|","01|32|N|","01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","03|32|A|","03|32|N|","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S","07|32|A|","07|32|N|","07|34|A|","07|34|A|S","07|34|N|","07|34|N|S","07|35|A|","07|35|A|S","07|35|N|","07|35|N|S","09|34|A|","09|34|A|S","09|34|N|","09|34|N|S","09|35|A|","09|35|A|S","09|35|N|","09|35|N|S","09|36|A|","09|36|A|S","09|36|N|","09|36|N|S","11|35|A|","11|35|A|S","11|35|N|","11|35|N|S","11|36|A|","11|36|A|S","11|36|N|","11|36|N|S","13|36|A|","13|36|A|S","13|36|N|","13|36|N|S","13|37|A|","13|37|A|S","13|37|N|","13|37|N|S"],"VS":["01|32|A|","01|32|N|","01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","03|32|A|","03|32|N|","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S","07|32|A|","07|32|N|","07|34|A|","07|34|A|S","07|34|N|","07|34|N|S","07|35|A|","07|35|A|S","07|35|N|","07|35|N|S","09|34|A|","09|34|A|S","09|34|N|","09|34|N|S","09|35|A|","09|35|A|S","09|35|N|","09|35|N|S","09|36|A|","09|36|A|S","09|36|N|","09|36|N|S","11|35|A|","11|35|A|S","11|35|N|","11|35|N|S","11|36|A|","11|36|A|S","11|36|N|","11|36|N|S","13|36|A|","13|36|A|S","13|36|N|","13|36|N|S","13|37|A|","13|37|A|S","13|37|N|","13|37|N|S"],"VF":["01|32|A|","01|32|N|","01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","03|32|A|","03|32|N|","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S","07|32|A|","07|32|N|","07|34|A|","07|34|A|S","07|34|N|","07|34|N|S","07|35|A|","07|35|A|S","07|35|N|","07|35|N|S","09|34|A|","09|34|A|S","09|34|N|","09|34|N|S","09|35|A|","09|35|A|S","09|35|N|","09|35|N|S","09|36|A|","09|36|A|S","09|36|N|","09|36|N|S","11|35|A|","11|35|A|S","11|35|N|","11|35|N|S","11|36|A|","11|36|A|S","11|36|N|","11|36|N|S","13|36|A|","13|36|A|S","13|36|N|","13|36|N|S","13|37|A|","13|37|A|S","13|37|N|","13|37|N|S"],"LF":["01|34|A|","01|34|N|","01|35|A|","01|35|N|","03|34|A|","03|34|N|","03|35|A|","03|35|N|","07|34|A|","07|34|N|","07|35|A|","07|35|N|","07|36|A|","07|36|N|","11|35|A|","11|35|N|","11|36|A|","11|36|N|","11|37|A|","11|37|N|","13|36|A|","13|36|N|","13|37|A|","13|37|N|"],"VD":["01|32|A|","01|32|N|","01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","03|32|A|","03|32|N|","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S","07|32|A|","07|32|N|","07|34|A|","07|34|A|S","07|34|N|","07|34|N|S","07|35|A|","07|35|A|S","07|35|N|","07|35|N|S","07|36|A|","07|36|A|S","07|36|N|","07|36|N|S","09|35|A|","09|35|A|S","09|35|N|","09|35|N|S","09|36|A|","09|36|A|S","09|36|N|","09|36|N|S","09|37|A|","09|37|A|S","09|37|N|","09|37|N|S","11|35|A|","11|35|A|S","11|35|N|","11|35|N|S","11|36|A|","11|36|A|S","11|36|N|","11|36|N|S","11|37|A|","11|37|A|S","11|37|N|","11|37|N|S","13|36|A|","13|36|A|S","13|36|N|","13|36|N|S","13|37|A|","13|37|A|S","13|37|N|","13|37|N|S"],"VT":["01|32|A|","01|32|N|","01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","03|32|A|","03|32|N|","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S","07|32|A|","07|32|N|","07|34|A|","07|34|A|S","07|34|N|","07|34|N|S","07|35|A|","07|35|A|S","07|35|N|","07|35|N|S","07|36|A|","07|36|A|S","07|36|N|","07|36|N|S","09|35|A|","09|35|A|S","09|35|N|","09|35|N|S","09|36|A|","09|36|A|S","09|36|N|","09|36|N|S","09|37|A|","09|37|A|S","09|37|N|","09|37|N|S","11|35|A|","11|35|A|S","11|35|N|","11|35|N|S","11|36|A|","11|36|A|S","11|36|N|","11|36|N|S","11|37|A|","11|37|A|S","11|37|N|","11|37|N|S","13|36|A|","13|36|A|S","13|36|N|","13|36|N|S","13|37|A|","13|37|A|S","13|37|N|","13|37|N|S"],"Z":["01|32|A|","01|32|N|","01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","03|32|A|","03|32|N|","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S","07|32|A|","07|32|N|","07|34|A|","07|34|A|S","07|34|N|","07|34|N|S","07|35|A|","07|35|A|S","07|35|N|","07|35|N|S","09|34|A|","09|34|A|S","09|34|N|","09|34|N|S","09|35|A|","09|35|A|S","09|35|N|","09|35|N|S","09|36|A|","09|36|A|S","09|36|N|","09|36|N|S","11|35|A|","11|35|A|S","11|35|N|","11|35|N|S","11|36|A|","11|36|A|S","11|36|N|","11|36|N|S","13|36|A|","13|36|A|S","13|36|N|","13|36|N|S","13|37|A|","13|37|A|S","13|37|N|","13|37|N|S"],"ZD":["01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S","07|34|A|","07|34|A|S","07|34|N|","07|34|N|S","07|35|A|","07|35|A|S","07|35|N|","07|35|N|S","07|36|A|","07|36|A|S","07|36|N|","07|36|N|S","09|35|A|","09|35|A|S","09|35|N|","09|35|N|S","09|36|A|","09|36|A|S","09|36|N|","09|36|N|S","09|37|A|","09|37|A|S","09|37|N|","09|37|N|S","11|35|A|","11|35|A|S","11|35|N|","11|35|N|S","11|36|A|","11|36|A|S","11|36|N|","11|36|N|S","11|37|A|","11|37|A|S","11|37|N|","11|37|N|S","13|36|A|","13|36|A|S","13|36|N|","13|36|N|S","13|37|A|","13|37|A|S","13|37|N|","13|37|N|S"],"ZT":["01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S","07|34|A|","07|34|A|S","07|34|N|","07|34|N|S","07|35|A|","07|35|A|S","07|35|N|","07|35|N|S","07|36|A|","07|36|A|S","07|36|N|","07|36|N|S","09|35|A|","09|35|A|S","09|35|N|","09|35|N|S","09|36|A|","09|36|A|S","09|36|N|","09|36|N|S","09|37|A|","09|37|A|S","09|37|N|","09|37|N|S","11|35|A|","11|35|A|S","11|35|N|","11|35|N|S","11|36|A|","11|36|A|S","11|36|N|","11|36|N|S","11|37|A|","11|37|A|S","11|37|N|","11|37|N|S","13|36|A|","13|36|A|S","13|36|N|","13|36|N|S","13|37|A|","13|37|A|S","13|37|N|","13|37|N|S"],"W":["01|32|A|","01|32|N|","01|33|A|","01|33|A|S","01|33|N|","01|33|N|S","01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","01|35|A|","01|35|A|S","01|35|N|","01|35|N|S","03|32|A|","03|32|N|","03|33|A|","03|33|A|S","03|33|N|","03|33|N|S","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","03|35|A|","03|35|A|S","03|35|N|","03|35|N|S","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S","05|35|A|","05|35|A|S","05|35|N|","05|35|N|S","07|32|A|","07|32|N|","07|33|A|","07|33|A|S","07|33|N|","07|33|N|S","07|34|A|","07|34|A|S","07|34|N|","07|34|N|S","07|35|A|","07|35|A|S","07|35|N|","07|35|N|S","07|36|A|","07|36|A|S","07|36|N|","07|36|N|S","09|34|A|","09|34|A|S","09|34|N|","09|34|N|S","09|35|A|","09|35|A|S","09|35|N|","09|35|N|S","09|36|A|","09|36|A|S","09|36|N|","09|36|N|S","11|35|A|","11|35|A|S","11|35|N|","11|35|N|S","11|36|A|","11|36|A|S","11|36|N|","11|36|N|S","11|37|A|","11|37|A|S","11|37|N|","11|37|N|S","13|35|A|","13|35|A|S","13|35|N|","13|35|N|S","13|36|A|","13|36|A|S","13|36|N|","13|36|N|S","13|37|A|","13|37|A|S","13|37|N|","13|37|N|S"],"T":["01|32|A|","01|32|N|","01|33|A|","01|33|A|S","01|33|N|","01|33|N|S","01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","01|35|A|","01|35|A|S","01|35|N|","01|35|N|S","01|00|A|","03|32|A|","03|32|N|","03|33|A|","03|33|A|S","03|33|N|","03|33|N|S","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","03|35|A|","03|35|A|S","03|35|N|","03|35|N|S","03|00|A|","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S","05|35|A|","05|35|A|S","05|35|N|","05|35|N|S","05|00|A|","07|32|A|","07|32|N|","07|33|A|","07|33|A|S","07|33|N|","07|33|N|S","07|34|A|","07|34|A|S","07|34|N|","07|34|N|S","07|35|A|","07|35|A|S","07|35|N|","07|35|N|S","07|36|A|","07|36|A|S","07|36|N|","07|36|N|S","07|00|A|","09|34|A|","09|34|A|S","09|34|N|","09|34|N|S","09|35|A|","09|35|A|S","09|35|N|","09|35|N|S","09|36|A|","09|36|A|S","09|36|N|","09|36|N|S","09|00|A|","11|34|A|","11|34|A|S","11|34|N|","11|34|N|S","11|35|A|","11|35|A|S","11|35|N|","11|35|N|S","11|36|A|","11|36|A|S","11|36|N|","11|36|N|S","11|37|A|","11|37|A|S","11|37|N|","11|37|N|S","11|00|A|","13|35|A|","13|35|A|S","13|35|N|","13|35|N|S","13|36|A|","13|36|A|S","13|36|N|","13|36|N|S","13|37|A|","13|37|A|S","13|37|N|","13|37|N|S","13|00|A|"],"Y":["01|32|A|","01|32|N|","01|33|A|","01|33|A|S","01|33|N|","01|33|N|S","01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","01|35|A|","01|35|A|S","01|35|N|","01|35|N|S","03|32|A|","03|32|N|","03|33|A|","03|33|A|S","03|33|N|","03|33|N|S","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","03|35|A|","03|35|A|S","03|35|N|","03|35|N|S","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S","05|35|A|","05|35|A|S","05|35|N|","05|35|N|S","07|32|A|","07|32|N|","07|33|A|","07|33|A|S","07|33|N|","07|33|N|S","07|34|A|","07|34|A|S","07|34|N|","07|34|N|S","07|35|A|","07|35|A|S","07|35|N|","07|35|N|S","07|36|A|","07|36|A|S","07|36|N|","07|36|N|S","09|34|A|","09|34|A|S","09|34|N|","09|34|N|S","09|35|A|","09|35|A|S","09|35|N|","09|35|N|S","09|36|A|","09|36|A|S","09|36|N|","09|36|N|S","11|35|A|","11|35|A|S","11|35|N|","11|35|N|S","11|36|A|","11|36|A|S","11|36|N|","11|36|N|S","11|37|A|","11|37|A|S","11|37|N|","11|37|N|S","13|35|A|","13|35|A|S","13|35|N|","13|35|N|S","13|36|A|","13|36|A|S","13|36|N|","13|36|N|S","13|37|A|","13|37|A|S","13|37|N|","13|37|N|S"],"U":["01|32|A|","01|32|N|","01|33|A|","01|33|A|S","01|33|N|","01|33|N|S","01|34|A|","01|34|A|S","01|34|N|","01|34|N|S","01|35|A|","01|35|A|S","01|35|N|","01|35|N|S","01|00|A|","03|32|A|","03|32|N|","03|33|A|","03|33|A|S","03|33|N|","03|33|N|S","03|34|A|","03|34|A|S","03|34|N|","03|34|N|S","03|35|A|","03|35|A|S","03|35|N|","03|35|N|S","03|00|A|","05|34|A|","05|34|A|S","05|34|N|","05|34|N|S","05|35|A|","05|35|A|S","05|35|N|","05|35|N|S","05|00|A|","07|32|A|","07|32|N|","07|33|A|","07|33|A|S","07|33|N|","07|33|N|S","07|34|A|","07|34|A|S","07|34|N|","07|34|N|S","07|35|A|","07|35|A|S","07|35|N|","07|35|N|S","07|36|A|","07|36|A|S","07|36|N|","07|36|N|S","07|00|A|","09|34|A|","09|34|A|S","09|34|N|","09|34|N|S","09|35|A|","09|35|A|S","09|35|N|","09|35|N|S","09|36|A|","09|36|A|S","09|36|N|","09|36|N|S","09|00|A|","11|35|A|","11|35|A|S","11|35|N|","11|35|N|S","11|36|A|","11|36|A|S","11|36|N|","11|36|N|S","11|37|A|","11|37|A|S","11|37|N|","11|37|N|S","11|00|A|","13|35|A|","13|35|A|S","13|35|N|","13|35|N|S","13|36|A|","13|36|A|S","13|36|N|","13|36|N|S","13|37|A|","13|37|A|S","13|37|N|","13|37|N|S","13|00|A|"],"E":["01|35|A|","01|35|N|","01|00|A|","01|00|N|","01|00|AJ|","01|00|NJ|","03|35|A|","03|35|N|","03|00|A|","03|00|N|","03|00|AJ|","03|00|NJ|","05|34|A|","05|34|N|","05|00|A|","05|00|N|","07|35|A|","07|35|N|","07|00|A|","07|00|N|","07|00|AJ|","07|00|NJ|","09|36|A|","09|36|N|","09|00|A|","09|00|N|","11|36|A|","11|36|N|","11|00|A|","11|00|N|","13|36|A|","13|36|N|","13|37|A|","13|37|N|","13|00|A|","13|00|N|"],"LE":["01|00|A|","01|00|N|","03|00|A|","03|00|N|","05|00|A|","05|00|N|","07|00|A|","07|00|N|","09|00|A|","09|00|N|","11|00|A|","11|00|N|","13|00|A|","13|00|N|"]}},"round-S2-tube":{"label":"真円形 チューブ接続タイプ インチ（樹脂ボディ・接続ねじなし）","releaseBush":"round","sealType":"none","sizeSystem":"inch","threadFamily":"none","template":"KQ2{shape}{dia}-{mate}A","fieldOrder":["dia","mate"],"count":133,"shapes":{"H":["01|00","01|01","01|03","01|07","03|00","03|05","03|07","05|00","05|01","05|07","07|00","07|01","07|03","07|09","07|11","09|00","09|01","09|03","09|11","09|13","11|00","11|03","11|13","13|00","13|03"],"L":["01|00","01|99","01|03","01|05","01|07","03|00","03|99","03|05","03|07","05|00","05|99","05|01","05|07","05|09","07|00","07|99","07|01","07|03","07|09","07|11","09|00","09|99","09|01","09|03","09|11","09|13","11|00","11|99","11|03","11|13","13|00","13|99","13|03"],"R":["01|03","01|05","01|07","03|05","03|07","05|07","05|09","07|09","07|11","09|11","09|13","11|13"],"T":["01|00","01|03","01|07","03|00","03|05","03|07","05|00","05|01","05|07","07|00","07|01","07|03","07|09","07|11","09|00","09|01","09|03","09|11","09|13","11|00","11|03","11|13","13|00","13|03"],"TW":["03|00","07|00","09|00","11|00","13|00"],"U":["01|00","01|99","01|03","01|07","03|00","03|99","03|05","03|07","05|00","05|99","05|01","05|07","07|00","07|99","07|01","07|03","07|09","07|11","09|00","09|99","09|01","09|03","09|11","09|13","11|00","11|03","11|13","13|00","13|03"],"X":["01|03","03|05","03|07","05|07","07|09"]}},"round-S3":{"label":"真円形 シール剤/ガスケットシール インチチューブ×接続ねじM,R,Rc","releaseBush":"round","sealType":"sealant","sizeSystem":"inch","threadFamily":"M,R,Rc","template":"KQ2{shape}{dia}-{bore}{finish}{seal}","fieldOrder":["dia","bore","finish","seal"],"count":416,"shapes":{"H":["01|M5|A|","01|M5|N|","01|01|A|","01|01|A|S","01|01|N|","01|01|N|S","01|02|A|","01|02|A|S","01|02|N|","01|02|N|S","01|03|A|","01|00|A|","05|M5|A|","05|M5|N|","05|01|A|","05|01|A|S","05|01|N|","05|01|N|S","05|02|A|","05|02|A|S","05|02|N|","05|02|N|S","05|00|A|","07|M5|A|","07|M5|N|","07|01|A|","07|01|A|S","07|01|N|","07|01|N|S","07|02|A|","07|02|A|S","07|02|N|","07|02|N|S","07|03|A|","07|03|A|S","07|03|N|","07|03|N|S","07|00|A|","09|01|A|","09|01|A|S","09|01|N|","09|01|N|S","09|02|A|","09|02|A|S","09|02|N|","09|02|N|S","09|03|A|","09|03|A|S","09|03|N|","09|03|N|S","09|00|A|","11|02|A|","11|02|A|S","11|02|N|","11|02|N|S","11|03|A|","11|03|A|S","11|03|N|","11|03|N|S","11|04|A|","11|04|A|S","11|04|N|","11|04|N|S","11|00|A|","13|02|A|","13|02|A|S","13|02|N|","13|02|N|S","13|03|A|","13|03|A|S","13|03|N|","13|03|N|S","13|04|A|","13|04|A|S","13|04|N|","13|04|N|S","13|00|A|"],"L":["01|M5|A|","01|M5|N|","01|03|A|","01|00|A|","05|01|A|","05|01|A|S","05|01|N|","05|01|N|S","05|02|A|","05|02|A|S","05|02|N|","05|02|N|S","05|00|A|","07|M5|A|","07|M5|N|","07|01|A|","07|01|A|S","07|01|N|","07|01|N|S","07|02|A|","07|02|A|S","07|02|N|","07|02|N|S","07|03|A|","07|03|A|S","07|03|N|","07|03|N|S","07|00|A|","09|01|A|","09|01|A|S","09|01|N|","09|01|N|S","09|02|A|","09|02|A|S","09|02|N|","09|02|N|S","09|03|A|","09|03|A|S","09|03|N|","09|03|N|S","09|00|A|","11|02|A|","11|02|A|S","11|02|N|","11|02|N|S","11|03|A|","11|03|A|S","11|03|N|","11|03|N|S","11|04|A|","11|04|A|S","11|04|N|","11|04|N|S","11|00|A|","13|02|A|","13|02|A|S","13|02|N|","13|02|N|S","13|03|A|","13|03|A|S","13|03|N|","13|03|N|S","13|04|A|","13|04|A|S","13|04|N|","13|04|N|S","13|00|A|"],"T":["01|03|A|","01|00|A|","05|01|A|","05|01|A|S","05|01|N|","05|01|N|S","05|02|A|","05|02|A|S","05|02|N|","05|02|N|S","05|00|A|","07|01|A|","07|01|A|S","07|01|N|","07|01|N|S","07|02|A|","07|02|A|S","07|02|N|","07|02|N|S","07|03|A|","07|03|A|S","07|03|N|","07|03|N|S","07|00|A|","09|01|A|","09|01|A|S","09|01|N|","09|01|N|S","09|02|A|","09|02|A|S","09|02|N|","09|02|N|S","09|03|A|","09|03|A|S","09|03|N|","09|03|N|S","09|00|A|","11|02|A|","11|02|A|S","11|02|N|","11|02|N|S","11|03|A|","11|03|A|S","11|03|N|","11|03|N|S","11|04|A|","11|04|A|S","11|04|N|","11|04|N|S","11|00|A|","13|02|A|","13|02|A|S","13|02|N|","13|02|N|S","13|03|A|","13|03|A|S","13|03|N|","13|03|N|S","13|04|A|","13|04|A|S","13|04|N|","13|04|N|S","13|00|A|"],"W":["05|01|A|","05|01|A|S","05|01|N|","05|01|N|S","05|02|A|","05|02|A|S","05|02|N|","05|02|N|S","07|01|A|","07|01|A|S","07|01|N|","07|01|N|S","07|02|A|","07|02|A|S","07|02|N|","07|02|N|S","07|03|A|","07|03|A|S","07|03|N|","07|03|N|S","09|01|A|","09|01|A|S","09|01|N|","09|01|N|S","09|02|A|","09|02|A|S","09|02|N|","09|02|N|S","09|03|A|","09|03|A|S","09|03|N|","09|03|N|S","11|02|A|","11|02|A|S","11|02|N|","11|02|N|S","11|03|A|","11|03|A|S","11|03|N|","11|03|N|S","11|04|A|","11|04|A|S","11|04|N|","11|04|N|S","13|02|A|","13|02|A|S","13|02|N|","13|02|N|S","13|03|A|","13|03|A|S","13|03|N|","13|03|N|S","13|04|A|","13|04|A|S","13|04|N|","13|04|N|S"],"Y":["05|01|A|","05|01|A|S","05|01|N|","05|01|N|S","05|02|A|","05|02|A|S","05|02|N|","05|02|N|S","07|01|A|","07|01|A|S","07|01|N|","07|01|N|S","07|02|A|","07|02|A|S","07|02|N|","07|02|N|S","07|03|A|","07|03|A|S","07|03|N|","07|03|N|S","09|01|A|","09|01|A|S","09|01|N|","09|01|N|S","09|02|A|","09|02|A|S","09|02|N|","09|02|N|S","09|03|A|","09|03|A|S","09|03|N|","09|03|N|S","11|02|A|","11|02|A|S","11|02|N|","11|02|N|S","11|03|A|","11|03|A|S","11|03|N|","11|03|N|S","11|04|A|","11|04|A|S","11|04|N|","11|04|N|S","13|02|A|","13|02|A|S","13|02|N|","13|02|N|S","13|03|A|","13|03|A|S","13|03|N|","13|03|N|S","13|04|A|","13|04|A|S","13|04|N|","13|04|N|S"],"U":["01|03|A|","01|00|A|","05|01|A|","05|01|A|S","05|01|N|","05|01|N|S","05|02|A|","05|02|A|S","05|02|N|","05|02|N|S","05|00|A|","07|01|A|","07|01|A|S","07|01|N|","07|01|N|S","07|02|A|","07|02|A|S","07|02|N|","07|02|N|S","07|03|A|","07|03|A|S","07|03|N|","07|03|N|S","07|00|A|","09|01|A|","09|01|A|S","09|01|N|","09|01|N|S","09|02|A|","09|02|A|S","09|02|N|","09|02|N|S","09|03|A|","09|03|A|S","09|03|N|","09|03|N|S","09|00|A|","11|02|A|","11|02|A|S","11|02|N|","11|02|N|S","11|03|A|","11|03|A|S","11|03|N|","11|03|N|S","11|04|A|","11|04|A|S","11|04|N|","11|04|N|S","11|00|A|","13|02|A|","13|02|A|S","13|02|N|","13|02|N|S","13|03|A|","13|03|A|S","13|03|N|","13|03|N|S","13|04|A|","13|04|A|S","13|04|N|","13|04|N|S","13|00|A|"],"E":["01|00|A|","01|00|N|","05|01|A|","05|01|N|","05|00|A|","05|00|N|","05|00|MA|","05|00|MN|","07|02|A|","07|02|N|","07|00|A|","07|00|N|","07|00|MA|","07|00|MN|","09|03|A|","09|03|N|","09|00|A|","09|00|N|","09|00|MA|","09|00|MN|","11|03|A|","11|03|N|","11|00|A|","11|00|N|","11|00|MA|","11|00|MN|","13|03|A|","13|03|N|","13|04|A|","13|04|N|","13|00|A|","13|00|N|","13|00|MA|","13|00|MN|"]}},"round-S4":{"label":"真円形 パッキンシール ミリ 接続ねじG","releaseBush":"round","sealType":"packing","sizeSystem":"milli","threadFamily":"G","template":"KQ2{shape}{dia}-{bore}{finish}","fieldOrder":["dia","bore","finish"],"count":280,"shapes":{"H":["04|G01|A","04|G01|N","04|G02|A","04|G02|N","06|G01|A","06|G01|N","06|G02|A","06|G02|N","06|G03|A","06|G03|N","08|G01|A","08|G01|N","08|G02|A","08|G02|N","08|G03|A","08|G03|N","10|G01|A","10|G01|N","10|G02|A","10|G02|N","10|G03|A","10|G03|N","10|G04|A","10|G04|N","12|G02|A","12|G02|N","12|G03|A","12|G03|N","12|G04|A","12|G04|N","16|G03|A","16|G03|N","16|G04|A","16|G04|N"],"S":["04|G01|A","04|G01|N","06|G01|A","06|G01|N","06|G02|A","06|G02|N","08|G01|A","08|G01|N","08|G02|A","08|G02|N","08|G03|A","08|G03|N","10|G01|A","10|G01|N","10|G02|A","10|G02|N","10|G03|A","10|G03|N","10|G04|A","10|G04|N","12|G02|A","12|G02|N","12|G03|A","12|G03|N","12|G04|A","12|G04|N","16|G03|A","16|G03|N","16|G04|A","16|G04|N"],"F":["04|G01|A","04|G01|N","04|G02|A","04|G02|N","06|G01|A","06|G01|N","06|G02|A","06|G02|N","06|G03|A","06|G03|N","08|G01|A","08|G01|N","08|G02|A","08|G02|N","08|G03|A","08|G03|N","10|G02|A","10|G02|N","10|G03|A","10|G03|N","12|G02|A","12|G02|N","12|G03|A","12|G03|N","12|G04|A","12|G04|N","16|G03|A","16|G03|N","16|G04|A","16|G04|N"],"L":["04|G01|A","04|G01|N","04|G02|A","04|G02|N","06|G01|A","06|G01|N","06|G02|A","06|G02|N","06|G03|A","06|G03|N","08|G01|A","08|G01|N","08|G02|A","08|G02|N","08|G03|A","08|G03|N","10|G01|A","10|G01|N","10|G02|A","10|G02|N","10|G03|A","10|G03|N","10|G04|A","10|G04|N","12|G02|A","12|G02|N","12|G03|A","12|G03|N","12|G04|A","12|G04|N","16|G03|A","16|G03|N","16|G04|A","16|G04|N"],"V":["04|G01|A","04|G01|N","06|G01|A","06|G01|N","06|G02|A","06|G02|N","08|G01|A","08|G01|N","08|G02|A","08|G02|N","08|G03|A","08|G03|N","10|G02|A","10|G02|N","10|G03|A","10|G03|N","12|G03|A","12|G03|N","12|G04|A","12|G04|N","16|G03|A","16|G03|N","16|G04|A","16|G04|N"],"W":["04|G01|A","04|G01|N","04|G02|A","04|G02|N","06|G01|A","06|G01|N","06|G02|A","06|G02|N","06|G03|A","06|G03|N","08|G01|A","08|G01|N","08|G02|A","08|G02|N","08|G03|A","08|G03|N","10|G02|A","10|G02|N","10|G03|A","10|G03|N","10|G04|A","10|G04|N","12|G02|A","12|G02|N","12|G03|A","12|G03|N","12|G04|A","12|G04|N","16|G03|A","16|G03|N","16|G04|A","16|G04|N"],"T":["04|G01|A","04|G01|N","04|G02|A","04|G02|N","06|G01|A","06|G01|N","06|G02|A","06|G02|N","06|G03|A","06|G03|N","08|G01|A","08|G01|N","08|G02|A","08|G02|N","08|G03|A","08|G03|N","10|G01|A","10|G01|N","10|G02|A","10|G02|N","10|G03|A","10|G03|N","10|G04|A","10|G04|N","12|G02|A","12|G02|N","12|G03|A","12|G03|N","12|G04|A","12|G04|N","16|G03|A","16|G03|N","16|G04|A","16|G04|N"],"Y":["04|G01|A","04|G01|N","04|G02|A","04|G02|N","06|G01|A","06|G01|N","06|G02|A","06|G02|N","06|G03|A","06|G03|N","08|G01|A","08|G01|N","08|G02|A","08|G02|N","08|G03|A","08|G03|N","10|G01|A","10|G01|N","10|G02|A","10|G02|N","10|G03|A","10|G03|N","10|G04|A","10|G04|N","12|G02|A","12|G02|N","12|G03|A","12|G03|N","12|G04|A","12|G04|N","16|G03|A","16|G03|N","16|G04|A","16|G04|N"],"E":["04|G01|A","04|G01|N","04|G02|A","04|G02|N","06|G01|A","06|G01|N","06|G02|A","06|G02|N","06|G03|A","06|G03|N","08|G01|A","08|G01|N","08|G02|A","08|G02|N","08|G03|A","08|G03|N","10|G02|A","10|G02|N","10|G03|A","10|G03|N","12|G03|A","12|G03|N","12|G04|A","12|G04|N","16|G03|A","16|G03|N","16|G04|A","16|G04|N"]}},"round-S5":{"label":"真円形 パッキンシール ミリ 接続ねじR,Rc","releaseBush":"round","sealType":"packing","sizeSystem":"milli","threadFamily":"R,Rc","template":"KQ2{shape}{dia}-{bore}{finish}P","fieldOrder":["dia","bore","finish"],"count":612,"shapes":{"H":["23|01|A","23|01|N","23|02|A","23|02|N","04|01|A","04|01|N","04|02|A","04|02|N","06|01|A","06|01|N","06|02|A","06|02|N","06|03|A","06|03|N","08|01|A","08|01|N","08|02|A","08|02|N","08|03|A","08|03|N","10|01|A","10|01|N","10|02|A","10|02|N","10|03|A","10|03|N","10|04|A","10|04|N","12|02|A","12|02|N","12|03|A","12|03|N","12|04|A","12|04|N","16|02|A","16|02|N","16|03|A","16|03|N","16|04|A","16|04|N"],"S":["04|01|A","04|01|N","06|01|A","06|01|N","06|02|A","06|02|N","08|01|A","08|01|N","08|02|A","08|02|N","08|03|A","08|03|N","10|01|A","10|01|N","10|02|A","10|02|N","10|03|A","10|03|N","10|04|A","10|04|N","12|02|A","12|02|N","12|03|A","12|03|N","12|04|A","12|04|N","16|02|A","16|02|N","16|03|A","16|03|N","16|04|A","16|04|N"],"L":["23|01|A","23|01|N","23|02|A","23|02|N","04|01|A","04|01|N","04|02|A","04|02|N","06|01|A","06|01|N","06|02|A","06|02|N","06|03|A","06|03|N","08|01|A","08|01|N","08|02|A","08|02|N","08|03|A","08|03|N","10|01|A","10|01|N","10|02|A","10|02|N","10|03|A","10|03|N","10|04|A","10|04|N","12|02|A","12|02|N","12|03|A","12|03|N","12|04|A","12|04|N","16|02|A","16|02|N","16|03|A","16|03|N","16|04|A","16|04|N"],"LU":["04|01|A","04|01|N","04|02|A","04|02|N","06|01|A","06|01|N","06|02|A","06|02|N","06|03|A","06|03|N","08|01|A","08|01|N","08|02|A","08|02|N","08|03|A","08|03|N","10|02|A","10|02|N","10|03|A","10|03|N","10|04|A","10|04|N","12|02|A","12|02|N","12|03|A","12|03|N","12|04|A","12|04|N"],"K":["04|01|A","04|01|N","04|02|A","04|02|N","06|01|A","06|01|N","06|02|A","06|02|N","06|03|A","06|03|N","08|01|A","08|01|N","08|02|A","08|02|N","08|03|A","08|03|N","10|01|A","10|01|N","10|02|A","10|02|N","10|03|A","10|03|N","10|04|A","10|04|N","12|02|A","12|02|N","12|03|A","12|03|N","12|04|A","12|04|N","16|02|A","16|02|N","16|03|A","16|03|N","16|04|A","16|04|N"],"V":["04|01|A","04|01|N","06|01|A","06|01|N","06|02|A","06|02|N","08|01|A","08|01|N","08|02|A","08|02|N","08|03|A","08|03|N","10|02|A","10|02|N","10|03|A","10|03|N","12|03|A","12|03|N","12|04|A","12|04|N","16|03|A","16|03|N","16|04|A","16|04|N"],"VS":["04|01|A","04|01|N","06|01|A","06|01|N","06|02|A","06|02|N","08|01|A","08|01|N","08|02|A","08|02|N","08|03|A","08|03|N","10|02|A","10|02|N","10|03|A","10|03|N","12|03|A","12|03|N","12|04|A","12|04|N"],"VF":["04|01|A","04|01|N","06|01|A","06|01|N","06|02|A","06|02|N","08|01|A","08|01|N","08|02|A","08|02|N","08|03|A","08|03|N","10|02|A","10|02|N","10|03|A","10|03|N","12|03|A","12|03|N","12|04|A","12|04|N"],"VD":["04|01|A","04|01|N","04|02|A","04|02|N","04|03|A","04|03|N","06|01|A","06|01|N","06|02|A","06|02|N","06|03|A","06|03|N","08|01|A","08|01|N","08|02|A","08|02|N","08|03|A","08|03|N","08|04|A","08|04|N","10|02|A","10|02|N","10|03|A","10|03|N","10|04|A","10|04|N","12|02|A","12|02|N","12|03|A","12|03|N","12|04|A","12|04|N"],"VT":["04|01|A","04|01|N","04|02|A","04|02|N","04|03|A","04|03|N","06|01|A","06|01|N","06|02|A","06|02|N","06|03|A","06|03|N","08|01|A","08|01|N","08|02|A","08|02|N","08|03|A","08|03|N","08|04|A","08|04|N","10|02|A","10|02|N","10|03|A","10|03|N","10|04|A","10|04|N","12|02|A","12|02|N","12|03|A","12|03|N","12|04|A","12|04|N"],"Z":["04|01|A","04|01|N","06|01|A","06|01|N","06|02|A","06|02|N","06|03|A","06|03|N","08|01|A","08|01|N","08|02|A","08|02|N","08|03|A","08|03|N","10|02|A","10|02|N","10|03|A","10|03|N","12|03|A","12|03|N","12|04|A","12|04|N"],"ZF":["04|01|A","04|01|N","06|01|A","06|01|N","06|02|A","06|02|N","08|01|A","08|01|N","08|02|A","08|02|N","10|02|A","10|02|N","10|03|A","10|03|N","12|03|A","12|03|N","12|04|A","12|04|N"],"ZD":["04|01|A","04|01|N","04|02|A","04|02|N","04|03|A","04|03|N","06|01|A","06|01|N","06|02|A","06|02|N","06|03|A","06|03|N","08|01|A","08|01|N","08|02|A","08|02|N","08|03|A","08|03|N","08|04|A","08|04|N","10|02|A","10|02|N","10|03|A","10|03|N","10|04|A","10|04|N","12|02|A","12|02|N","12|03|A","12|03|N","12|04|A","12|04|N"],"ZT":["04|01|A","04|01|N","04|02|A","04|02|N","04|03|A","04|03|N","06|01|A","06|01|N","06|02|A","06|02|N","06|03|A","06|03|N","08|01|A","08|01|N","08|02|A","08|02|N","08|03|A","08|03|N","08|04|A","08|04|N","10|02|A","10|02|N","10|03|A","10|03|N","10|04|A","10|04|N","12|02|A","12|02|N","12|03|A","12|03|N","12|04|A","12|04|N"],"W":["23|01|A","23|01|N","23|02|A","23|02|N","04|01|A","04|01|N","04|02|A","04|02|N","06|01|A","06|01|N","06|02|A","06|02|N","06|03|A","06|03|N","08|01|A","08|01|N","08|02|A","08|02|N","08|03|A","08|03|N","10|02|A","10|02|N","10|03|A","10|03|N","10|04|A","10|04|N","12|02|A","12|02|N","12|03|A","12|03|N","12|04|A","12|04|N","16|02|A","16|02|N","16|03|A","16|03|N","16|04|A","16|04|N"],"T":["23|01|A","23|01|N","23|02|A","23|02|N","04|01|A","04|01|N","04|02|A","04|02|N","06|01|A","06|01|N","06|02|A","06|02|N","06|03|A","06|03|N","08|01|A","08|01|N","08|02|A","08|02|N","08|03|A","08|03|N","10|01|A","10|01|N","10|02|A","10|02|N","10|03|A","10|03|N","10|04|A","10|04|N","12|02|A","12|02|N","12|03|A","12|03|N","12|04|A","12|04|N","16|02|A","16|02|N","16|03|A","16|03|N","16|04|A","16|04|N"],"Y":["23|01|A","23|01|N","23|02|A","23|02|N","04|01|A","04|01|N","04|02|A","04|02|N","06|01|A","06|01|N","06|02|A","06|02|N","06|03|A","06|03|N","08|01|A","08|01|N","08|02|A","08|02|N","08|03|A","08|03|N","10|01|A","10|01|N","10|02|A","10|02|N","10|03|A","10|03|N","10|04|A","10|04|N","12|02|A","12|02|N","12|03|A","12|03|N","12|04|A","12|04|N","16|02|A","16|02|N","16|03|A","16|03|N","16|04|A","16|04|N"],"D":["04|01|A","04|01|N","04|02|A","04|02|N","06|01|A","06|01|N","06|02|A","06|02|N","06|03|A","06|03|N","08|01|A","08|01|N","08|02|A","08|02|N","08|03|A","08|03|N","10|02|A","10|02|N","10|03|A","10|03|N","10|04|A","10|04|N","12|02|A","12|02|N","12|03|A","12|03|N","12|04|A","12|04|N"],"U":["23|01|A","23|01|N","23|02|A","23|02|N","04|01|A","04|01|N","04|02|A","04|02|N","06|01|A","06|01|N","06|02|A","06|02|N","06|03|A","06|03|N","08|01|A","08|01|N","08|02|A","08|02|N","08|03|A","08|03|N","10|02|A","10|02|N","10|03|A","10|03|N","10|04|A","10|04|N","12|02|A","12|02|N","12|03|A","12|03|N","12|04|A","12|04|N","16|02|A","16|02|N","16|03|A","16|03|N","16|04|A","16|04|N"],"UD":["04|01|A","04|01|N","04|02|A","04|02|N","06|01|A","06|01|N","06|02|A","06|02|N"],"N":["04|01|A","04|01|N","06|01|A","06|01|N","06|02|A","06|02|N","08|02|A","08|02|N","08|03|A","08|03|N","10|03|A","10|03|N"]}},"round-S6":{"label":"真円形 パッキンシール インチ 接続ねじNPT","releaseBush":"round","sealType":"packing","sizeSystem":"inch","threadFamily":"NPT","template":"KQ2{shape}{dia}-{bore}{finish}P","fieldOrder":["dia","bore","finish"],"count":532,"shapes":{"H":["01|33|A","01|33|N","01|34|A","01|34|N","01|35|A","01|35|N","03|33|A","03|33|N","03|34|A","03|34|N","03|35|A","03|35|N","05|34|A","05|34|N","05|35|A","05|35|N","07|33|A","07|33|N","07|34|A","07|34|N","07|35|A","07|35|N","07|36|A","07|36|N","09|34|A","09|34|N","09|35|A","09|35|N","09|36|A","09|36|N","11|34|A","11|34|N","11|35|A","11|35|N","11|36|A","11|36|N","11|37|A","11|37|N","13|35|A","13|35|N","13|36|A","13|36|N","13|37|A","13|37|N"],"S":["03|33|A","03|33|N","03|34|A","03|34|N","05|34|A","05|34|N","07|33|A","07|33|N","07|34|A","07|34|N","07|35|A","07|35|N","07|36|A","07|36|N","09|34|A","09|34|N","09|35|A","09|35|N","09|36|A","09|36|N","11|34|A","11|34|N","11|35|A","11|35|N","11|36|A","11|36|N","11|37|A","11|37|N","13|35|A","13|35|N","13|36|A","13|36|N","13|37|A","13|37|N"],"L":["01|33|A","01|33|N","01|34|A","01|34|N","01|35|A","01|35|N","03|33|A","03|33|N","03|34|A","03|34|N","03|35|A","03|35|N","05|34|A","05|34|N","05|35|A","05|35|N","07|33|A","07|33|N","07|34|A","07|34|N","07|35|A","07|35|N","07|36|A","07|36|N","09|34|A","09|34|N","09|35|A","09|35|N","09|36|A","09|36|N","11|34|A","11|34|N","11|35|A","11|35|N","11|36|A","11|36|N","11|37|A","11|37|N","13|35|A","13|35|N","13|36|A","13|36|N","13|37|A","13|37|N"],"K":["01|34|A","01|34|N","03|34|A","03|34|N","05|34|A","05|34|N","07|34|A","07|34|N","07|35|A","07|35|N","07|36|A","07|36|N","09|34|A","09|34|N","09|35|A","09|35|N","09|36|A","09|36|N","11|34|A","11|34|N","11|35|A","11|35|N","11|36|A","11|36|N","11|37|A","11|37|N","13|35|A","13|35|N","13|36|A","13|36|N","13|37|A","13|37|N"],"V":["01|34|A","01|34|N","03|34|A","03|34|N","05|34|A","05|34|N","07|34|A","07|34|N","07|35|A","07|35|N","09|34|A","09|34|N","09|35|A","09|35|N","09|36|A","09|36|N","11|35|A","11|35|N","11|36|A","11|36|N","13|36|A","13|36|N","13|37|A","13|37|N"],"VS":["01|34|A","01|34|N","03|34|A","03|34|N","05|34|A","05|34|N","07|34|A","07|34|N","07|35|A","07|35|N","09|34|A","09|34|N","09|35|A","09|35|N","09|36|A","09|36|N","11|35|A","11|35|N","11|36|A","11|36|N","13|36|A","13|36|N","13|37|A","13|37|N"],"VF":["01|34|A","01|34|N","03|34|A","03|34|N","05|34|A","05|34|N","07|34|A","07|34|N","07|35|A","07|35|N","09|34|A","09|34|N","09|35|A","09|35|N","09|36|A","09|36|N","11|35|A","11|35|N","11|36|A","11|36|N","13|36|A","13|36|N","13|37|A","13|37|N"],"VD":["01|34|A","01|34|N","03|34|A","03|34|N","05|34|A","05|34|N","07|34|A","07|34|N","07|35|A","07|35|N","07|36|A","07|36|N","09|35|A","09|35|N","09|36|A","09|36|N","09|37|A","09|37|N","11|35|A","11|35|N","11|36|A","11|36|N","11|37|A","11|37|N","13|36|A","13|36|N","13|37|A","13|37|N"],"VT":["01|34|A","01|34|N","03|34|A","03|34|N","05|34|A","05|34|N","07|34|A","07|34|N","07|35|A","07|35|N","07|36|A","07|36|N","09|35|A","09|35|N","09|36|A","09|36|N","09|37|A","09|37|N","11|35|A","11|35|N","11|36|A","11|36|N","11|37|A","11|37|N","13|36|A","13|36|N","13|37|A","13|37|N"],"Z":["01|34|A","01|34|N","03|34|A","03|34|N","05|34|A","05|34|N","07|34|A","07|34|N","07|35|A","07|35|N","09|34|A","09|34|N","09|35|A","09|35|N","09|36|A","09|36|N","11|35|A","11|35|N","11|36|A","11|36|N","13|36|A","13|36|N","13|37|A","13|37|N"],"ZD":["01|34|A","01|34|N","03|34|A","03|34|N","05|34|A","05|34|N","07|34|A","07|34|N","07|35|A","07|35|N","07|36|A","07|36|N","09|35|A","09|35|N","09|36|A","09|36|N","09|37|A","09|37|N","11|35|A","11|35|N","11|36|A","11|36|N","11|37|A","11|37|N","13|36|A","13|36|N","13|37|A","13|37|N"],"ZT":["01|34|A","01|34|N","03|34|A","03|34|N","05|34|A","05|34|N","07|34|A","07|34|N","07|35|A","07|35|N","07|36|A","07|36|N","09|35|A","09|35|N","09|36|A","09|36|N","09|37|A","09|37|N","11|35|A","11|35|N","11|36|A","11|36|N","11|37|A","11|37|N","13|36|A","13|36|N","13|37|A","13|37|N"],"W":["01|33|A","01|33|N","01|34|A","01|34|N","01|35|A","01|35|N","03|33|A","03|33|N","03|34|A","03|34|N","03|35|A","03|35|N","05|34|A","05|34|N","05|35|A","05|35|N","07|33|A","07|33|N","07|34|A","07|34|N","07|35|A","07|35|N","07|36|A","07|36|N","09|34|A","09|34|N","09|35|A","09|35|N","09|36|A","09|36|N","11|35|A","11|35|N","11|36|A","11|36|N","11|37|A","11|37|N","13|35|A","13|35|N","13|36|A","13|36|N","13|37|A","13|37|N"],"T":["01|33|A","01|33|N","01|34|A","01|34|N","01|35|A","01|35|N","03|33|A","03|33|N","03|34|A","03|34|N","03|35|A","03|35|N","05|34|A","05|34|N","05|35|A","05|35|N","07|33|A","07|33|N","07|34|A","07|34|N","07|35|A","07|35|N","07|36|A","07|36|N","09|34|A","09|34|N","09|35|A","09|35|N","09|36|A","09|36|N","11|34|A","11|34|N","11|35|A","11|35|N","11|36|A","11|36|N","11|37|A","11|37|N","13|35|A","13|35|N","13|36|A","13|36|N","13|37|A","13|37|N"],"Y":["01|33|A","01|33|N","01|34|A","01|34|N","01|35|A","01|35|N","03|33|A","03|33|N","03|34|A","03|34|N","03|35|A","03|35|N","05|34|A","05|34|N","05|35|A","05|35|N","07|33|A","07|33|N","07|34|A","07|34|N","07|35|A","07|35|N","07|36|A","07|36|N","09|34|A","09|34|N","09|35|A","09|35|N","09|36|A","09|36|N","11|35|A","11|35|N","11|36|A","11|36|N","11|37|A","11|37|N","13|35|A","13|35|N","13|36|A","13|36|N","13|37|A","13|37|N"],"U":["01|33|A","01|33|N","01|34|A","01|34|N","01|35|A","01|35|N","03|33|A","03|33|N","03|34|A","03|34|N","03|35|A","03|35|N","05|34|A","05|34|N","05|35|A","05|35|N","07|33|A","07|33|N","07|34|A","07|34|N","07|35|A","07|35|N","07|36|A","07|36|N","09|34|A","09|34|N","09|35|A","09|35|N","09|36|A","09|36|N","11|35|A","11|35|N","11|36|A","11|36|N","11|37|A","11|37|N","13|35|A","13|35|N","13|36|A","13|36|N","13|37|A","13|37|N"]}},"round-S7":{"label":"真円形 パッキンシール インチ 接続ねじR","releaseBush":"round","sealType":"packing","sizeSystem":"inch","threadFamily":"R","template":"KQ2{shape}{dia}-{bore}{finish}P","fieldOrder":["dia","bore","finish"],"count":172,"shapes":{"H":["01|01|A","01|01|N","01|02|A","01|02|N","05|01|A","05|01|N","05|02|A","05|02|N","07|01|A","07|01|N","07|02|A","07|02|N","07|03|A","07|03|N","09|01|A","09|01|N","09|02|A","09|02|N","09|03|A","09|03|N","11|02|A","11|02|N","11|03|A","11|03|N","11|04|A","11|04|N","13|02|A","13|02|N","13|03|A","13|03|N","13|04|A","13|04|N"],"L":["05|01|A","05|01|N","05|02|A","05|02|N","07|01|A","07|01|N","07|02|A","07|02|N","07|03|A","07|03|N","09|01|A","09|01|N","09|02|A","09|02|N","09|03|A","09|03|N","11|02|A","11|02|N","11|03|A","11|03|N","11|04|A","11|04|N","13|02|A","13|02|N","13|03|A","13|03|N","13|04|A","13|04|N"],"T":["05|01|A","05|01|N","05|02|A","05|02|N","07|01|A","07|01|N","07|02|A","07|02|N","07|03|A","07|03|N","09|01|A","09|01|N","09|02|A","09|02|N","09|03|A","09|03|N","11|02|A","11|02|N","11|03|A","11|03|N","11|04|A","11|04|N","13|02|A","13|02|N","13|03|A","13|03|N","13|04|A","13|04|N"],"W":["05|01|A","05|01|N","05|02|A","05|02|N","07|01|A","07|01|N","07|02|A","07|02|N","07|03|A","07|03|N","09|01|A","09|01|N","09|02|A","09|02|N","09|03|A","09|03|N","11|02|A","11|02|N","11|03|A","11|03|N","11|04|A","11|04|N","13|02|A","13|02|N","13|03|A","13|03|N","13|04|A","13|04|N"],"Y":["05|01|A","05|01|N","05|02|A","05|02|N","07|01|A","07|01|N","07|02|A","07|02|N","07|03|A","07|03|N","09|01|A","09|01|N","09|02|A","09|02|N","09|03|A","09|03|N","11|02|A","11|02|N","11|03|A","11|03|N","11|04|A","11|04|N","13|02|A","13|02|N","13|03|A","13|03|N","13|04|A","13|04|N"],"U":["05|01|A","05|01|N","05|02|A","05|02|N","07|01|A","07|01|N","07|02|A","07|02|N","07|03|A","07|03|N","09|01|A","09|01|N","09|02|A","09|02|N","09|03|A","09|03|N","11|02|A","11|02|N","11|03|A","11|03|N","11|04|A","11|04|N","13|02|A","13|02|N","13|03|A","13|03|N","13|04|A","13|04|N"]}},"round-S8":{"label":"真円形 ガスケットシール(Uniねじ) ミリ","releaseBush":"round","sealType":"gasket-uni","sizeSystem":"milli","threadFamily":"Uni","template":"KQ2{shape}{dia}-{bore}{finish}","fieldOrder":["dia","bore","finish"],"count":268,"shapes":{"H":["04|U01|A","04|U01|N","04|U02|A","04|U02|N","06|U01|A","06|U01|N","06|U02|A","06|U02|N","06|U03|A","06|U03|N","08|U01|A","08|U01|N","08|U02|A","08|U02|N","08|U03|A","08|U03|N","10|U01|A","10|U01|N","10|U02|A","10|U02|N","10|U03|A","10|U03|N","10|U04|A","10|U04|N","12|U02|A","12|U02|N","12|U03|A","12|U03|N","12|U04|A","12|U04|N","16|U03|A","16|U03|N","16|U04|A","16|U04|N"],"S":["04|U01|A","04|U01|N","06|U01|A","06|U01|N","06|U02|A","06|U02|N","08|U01|A","08|U01|N","08|U02|A","08|U02|N","08|U03|A","08|U03|N","10|U01|A","10|U01|N","10|U02|A","10|U02|N","10|U03|A","10|U03|N","10|U04|A","10|U04|N","12|U02|A","12|U02|N","12|U03|A","12|U03|N","12|U04|A","12|U04|N"],"L":["04|U01|A","04|U01|N","04|U02|A","04|U02|N","06|U01|A","06|U01|N","06|U02|A","06|U02|N","06|U03|A","06|U03|N","08|U01|A","08|U01|N","08|U02|A","08|U02|N","08|U03|A","08|U03|N","10|U01|A","10|U01|N","10|U02|A","10|U02|N","10|U03|A","10|U03|N","10|U04|A","10|U04|N","12|U02|A","12|U02|N","12|U03|A","12|U03|N","12|U04|A","12|U04|N","16|U03|A","16|U03|N","16|U04|A","16|U04|N"],"K":["04|U01|A","04|U01|N","04|U02|A","04|U02|N","06|U01|A","06|U01|N","06|U02|A","06|U02|N","06|U03|A","06|U03|N","08|U01|A","08|U01|N","08|U02|A","08|U02|N","08|U03|A","08|U03|N","10|U01|A","10|U01|N","10|U02|A","10|U02|N","10|U03|A","10|U03|N","10|U04|A","10|U04|N","12|U02|A","12|U02|N","12|U03|A","12|U03|N","12|U04|A","12|U04|N"],"V":["04|U01|A","04|U01|N","06|U01|A","06|U01|N","06|U02|A","06|U02|N","08|U01|A","08|U01|N","08|U02|A","08|U02|N","08|U03|A","08|U03|N","10|U02|A","10|U02|N","10|U03|A","10|U03|N","12|U03|A","12|U03|N","12|U04|A","12|U04|N"],"T":["04|U01|A","04|U01|N","04|U02|A","04|U02|N","06|U01|A","06|U01|N","06|U02|A","06|U02|N","06|U03|A","06|U03|N","08|U01|A","08|U01|N","08|U02|A","08|U02|N","08|U03|A","08|U03|N","10|U01|A","10|U01|N","10|U02|A","10|U02|N","10|U03|A","10|U03|N","10|U04|A","10|U04|N","12|U02|A","12|U02|N","12|U03|A","12|U03|N","12|U04|A","12|U04|N","16|U03|A","16|U03|N","16|U04|A","16|U04|N"],"W":["04|U01|A","04|U01|N","04|U02|A","04|U02|N","06|U01|A","06|U01|N","06|U02|A","06|U02|N","06|U03|A","06|U03|N","08|U01|A","08|U01|N","08|U02|A","08|U02|N","08|U03|A","08|U03|N","10|U02|A","10|U02|N","10|U03|A","10|U03|N","10|U04|A","10|U04|N","12|U02|A","12|U02|N","12|U03|A","12|U03|N","12|U04|A","12|U04|N"],"Y":["04|U01|A","04|U01|N","04|U02|A","04|U02|N","06|U01|A","06|U01|N","06|U02|A","06|U02|N","06|U03|A","06|U03|N","08|U01|A","08|U01|N","08|U02|A","08|U02|N","08|U03|A","08|U03|N","10|U01|A","10|U01|N","10|U02|A","10|U02|N","10|U03|A","10|U03|N","10|U04|A","10|U04|N","12|U02|A","12|U02|N","12|U03|A","12|U03|N","12|U04|A","12|U04|N","16|U03|A","16|U03|N","16|U04|A","16|U04|N"],"U":["04|U01|A","04|U01|N","04|U02|A","04|U02|N","06|U01|A","06|U01|N","06|U02|A","06|U02|N","06|U03|A","06|U03|N","08|U01|A","08|U01|N","08|U02|A","08|U02|N","08|U03|A","08|U03|N","10|U02|A","10|U02|N","10|U03|A","10|U03|N","10|U04|A","10|U04|N","12|U02|A","12|U02|N","12|U03|A","12|U03|N","12|U04|A","12|U04|N"]}},"round-S9":{"label":"真円形 ガスケットシール(Uniねじ) インチ","releaseBush":"round","sealType":"gasket-uni","sizeSystem":"inch","threadFamily":"Uni","template":"KQ2{shape}{dia}-{bore}{finish}","fieldOrder":["dia","bore","finish"],"count":216,"shapes":{"H":["01|U01|A","01|U01|N","01|U02|A","01|U02|N","03|U01|A","03|U01|N","03|U02|A","03|U02|N","05|U01|A","05|U01|N","05|U02|A","05|U02|N","07|U01|A","07|U01|N","07|U02|A","07|U02|N","07|U03|A","07|U03|N","09|U01|A","09|U01|N","09|U02|A","09|U02|N","09|U03|A","09|U03|N","11|U02|A","11|U02|N","11|U03|A","11|U03|N","11|U04|A","11|U04|N","13|U02|A","13|U02|N","13|U03|A","13|U03|N","13|U04|A","13|U04|N"],"L":["01|U01|A","01|U01|N","01|U02|A","01|U02|N","03|U01|A","03|U01|N","03|U02|A","03|U02|N","05|U01|A","05|U01|N","05|U02|A","05|U02|N","07|U01|A","07|U01|N","07|U02|A","07|U02|N","07|U03|A","07|U03|N","09|U01|A","09|U01|N","09|U02|A","09|U02|N","09|U03|A","09|U03|N","11|U02|A","11|U02|N","11|U03|A","11|U03|N","11|U04|A","11|U04|N","13|U02|A","13|U02|N","13|U03|A","13|U03|N","13|U04|A","13|U04|N"],"T":["01|U01|A","01|U01|N","01|U02|A","01|U02|N","03|U01|A","03|U01|N","03|U02|A","03|U02|N","05|U01|A","05|U01|N","05|U02|A","05|U02|N","07|U01|A","07|U01|N","07|U02|A","07|U02|N","07|U03|A","07|U03|N","09|U01|A","09|U01|N","09|U02|A","09|U02|N","09|U03|A","09|U03|N","11|U02|A","11|U02|N","11|U03|A","11|U03|N","11|U04|A","11|U04|N","13|U02|A","13|U02|N","13|U03|A","13|U03|N","13|U04|A","13|U04|N"],"W":["01|U01|A","01|U01|N","01|U02|A","01|U02|N","03|U01|A","03|U01|N","03|U02|A","03|U02|N","05|U01|A","05|U01|N","05|U02|A","05|U02|N","07|U01|A","07|U01|N","07|U02|A","07|U02|N","07|U03|A","07|U03|N","09|U01|A","09|U01|N","09|U02|A","09|U02|N","09|U03|A","09|U03|N","11|U02|A","11|U02|N","11|U03|A","11|U03|N","11|U04|A","11|U04|N","13|U02|A","13|U02|N","13|U03|A","13|U03|N","13|U04|A","13|U04|N"],"Y":["01|U01|A","01|U01|N","01|U02|A","01|U02|N","03|U01|A","03|U01|N","03|U02|A","03|U02|N","05|U01|A","05|U01|N","05|U02|A","05|U02|N","07|U01|A","07|U01|N","07|U02|A","07|U02|N","07|U03|A","07|U03|N","09|U01|A","09|U01|N","09|U02|A","09|U02|N","09|U03|A","09|U03|N","11|U02|A","11|U02|N","11|U03|A","11|U03|N","11|U04|A","11|U04|N","13|U02|A","13|U02|N","13|U03|A","13|U03|N","13|U04|A","13|U04|N"],"U":["01|U01|A","01|U01|N","01|U02|A","01|U02|N","03|U01|A","03|U01|N","03|U02|A","03|U02|N","05|U01|A","05|U01|N","05|U02|A","05|U02|N","07|U01|A","07|U01|N","07|U02|A","07|U02|N","07|U03|A","07|U03|N","09|U01|A","09|U01|N","09|U02|A","09|U02|N","09|U03|A","09|U03|N","11|U02|A","11|U02|N","11|U03|A","11|U03|N","11|U04|A","11|U04|N","13|U02|A","13|U02|N","13|U03|A","13|U03|N","13|U04|A","13|U04|N"]}}}};
+
+/* ══════════════════════════════════════════════════════
+   機種メタ（名称・アイコン）※品番の存在可否は KQ2DATA が正
+══════════════════════════════════════════════════════ */
+const MODEL_META={
+KQ2H:{n:'ハーフユニオン',nB:'ストレート',sh:'straight-male'},
+KQ2S:{n:'六角穴付ハーフユニオン',sh:'straight-hex'},
+KQ2F:{n:'メスユニオン',sh:'straight-female'},
+KQ2L:{n:'エルボユニオン',nB:'エルボ',sh:'elbow-male'},
+KQ2LU:{n:'ブランチエルボユニオン',nB:'ブランチエルボ',sh:'elbow-branch',roundOnly:true},
+KQ2K:{n:'45°エルボユニオン',sh:'elbow-45'},
+KQ2V:{n:'ユニバーサルエルボ',sh:'swivel-male'},
+KQ2VS:{n:'六角穴付ユニバーサルエルボ',sh:'swivel-hex'},
+KQ2VF:{n:'ユニバーサルメスエルボ',sh:'swivel-female'},
+KQ2LF:{n:'メスエルボ',sh:'elbow-female'},
+KQ2VD:{n:'ダブルユニバーサルエルボ',sh:'dbl-swivel'},
+KQ2VT:{n:'トリプルユニバーサルエルボ',sh:'triple-swivel'},
+KQ2Z:{n:'ブランチユニバーサルエルボ',sh:'branch-z',roundOnly:true},
+KQ2ZF:{n:'ブランチユニバーサルメスエルボ',sh:'branch-z',roundOnly:true},
+KQ2ZD:{n:'ダブルブランチユニバーサルエルボ',sh:'dbl-ud',roundOnly:true},
+KQ2ZT:{n:'トリプルブランチユニバーサルエルボ',sh:'branch-xd',roundOnly:true},
+KQ2W:{n:'ロングエルボユニオン',nB:'ロングストリートエルボ',sh:'elbow-long'},
+KQ2T:{n:'両口チーズユニオン',nB:'チーズ',sh:'tee-male'},
+KQ2TW:{n:'クロス',sh:'cross'},
+KQ2TX:{n:'異径クロス',sh:'cross-diff'},
+KQ2TY:{n:'異径クロス（Y型）',sh:'cross-y'},
+KQ2Y:{n:'サービスチーズユニオン',sh:'tee-service'},
+KQ2D:{n:'デルタユニオン',nB:'デルタ',sh:'delta'},
+KQ2U:{n:'ブランチ／ユニオンワイ',nB:'ユニオンワイ',sh:'union-y',roundOnly:true},
+KQ2UD:{n:'ダブルブランチ',nB:'異径ダブルユニオンワイ',sh:'branch-yd',roundOnly:true},
+KQ2R:{n:'レジューサ',sh:'reducer'},
+KQ2XD:{n:'ダブルブランチユニオンワイ',sh:'branch-xd',roundOnly:true},
+KQ2X:{n:'異径ブランチユニオンワイ',sh:'branch-z',roundOnly:true},
+KQ2E:{n:'隔壁用メスユニオン',nB:'隔壁用ユニオン（KQ互換）',sh:'wall-union'},
+KQ2LE:{n:'隔壁エルボ',sh:'wall-elbow'},
+KQ2N:{n:'アダプタ',sh:'straight-male'},
+KQ2C:{n:'チューブキャップ',sh:'cap'},
+KQ2P:{n:'プラグ',sh:'plug'},
+};
+/* 機種グリッドの表示順 */
+const MODEL_ORDER=['KQ2H','KQ2S','KQ2F','KQ2L','KQ2LU','KQ2K','KQ2V','KQ2VS','KQ2VF','KQ2LF','KQ2VD','KQ2VT','KQ2Z','KQ2ZF','KQ2ZD','KQ2ZT','KQ2W','KQ2T','KQ2TW','KQ2TX','KQ2TY','KQ2Y','KQ2D','KQ2U','KQ2UD','KQ2R','KQ2XD','KQ2X','KQ2E','KQ2LE','KQ2N','KQ2C','KQ2P'];
+
+/* ══════════════════════════════════════════════════════
+   ②シール方式 × ③サイズ系×ねじ系 → セクション
+   （カタログ18セクション。S1・S2のみチューブ接続タイプを併載）
+══════════════════════════════════════════════════════ */
+const SEC=KQ2DATA.sections;
+const GROUPS={
+'sealant|milli-MRRc' :{s:'S1',oval:['oval-S1-thread','oval-S1-tube'],round:['round-S1-thread','round-S1-tube'],legacy:true},
+'sealant|inch-UNFNPT':{s:'S2',oval:['oval-S2-thread','oval-S2-tube'],round:['round-S2-thread','round-S2-tube']},
+'sealant|inch-MRRc'  :{s:'S3',oval:['oval-S3-thread'],round:['round-S3']},
+'packing|milli-G'    :{s:'S4',oval:['oval-S4'],round:['round-S4']},
+'packing|milli-MRRc' :{s:'S5',oval:['oval-S5'],round:['round-S5']},
+'packing|inch-NPT'   :{s:'S6',oval:['oval-S6'],round:['round-S6']},
+'packing|inch-R'     :{s:'S7',oval:['oval-S7'],round:['round-S7']},
+'gasket-uni|milli-Uni':{s:'S8',oval:['oval-S8'],round:['round-S8']},
+'gasket-uni|inch-Uni' :{s:'S9',oval:['oval-S9'],round:['round-S9']},
+};
+const SM_LIST=[
+{v:'sealant',   m:'シール剤・ガスケット',s:'おねじ＝シール剤付/なしを選択<br>S1〜S3'},
+{v:'packing',   m:'パッキンシール',      s:'シールリング内蔵（記号P）<br>S4〜S7'},
+{v:'gasket-uni',m:'ガスケット（Uniねじ）',s:'Rc・G・NPT・NPTFのめねじに適合<br>S8・S9'},
+];
+const ST_LIST=[
+{v:'milli-MRRc',  m:'ミリ × M,R,Rc',  s:'ミリチューブ×M3〜M6・R/Rc'},
+{v:'milli-G',     m:'ミリ × G',       s:'ミリチューブ×G1/8〜G1/2'},
+{v:'milli-Uni',   m:'ミリ × Uni',     s:'ミリチューブ×Uni1/8〜Uni1/2'},
+{v:'inch-UNFNPT', m:'インチ × UNF,NPT',s:'インチチューブ×10-32UNF・NPT'},
+{v:'inch-MRRc',   m:'インチ × M,R,Rc', s:'インチチューブ×M5・R/Rc'},
+{v:'inch-NPT',    m:'インチ × NPT',    s:'インチチューブ×NPT1/16〜1/2'},
+{v:'inch-R',      m:'インチ × R',      s:'インチチューブ×R1/8〜R1/2'},
+{v:'inch-Uni',    m:'インチ × Uni',    s:'インチチューブ×Uni1/8〜Uni1/2'},
+];
+const SM_LBL={'sealant':'シール剤・ガスケット','packing':'パッキンシール','gasket-uni':'ガスケット（Uniねじ）'};
+const ST_LBL={};ST_LIST.forEach(x=>ST_LBL[x.v]=x.m);
+
+/* ══════════════════════════════════════════════════════
+   ラベル定義
+══════════════════════════════════════════════════════ */
+const TL_MM={'02':'ø2','23':'ø3.2','04':'ø4','06':'ø6','08':'ø8','10':'ø10','12':'ø12','16':'ø16'};
+const TL_IN={'01':'ø1/8"','03':'ø5/32"','05':'ø3/16"','07':'ø1/4"','09':'ø5/16"','11':'ø3/8"','13':'ø1/2"'};
+const DIA_ORDER_MM=['02','23','04','06','08','10','12','16'];
+const DIA_ORDER_IN=['01','03','05','07','09','11','13'];
+/* 接続ねじコード（ねじ系ごと） */
+const THREAD_LBL={
+'M,R,Rc':{'M3':'M3×0.5','M5':'M5×0.8','M6':'M6×1.0','01':'R1/8・Rc1/8','02':'R1/4・Rc1/4','03':'R3/8・Rc3/8','04':'R1/2・Rc1/2'},
+'UNF,NPT':{'32':'10-32UNF','33':'NPT1/16','34':'NPT1/8','35':'NPT1/4','36':'NPT3/8','37':'NPT1/2'},
+'G':{'G01':'G1/8','G02':'G1/4','G03':'G3/8','G04':'G1/2'},
+'R,Rc':{'01':'R1/8・Rc1/8','02':'R1/4・Rc1/4','03':'R3/8・Rc3/8','04':'R1/2・Rc1/2'},
+'NPT':{'33':'NPT1/16','34':'NPT1/8','35':'NPT1/4','36':'NPT3/8','37':'NPT1/2'},
+'R':{'01':'R1/8','02':'R1/4','03':'R3/8','04':'R1/2'},
+'Uni':{'U01':'Uni1/8','U02':'Uni1/4','U03':'Uni3/8','U04':'Uni1/2'},
+};
+/* ねじ部材質・表面処理（□J=KJE互換品／M□=隔壁用ユニオン専用記号） */
+const ML={'A':'A（黄銅）','N':'N（黄銅＋無電解Niめっき）','G':'G（SUS303）',
+'AJ':'AJ（黄銅・KJE互換品）','NJ':'NJ（黄銅＋Niめっき・KJE互換品）',
+'MA':'MA（黄銅・隔壁用ユニオン記号M）','MN':'MN（黄銅＋Niめっき・隔壁用ユニオン記号M）'};
+const ML_SUB={'A':'黄銅','N':'黄銅＋Ni','G':'SUS303','AJ':'黄銅<br>KJE互換','NJ':'黄銅＋Ni<br>KJE互換','MA':'黄銅<br>隔壁用M記号','MN':'黄銅＋Ni<br>隔壁用M記号'};
+const MAT_ORDER=['A','N','G','AJ','NJ','MA','MN'];
+const SL={'':'シール剤なし（ガスケットシール）','S':'シール剤付き（Sタイプ）','QS':'有効断面積互換（QSタイプ）'};
+const SEAL_SUB={'':'ガスケットシール<br>（おねじシール剤なし）','S':'おねじにシール剤付き'};
+const SEAL_MAIN={'':'無記号','S':'S'};
+const PL={'1':'長円形（末尾「1」）','':'真円形（末尾コードなし）'};
+/* X35 非適用モデル */
+const X35_EXCL=new Set(['KQ2H','KQ2S','KQ2F','KQ2E','KQ2N','KQ2C','KQ2P']);
+/* QS 適用モデル（真円形 S1 ø8/R1/8 のみ） */
+const QS_MODELS=new Set(['KQ2L','KQ2K','KQ2LF','KQ2W','KQ2T','KQ2Y']);
+/* 異径でも「ワンタッチ＋ニップル差込(Type C)」に分類する機種 */
+const C_DIFF=new Set(['KQ2L','KQ2R','KQ2X','KQ2XD']);
+/* アクセサリ（品番確認の対象外＝v15の実装を維持。KQ2Nのニップル側も同様） */
+const LEGACY_MODELS=new Set(['KQ2C','KQ2P']);
+const LEGACY={
+oval:{KQ2C:[['04','00'],['06','00']],KQ2P:[['23'],['04'],['06']],
+      KQ2N:[['04','99'],['06','99'],['04','06'],['06','08']]},
+round:{KQ2C:[['04','00'],['06','00'],['08','00'],['10','00'],['12','00'],['16','00']],
+      KQ2P:[['23'],['04'],['06'],['08'],['10'],['12'],['16']],
+      KQ2N:[['04','99'],['06','99'],['08','99'],['10','99'],['12','99'],['16','99'],['04','06'],['06','08'],['08','10'],['10','12'],['12','16']]},
+};
+
+/* ══════════════════════════════════════════════════════
+   状態
+══════════════════════════════════════════════════════ */
+const S={push:null,sm:null,st:null,type:null,model:null,tube:null,conn:null,mat:null,sc:null,diamType:null,screwType:null};
+const FEMALE_MODELS=new Set(['KQ2F','KQ2LF','KQ2E']);
+const BOTH_MODELS=new Set(['KQ2VF','KQ2ZF']);
+const SAME_CONNS=new Set(['00','99']);
+/* 接続コード別の Type B 製品名テーブル */
+const B_NAMES={
+  KQ2H:  {'00':'ストレート',     diff:'異径ストレート'},
+  KQ2L:  {'00':'エルボ','99':'ストリートエルボ',  diff:'レジューサエルボ'},
+  KQ2W:  {'99':'ロングストリートエルボ'},
+  KQ2T:  {'00':'チーズ',         diff:'異径チーズ'},
+  KQ2D:  {'00':'デルタ'},
+  KQ2LU: {'00':'ブランチエルボ'},
+  KQ2U:  {'00':'ユニオンワイ','99':'ブランチユニオンワイ', diff:'異径ユニオンワイ'},
+  KQ2UD: {diff:'異径ダブルユニオンワイ'},
+};
+
+/* ══════════════════════════════════════════════════════
+   ランタイムDB構築（選択中セクションの実在組合せを展開）
+   entry = {t:チューブ径, c:接続コード, m:表面処理, s:シール, pn:品番, k:'thread'|'tube', lg:1?}
+══════════════════════════════════════════════════════ */
+let DB={};
+const _tpnCache={};
+function renderTpl(tpl,shape,v){
+  return tpl.replace('{shape}',shape).replace('{dia}',v.dia||'')
+            .replace('{bore}',v.bore||'').replace('{mate}',v.mate||'')
+            .replace('{finish}',v.finish||'').replace('{seal}',v.seal||'');
+}
+/* ねじセクション側で説明できる品番の集合（チューブ側の重複計上を防ぐ） */
+function threadPNSet(bush,size){
+  const key=bush+'|'+size;
+  if(_tpnCache[key]) return _tpnCache[key];
+  const set=new Set();
+  Object.values(SEC).forEach(sd=>{
+    if(sd.releaseBush!==bush||sd.sizeSystem!==size) return;
+    if(sd.fieldOrder.indexOf('bore')<0) return;
+    Object.entries(sd.shapes).forEach(([shape,arr])=>arr.forEach(str=>{
+      const p=str.split('|'),v={};sd.fieldOrder.forEach((f,i)=>v[f]=p[i]);
+      set.add(renderTpl(sd.template,shape,v));
+    }));
+  });
+  _tpnCache[key]=set;return set;
+}
+function curGroup(){ return (S.sm&&S.st)?GROUPS[S.sm+'|'+S.st]||null:null; }
+function curSections(){
+  const g=curGroup(); if(!g||S.push===null) return [];
+  return (S.push==='1'?g.oval:g.round)||[];
+}
+function curDef(){ const s=curSections(); return s.length?SEC[s[0]]:null; }
+function hasSealField(){ return curSections().some(id=>SEC[id].template.indexOf('{seal}')>=0); }
+function sizeSystem(){ const d=curDef(); return d?d.sizeSystem:'milli'; }
+function threadFamily(){ const d=curDef(); return d?d.threadFamily:'M,R,Rc'; }
+function diaOrder(){ return sizeSystem()==='inch'?DIA_ORDER_IN:DIA_ORDER_MM; }
+function tubeLbl(c){ return (sizeSystem()==='inch'?TL_IN:TL_MM)[c]||c; }
+/* 接続タイプ分類（Aねじ / Bワンタッチ両側 / Cニップル差込 / Dアクセサリ） */
+function classify(model,conn,kind){
+  if(model==='KQ2N'||model==='KQ2C'||model==='KQ2P') return 'D';
+  if(kind==='thread') return conn==='00'?'B':'A';
+  if(conn==='99') return 'C';
+  if(conn==='00') return 'B';
+  return C_DIFF.has(model)?'C':'B';
+}
+function addE(model,t,e){
+  if(!DB[model]) DB[model]=Object.assign({A:[],B:[],C:[],D:[]},MODEL_META[model]||{n:model,sh:''});
+  DB[model][t].push(e);
+}
+function buildRuntimeDB(){
+  DB={};
+  const secs=curSections(); if(!secs.length) return;
+  const d0=SEC[secs[0]];
+  const tset=threadPNSet(d0.releaseBush,d0.sizeSystem);
+  secs.forEach(id=>{
+    const sd=SEC[id];
+    const kind=sd.fieldOrder.indexOf('bore')>=0?'thread':'tube';
+    Object.entries(sd.shapes).forEach(([shape,arr])=>{
+      const model='KQ2'+shape;
+      arr.forEach(str=>{
+        const p=str.split('|'),v={};
+        sd.fieldOrder.forEach((f,i)=>v[f]=p[i]);
+        const pn=renderTpl(sd.template,shape,v);
+        /* チューブ側セクションはねじ側と同一品番を含む（=ねじ品）。ねじ側を正とする */
+        if(kind==='tube'&&tset.has(pn)) return;
+        const conn=kind==='thread'?v.bore:v.mate;
+        addE(model,classify(model,conn,kind),
+          {t:v.dia,c:conn,m:kind==='thread'?v.finish:'A',s:kind==='thread'?(v.seal||''):'',pn:pn,k:kind});
+      });
+    });
+  });
+  /* アクセサリ（品番確認未実施のためv15のデータを維持）はS1グループにのみ載せる */
+  const g=curGroup();
+  if(g&&g.legacy){
+    const lg=LEGACY[S.push==='1'?'oval':'round'],sfx=S.push;
+    Object.entries(lg).forEach(([model,rows])=>rows.forEach(r=>{
+      let pn,c;
+      if(model==='KQ2P'){ c=null; pn=r[0]==='02'?'KJP-02':('KQ2P-'+r[0]); }
+      else { c=r[1]; pn=model+r[0]+'-'+r[1]+'A'+sfx; }
+      addE(model,'D',{t:r[0],c:c,m:'A',s:'',pn:pn,k:'tube',lg:1});
+    }));
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   DB ヘルパー
+══════════════════════════════════════════════════════ */
+function uniq(a){ return [...new Set(a)]; }
+function es(type,model){ return (DB[model]&&DB[model][type])||[]; }
+function isDiam(conn,dt){ if(!dt||dt==='all') return true; if(dt==='same') return SAME_CONNS.has(conn); return !SAME_CONNS.has(conn); }
+function hit(e,tube,conn){ return (!tube||e.t===tube)&&(conn==null||e.c===conn); }
+function validModels(type,tube,conn){
+  const dt=(type==='B'||type==='C')?S.diamType:null;
+  const st=type==='A'?S.screwType:null;
+  return Object.keys(DB).filter(k=>{
+    if(st==='male'&&(FEMALE_MODELS.has(k)||BOTH_MODELS.has(k))) return false;
+    if(st==='female'&&!FEMALE_MODELS.has(k)) return false;
+    if(st==='both'&&!BOTH_MODELS.has(k)) return false;
+    return es(type,k).some(e=>isDiam(e.c,dt)&&hit(e,tube,conn));
+  });
+}
+function validTubes(type,model,conn){
+  const dt=(type==='B'||type==='C')?S.diamType:null;
+  return uniq(Object.keys(DB).filter(k=>!model||k===model)
+    .flatMap(k=>es(type,k).filter(e=>isDiam(e.c,dt)&&(conn==null||e.c===conn)).map(e=>e.t)));
+}
+function validConns(type,model,tube){
+  const dt=(type==='B'||type==='C')?S.diamType:null;
+  return uniq(Object.keys(DB).filter(k=>!model||k===model)
+    .flatMap(k=>es(type,k).filter(e=>isDiam(e.c,dt)&&(!tube||e.t===tube)).map(e=>e.c).filter(c=>c!=null)));
+}
+function allTubes(type){
+  return uniq(Object.keys(DB).flatMap(k=>es(type,k).map(e=>e.t)))
+    .sort((a,b)=>diaOrder().indexOf(a)-diaOrder().indexOf(b));
+}
+function connRank(c,kind){
+  if(c==='00') return -20; if(c==='99') return -10;
+  const th=Object.keys(THREAD_LBL[threadFamily()]||{}),ti=th.indexOf(c);
+  const di=diaOrder().indexOf(c);
+  if(kind==='thread'&&ti>=0) return 10+ti;
+  if(di>=0) return 100+di;
+  if(ti>=0) return 10+ti;
+  return 900;
+}
+function connKind(type,c){
+  for(const k of Object.keys(DB)){ const e=es(type,k).find(x=>x.c===c); if(e) return e.k; }
+  return 'tube';
+}
+function allConns(type){
+  const list=uniq(Object.keys(DB).flatMap(k=>es(type,k).map(e=>e.c).filter(c=>c!=null)));
+  return list.sort((a,b)=>connRank(a,connKind(type,a))-connRank(b,connKind(type,b)));
+}
+function connLabel(c,kind){
+  if(c==='00') return '同径チューブ';
+  if(c==='99') return 'ニップル差込（同径）';
+  const th=THREAD_LBL[threadFamily()]||{};
+  if(kind==='thread'&&th[c]) return th[c];
+  if(diaOrder().indexOf(c)>=0) return tubeLbl(c)+'（異径）';
+  return th[c]||c;
+}
+/* 現在の絞り込みに合致するエントリ */
+function candidates(opt){
+  opt=opt||{};
+  return es(S.type,S.model).filter(e=>{
+    if(S.tube&&e.t!==S.tube) return false;
+    if(S.conn!=null&&e.c!==S.conn) return false;
+    if(S.conn==null&&e.c!=null&&opt.needConn) return false;
+    if(opt.mat&&S.mat!==null&&e.m!==S.mat) return false;
+    if(opt.seal&&S.sc!==null&&e.s!==S.sc) return false;
+    return true;
+  });
+}
+function matsFor(){ return uniq(candidates({seal:1}).map(e=>e.m)).sort((a,b)=>MAT_ORDER.indexOf(a)-MAT_ORDER.indexOf(b)); }
+function sealsFor(){ return uniq(candidates({mat:1}).map(e=>e.s)).sort(); }
+/* 全選択が揃ったときの確定エントリ */
+function resolveEntry(){
+  if(!S.type||!S.model||!S.tube||S.mat===null) return null;
+  const list=es(S.type,S.model).filter(e=>
+    e.t===S.tube && (S.conn==null?e.c==null:e.c===S.conn) && e.m===S.mat
+    && (!hasSealField()||e.k!=='thread'||S.sc===null||e.s===S.sc));
+  if(!list.length) return null;
+  if(hasSealField()&&list[0].k==='thread'&&S.sc===null) return null;
+  return list[0];
+}
+function getBName(code,conn){
+  if(S.type==='C'){
+    if(code==='KQ2L'){
+      if(conn){ if(conn==='99') return 'ストリートエルボ'; if(!SAME_CONNS.has(conn)) return 'レジューサエルボ'; }
+      if(S.diamType==='same') return 'ストリートエルボ';
+      if(S.diamType==='diff') return 'レジューサエルボ';
+      return 'エルボ（ニップル差込）';
+    }
+    if(code==='KQ2W') return 'ロングストリートエルボ';
+    if(code==='KQ2U'){
+      if(conn==='99') return 'ブランチユニオンワイ';
+      if(S.diamType==='same') return 'ブランチユニオンワイ';
+      return 'ユニオンワイ（ニップル差込）';
+    }
+    if(code==='KQ2R') return 'レジューサ';
+    const cn={'KQ2X':'異径ブランチユニオンワイ','KQ2XD':'ダブルブランチユニオンワイ'};
+    return cn[code]||(DB[code]&&DB[code].n)||code;
+  }
+  if(S.type==='D'){
+    if(code==='KQ2N'){
+      if(conn){ return (connKind('D',conn)==='thread')?'アダプタ':'ニップル'; }
+      return 'アダプタ／ニップル';
+    }
+    const dn={'KQ2C':'チューブキャップ','KQ2P':'プラグ'};
+    return dn[code]||(DB[code]&&DB[code].n)||code;
+  }
+  const baseA=(DB[code]&&DB[code].n)||code;
+  const baseB=(DB[code]&&DB[code].nB)||baseA;
+  if(S.type!=='B') return baseA;
+  const bn=B_NAMES[code];
+  if(!bn) return baseB;
+  if(conn){
+    if(bn[conn]) return bn[conn];
+    if(!SAME_CONNS.has(conn)&&bn['diff']) return bn['diff'];
+    return baseB;
+  }
+  if(S.diamType==='same') return bn['00']||baseB;
+  if(S.diamType==='diff') return bn['diff']||baseB;
+  return baseB;
+}
+function refreshModelNames(){
+  document.querySelectorAll('#model-grid .mc').forEach(el=>{
+    const nameEl=el.querySelector('.mc-name');
+    if(nameEl) nameEl.textContent=getBName(el.dataset.code,S.conn);
+  });
+}
+
+/* ══════════════════════════════════════════════════════
+   品番生成
+══════════════════════════════════════════════════════ */
+function ordFlags(){
+  return {clean:document.getElementById('ord-clean')?.checked,
+          x12:document.getElementById('ord-x12')?.checked,
+          x35:document.getElementById('ord-x35')?.checked,
+          qs:document.getElementById('ord-qs')?.checked};
+}
+function qsApplicable(){
+  return S.push===''&&S.sm==='sealant'&&S.st==='milli-MRRc'&&S.type==='A'
+    &&QS_MODELS.has(S.model)&&S.tube==='08'&&S.conn==='01'&&S.sc==='S';
+}
+/* 未確定時のプレビュー用テンプレート（候補が1セクションに絞れればそれを使う） */
+function previewTpl(){
+  const secs=curSections(); if(!secs.length) return null;
+  if(S.model==='KQ2P') return 'KQ2{shape}-{dia}';
+  const wantThread=(S.type==='A');
+  let id=secs.find(x=>(SEC[x].fieldOrder.indexOf('bore')>=0)===wantThread)||secs[0];
+  if(S.model&&S.type){
+    const ks=uniq(es(S.type,S.model).map(e=>e.k));
+    if(ks.length===1){ const w=(ks[0]==='thread'); id=secs.find(x=>(SEC[x].fieldOrder.indexOf('bore')>=0)===w)||id; }
+  }
+  return SEC[id].template;
+}
+function buildPN(){
+  const ph=v=>`<span class="ph">${v}</span>`;
+  if(S.push===null||!S.sm||!S.st) return {pn:null,preview:ph('KQ2————'),done:false};
+  if(!S.type) return {pn:null,preview:ph('KQ2————'),done:false};
+  const o=ordFlags();
+  let suffix='';
+  if(o.x12) suffix='-X12';
+  else if(o.x35&&!X35_EXCL.has(S.model)) suffix='-X35';
+  const sfxHtml=suffix?`<span style="color:var(--ac3);">${suffix}</span>`:'';
+  const pre=o.clean?`<span style="color:var(--ac3);">10-</span>`:'';
+  const e=resolveEntry();
+  if(e){
+    let pn=e.pn;
+    if(o.qs&&qsApplicable()) pn=pn.replace(/S$/,'QS');
+    const disp=pn;
+    pn=pn+suffix;
+    if(o.clean) pn='10-'+pn;
+    return {pn:pn,preview:pre+disp+sfxHtml,done:true};
+  }
+  /* 未確定 → テンプレートにプレースホルダを流し込む */
+  const tpl=previewTpl()||'KQ2{shape}{dia}-{bore}{finish}{seal}';
+  let p=tpl.replace('{shape}',S.model?S.model.slice(3):ph('——'))
+           .replace('{dia}',S.tube||ph('??'))
+           .replace('{bore}',S.conn||ph('??'))
+           .replace('{mate}',S.conn||ph('??'))
+           .replace('{finish}',S.mat||ph('?'))
+           .replace('{seal}',S.sc===null?ph('?'):S.sc);
+  return {pn:null,preview:pre+p+sfxHtml,done:false};
+}
+
+/* ══════════════════════════════════════════════════════
+   全体更新
+══════════════════════════════════════════════════════ */
+function updateAll(){
+  if(!S.type){ updatePN(); return; }
+  const vM=validModels(S.type,S.tube,S.conn);
+  const vT=validTubes(S.type,S.model,S.conn);
+  const vC=validConns(S.type,S.model,S.tube);
+  document.querySelectorAll('#model-grid .mc').forEach(c=>{
+    const code=c.dataset.code;
+    c.className='mc'+(S.model===code?' sel':vM.includes(code)?'':' dis');
+  });
+  document.querySelectorAll('#tube-chips .chip').forEach(c=>{
+    const v=c.dataset.v; c.className='chip'+(S.tube===v?' sel':vT.includes(v)?'':' dis');
+  });
+  document.querySelectorAll('#conn-chips .chip').forEach(c=>{
+    const v=c.dataset.v; c.className='chip'+(S.conn===v?' sel':vC.includes(v)?'':' dis');
+  });
+  /* 材質・シールは機種／径／接続が決まるほど絞られる */
+  syncMat(); syncSeal();
+  /* A専用 ねじ種フィルタ表示制御 */
+  const screwCard=document.getElementById('card-screw');
+  if(screwCard) screwCard.style.display=S.type==='A'?'block':'none';
+  if(S.type!=='A'&&S.screwType){
+    S.screwType=null; setCV('ch-screw','—',true);
+    document.querySelectorAll('#card-screw .chip').forEach(c=>c.classList.remove('sel'));
+  }
+  /* QS 表示制御 */
+  const qsRow=document.getElementById('ord-qs-row');
+  const qsOk=qsApplicable();
+  if(qsRow) qsRow.style.display=qsOk?'flex':'none';
+  if(!qsOk){ const qs=document.getElementById('ord-qs'); if(qs) qs.checked=false; }
+  /* X35 grayout */
+  const x35row=document.getElementById('ord-x35-row');
+  if(x35row) x35row.className='order-row'+(X35_EXCL.has(S.model)?' order-dis':'');
+  /* モデル別ラベル更新 */
+  const tubeLblEl=document.getElementById('tube-lbl'),connLblEl2=document.getElementById('conn-lbl');
+  if(tubeLblEl&&S.type==='B'){
+    const isDiff=S.diamType==='diff';
+    if(S.model==='KQ2T'&&isDiff){
+      tubeLblEl.textContent='直管側（2ポート側）外径';
+      if(connLblEl2) connLblEl2.textContent='分岐側（1ポート側）外径';
+    } else if(S.model==='KQ2TX'||S.model==='KQ2TY'){
+      tubeLblEl.textContent='直管側（3ポート分）外径';
+      if(connLblEl2) connLblEl2.textContent='分岐側（1ポート分）外径';
+    } else {
+      tubeLblEl.textContent='チューブ外径';
+      if(connLblEl2) connLblEl2.textContent='接続側コード';
+    }
+  }
+  refreshModelNames();
+  updatePN();
+}
+/* 材質チップの再構築＋自動選択 */
+function syncMat(){
+  const g=document.getElementById('mat-chips');
+  const opts=(S.model&&S.tube)?matsFor():[];
+  const all=uniq(Object.keys(DB).flatMap(k=>['A','B','C','D'].flatMap(t=>es(t,k).map(e=>e.m))))
+    .sort((a,b)=>MAT_ORDER.indexOf(a)-MAT_ORDER.indexOf(b));
+  if(g.dataset.sig!==all.join()){
+    g.dataset.sig=all.join(); g.innerHTML='';
+    all.forEach(m=>{
+      const d=document.createElement('div'); d.className='chip'; d.dataset.mat=m;
+      d.innerHTML=`<span class="cm">${m}</span><span class="cs">${ML_SUB[m]||''}</span>`;
+      d.onclick=()=>pickMat(m); g.appendChild(d);
+    });
+  }
+  if(S.mat!==null&&opts.length&&!opts.includes(S.mat)){ S.mat=null; setCV('ch-mat','—',true); }
+  const auto=document.getElementById('mat-auto');
+  if(opts.length===1&&S.mat!==opts[0]){ S.mat=opts[0]; setCV('ch-mat',opts[0]+'（自動）'); }
+  if(auto) auto.style.display=(opts.length===1)?'inline':'none';
+  document.querySelectorAll('#mat-chips .chip').forEach(c=>{
+    const m=c.dataset.mat;
+    c.className='chip'+(S.mat===m?' sel':(opts.length&&opts.includes(m))?'':' dis');
+  });
+  if(S.mat===null) setCV('ch-mat','—',true);
+}
+/* シール剤チップの再構築＋自動選択 */
+function syncSeal(){
+  const card=document.getElementById('card-seal');
+  /* おねじシールはねじ接続の品番だけの選択肢（異径・同径チューブ側には無い） */
+  let scope=S.model?es(S.type,S.model).filter(e=>hit(e,S.tube,S.conn)):[];
+  if(S.model&&!scope.length) scope=es(S.type,S.model);
+  const show=hasSealField()&&S.model&&scope.some(e=>e.k==='thread');
+  card.style.display=show?'block':'none';
+  if(!show){ if(S.sc!==null){S.sc=null;setCV('ch-seal','—',true);} return; }
+  const g=document.getElementById('seal-chips');
+  const opts=(S.model&&S.tube)?sealsFor():[];
+  if(!g.childElementCount){
+    ['','S'].forEach(v=>{
+      const d=document.createElement('div'); d.className='chip'; d.dataset.seal=v;
+      d.innerHTML=`<span class="cm">${SEAL_MAIN[v]}</span><span class="cs">${SEAL_SUB[v]}</span>`;
+      d.onclick=()=>pickSeal(v); g.appendChild(d);
+    });
+  }
+  if(S.sc!==null&&opts.length&&!opts.includes(S.sc)){ S.sc=null; setCV('ch-seal','—',true); }
+  const auto=document.getElementById('seal-auto');
+  if(opts.length===1&&S.sc!==opts[0]){ S.sc=opts[0]; setCV('ch-seal',SEAL_MAIN[opts[0]]+'（自動）'); }
+  if(auto) auto.style.display=(opts.length===1)?'inline':'none';
+  document.querySelectorAll('#seal-chips .chip').forEach(c=>{
+    const v=c.dataset.seal;
+    c.className='chip'+(S.sc===v?' sel':(opts.length&&opts.includes(v))?'':' dis');
+  });
+  if(S.sc===null) setCV('ch-seal','—',true);
+}
+
+function webBtn(pn){
+  if(!pn||!/^[A-Za-z0-9-]+$/.test(pn)) return '';
+  return '<a class="wbtn sm" target="_blank" rel="noopener" onclick="event.stopPropagation()" href="https://www.smcworld.com/webcatalog/s3s/ja-jp/detail/?partNumber='+encodeURIComponent(pn)+'">SMC WEB ↗</a>';
+}
+function updatePN(){
+  const {pn,preview,done}=buildPN();
+  const de=document.getElementById('pn-disp'),se=document.getElementById('pn-stat'),be=document.getElementById('copy-btn');
+  de.innerHTML=preview+(done?webBtn(pn):''); de.className='pnval'+(done?' done':'');
+  document.getElementById('r-dot').className='dot'+(done?' on':'');
+  if(done){se.textContent='選定完了';se.className='pnstat done';be.disabled=false;be.dataset.pn=pn;}
+  else{se.textContent='未選択の項目があります';se.className='pnstat';be.disabled=true;}
+  const e=resolveEntry();
+  const o=ordFlags();
+  const effSeal=(o.qs&&qsApplicable())?'QS':(e?e.s:S.sc);
+  const rpnEl=document.getElementById('r-pn');
+  if(rpnEl){
+    if(pn&&/^[A-Za-z0-9-]+$/.test(pn)) rpnEl.innerHTML=pn+webBtn(pn);
+    else rpnEl.textContent=pn||'—';
+  }
+  setText('r-push',S.push!==null?PL[S.push]:'—');
+  setText('r-sm',S.sm?SM_LBL[S.sm]:'—');
+  setText('r-st',S.st?(ST_LBL[S.st]+(curGroup()?'（'+curGroup().s+'）':'')):'—');
+  const typeLabels={'A':'Type A　ねじ＋ワンタッチ','B':'Type B　WT＋WT','C':'Type C　ワンタッチ＋ニップル差込','D':'Type D　その他（アクセサリ）'};
+  setText('r-type',typeLabels[S.type]||'—');
+  setText('r-model',S.model?`${S.model}（${getBName(S.model,S.conn)}）`:'—');
+  setText('r-tube',S.tube?`${tubeLbl(S.tube)}（${S.tube}）`:'—');
+  const ck=document.getElementById('r-ck'); if(ck) ck.textContent=(S.type==='A')?'接続ねじコード':'接続コード';
+  setText('r-conn',S.conn?`${connLabel(S.conn,connKind(S.type,S.conn))}（${S.conn}）`:'—');
+  setText('r-mat',S.mat?ML[S.mat]||S.mat:'—');
+  const srow=document.getElementById('r-seal-row');
+  const showSeal=hasSealField()&&!!e&&e.k==='thread';
+  if(srow) srow.style.display=showSeal?'flex':'none';
+  setText('r-seal',effSeal!==null&&effSeal!==undefined?(SL[effSeal]!==undefined?SL[effSeal]:effSeal):'—');
+}
+
+/* ══════════════════════════════════════════════════════
+   イベントハンドラ
+══════════════════════════════════════════════════════ */
+/* 10-/X12/X35 は仕様が両立しない(潤滑剤・ブッシュ色)ため排他選択 */
+function ordExcl(el){
+  if(el.checked){
+    ['ord-clean','ord-x12','ord-x35'].forEach(id=>{
+      if(id!==el.id){ const c=document.getElementById(id); if(c) c.checked=false; }
+    });
+  }
+  updatePN();
+}
+/* ①②③のいずれかが変わったらセクションを組み直す */
+function rebuildGroup(){
+  const prevType=S.type;
+  S.type=null;S.model=null;S.tube=null;S.conn=null;S.mat=null;S.sc=null;S.diamType=null;S.screwType=null;
+  buildRuntimeDB();
+  ['tc-A','tc-B','tc-C','tc-D'].forEach(id=>{const el=document.getElementById(id);if(el)el.className='tc';});
+  ['A','B','C','D'].forEach(t=>{
+    const el=document.getElementById('tc-'+t); if(!el) return;
+    const avail=Object.keys(DB).some(k=>es(t,k).length>0);
+    el.style.display=avail?'block':'none';
+    if(avail){
+      const sample=sampleEntry(t);
+      const f=document.getElementById('tc-fmt-'+t); if(f) f.textContent=sample?sample.pn:'';
+    }
+  });
+  setCV('ch-type','—',true);setCV('ch-model','—',true);setCV('ch-tube','—',true);
+  setCV('ch-conn','—',true);setCV('ch-mat','—',true);setCV('ch-seal','—',true);
+  setCV('ch-diam','—',true);setCV('ch-screw','—',true);
+  document.getElementById('model-grid').innerHTML='';
+  document.getElementById('tube-chips').innerHTML='';
+  document.getElementById('conn-chips').innerHTML='';
+  document.getElementById('conn-note').style.display='none';
+  document.getElementById('mat-chips').innerHTML='';document.getElementById('mat-chips').dataset.sig='';
+  document.getElementById('mat-auto').style.display='none';
+  document.getElementById('card-seal').style.display='none';
+  document.getElementById('card-diam').style.display='none';
+  document.getElementById('card-screw').style.display='none';
+  document.getElementById('mzone-title').textContent='機種を選択してください';
+  const avail=t=>Object.keys(DB).some(k=>es(t,k).length>0);
+  if(prevType&&avail(prevType)) pickType(prevType);
+  else if(avail('A')) pickType('A');
+  else updatePN();
+}
+function sampleEntry(t){
+  for(const k of MODEL_ORDER){ const l=es(t,k); if(l.length) return l[0]; }
+  return null;
+}
+function paintST(){
+  const g=document.getElementById('st-chips');
+  g.innerHTML='';
+  ST_LIST.forEach(x=>{
+    const ok=!!(S.sm&&GROUPS[S.sm+'|'+x.v]);
+    const d=document.createElement('div');
+    d.className='chip'+(S.st===x.v?' sel':ok?'':' dis'); d.dataset.v=x.v;
+    const gr=S.sm?GROUPS[S.sm+'|'+x.v]:null;
+    d.innerHTML=`<span class="cm">${x.m}${gr?' <span class="sectag">'+gr.s+'</span>':''}</span><span class="cs">${x.s}</span>`;
+    if(ok) d.onclick=()=>pickST(x.v);
+    g.appendChild(d);
+  });
+}
+function pickPush(val,el){
+  S.push=val;
+  document.querySelectorAll('#card-push .chip').forEach(c=>c.classList.remove('sel'));
+  if(el) el.classList.add('sel');
+  setCV('ch-push',val==='1'?'長円形':'真円形');
+  rebuildGroup();
+}
+function pickSM(val){
+  S.sm=val;
+  document.querySelectorAll('#sm-chips .chip').forEach(c=>c.classList.toggle('sel',c.dataset.v===val));
+  setCV('ch-sm',SM_LBL[val]);
+  if(S.st&&!GROUPS[val+'|'+S.st]){ S.st=null; setCV('ch-st','—',true); }
+  paintST();
+  rebuildGroup();
+}
+function pickST(val){
+  if(!S.sm||!GROUPS[S.sm+'|'+val]) return;
+  S.st=val;
+  setCV('ch-st',ST_LBL[val]+'（'+GROUPS[S.sm+'|'+val].s+'）');
+  paintST();
+  rebuildGroup();
+}
+function pickScrew(val,el){
+  document.querySelectorAll('#card-screw .chip').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  S.screwType=val==='all'?null:val;
+  const lbl={'all':'全て','male':'おねじ（M/R）','female':'めねじ（Rc）','both':'両方（おねじ＋めねじ）'};
+  setCV('ch-screw',lbl[val]||val,val==='all');
+  S.model=null;setCV('ch-model','—',true);
+  S.conn=null;setCV('ch-conn','—',true);
+  S.mat=null;setCV('ch-mat','—',true);
+  S.sc=null;setCV('ch-seal','—',true);
+  const l={'male':'おねじ','female':'めねじ','both':'両方'}[val]||'';
+  document.getElementById('mzone-title').textContent='機種（ねじ＋WT'+(l?'・'+l:'')+'）';
+  updateAll();
+}
+function pickDiam(val,el){
+  document.querySelectorAll('#card-diam .chip').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  S.diamType=val==='all'?null:val;
+  setCV('ch-diam',val==='all'?'全て':val==='same'?'同径':'異径',val==='all');
+  S.conn=null;setCV('ch-conn','—',true);
+  if(S.model&&!validModels(S.type,S.tube,S.conn).includes(S.model)){ S.model=null;setCV('ch-model','—',true); }
+  updateAll();
+}
+function pickType(t){
+  if(S.push===null||!S.sm||!S.st) return;
+  S.type=t;S.model=null;S.tube=null;S.conn=null;S.mat=null;S.sc=null;S.diamType=null;S.screwType=null;
+  const dc=document.getElementById('card-diam'); if(dc) dc.style.display=(t==='B'||t==='C')?'block':'none';
+  const tubeLbl2=document.getElementById('tube-lbl');
+  if(tubeLbl2) tubeLbl2.textContent=(t==='D')?'管継手サイズ':'チューブ外径';
+  setCV('ch-diam','—',true);setCV('ch-screw','—',true);
+  document.querySelectorAll('#card-diam .chip,#card-screw .chip').forEach(c=>c.classList.remove('sel'));
+  const sc2=document.getElementById('card-screw'); if(sc2) sc2.style.display=t==='A'?'block':'none';
+  [['tc-A','A','sel-a'],['tc-B','B','sel-b'],['tc-C','C','sel-a'],['tc-D','D','sel-b']].forEach(([id,type,sel])=>{
+    const el=document.getElementById(id); if(el) el.className='tc'+(t===type?' '+sel:'');
+  });
+  setCV('ch-type','Type '+t);
+  setCV('ch-model','—',true);setCV('ch-tube','—',true);setCV('ch-conn','—',true);
+  setCV('ch-mat','—',true);setCV('ch-seal','—',true);
+  document.getElementById('mat-auto').style.display='none';
+  const mtitles={'A':'機種（ねじ＋WT）','B':'機種（WT＋WT）','C':'機種（ワンタッチ＋ニップル差込）','D':'機種（アクセサリ）'};
+  document.getElementById('mzone-title').textContent=mtitles[t]||'機種';
+  buildModelGrid(t);buildTubeChips(t);buildConnChips(t);
+  document.getElementById('model-grid')?.classList.toggle('tb',t==='B');
+  updateAll();
+}
+function buildModelGrid(t){
+  const grid=document.getElementById('model-grid');
+  grid.innerHTML='';
+  grid.classList.toggle('tb',t==='B');
+  MODEL_ORDER.filter(k=>es(t,k).length>0).forEach(k=>{
+    const v=DB[k];
+    const d=document.createElement('div');
+    d.className='mc'; d.dataset.code=k;
+    const icon=SVG[v.sh]||`<svg viewBox="0 0 60 50"><rect x="10" y="10" width="40" height="30" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>`;
+    const lgTag=es(t,k).every(e=>e.lg)?`<span class="round-only">要確認</span>`:'';
+    d.innerHTML=`${lgTag}<div class="mc-icon">${icon}</div><div class="mc-code">${k}</div><div class="mc-name">${getBName(k,S.conn)}</div>`;
+    d.onclick=()=>pickModel(k,d);
+    grid.appendChild(d);
+  });
+}
+function buildTubeChips(t){
+  const g=document.getElementById('tube-chips'); g.innerHTML='';
+  allTubes(t).forEach(c=>{
+    const d=document.createElement('div'); d.className='chip'; d.dataset.v=c;
+    d.innerHTML=`<span class="cm">${tubeLbl(c)}</span><span class="cs">${c}</span>`;
+    d.onclick=()=>pickTube(c,d); g.appendChild(d);
+  });
+}
+function buildConnChips(t){
+  const g=document.getElementById('conn-chips'),note=document.getElementById('conn-note');
+  g.innerHTML='';
+  const cLbls={'A':'接続ねじコード','B':'接続側コード','C':'管継手/ねじコード','D':'接続コード'};
+  document.getElementById('conn-lbl').textContent=cLbls[t]||'接続コード';
+  const dt=(t==='B')?S.diamType:null;
+  allConns(t).filter(cv=>isDiam(cv,dt)).forEach(c=>{
+    const d=document.createElement('div'); d.className='chip'; d.dataset.v=c;
+    d.innerHTML=`<span class="cm">${c}</span><span class="cs">${connLabel(c,connKind(t,c))}</span>`;
+    d.onclick=()=>pickConn(c,d); g.appendChild(d);
+  });
+  note.style.display='block';
+  note.textContent=(t==='A')?'おねじのシール剤有無は「おねじシール」欄で選択します（M系はガスケットシールのみ）'
+                            :'00=同径　99=ニップル差込　径コード=異径接続側の外径';
+}
+function pickModel(code,el){
+  if(S.model===code){
+    S.model=null; el.className='mc'; setCV('ch-model','—',true);
+    S.mat=null;setCV('ch-mat','—',true); S.sc=null;setCV('ch-seal','—',true);
+    updateAll(); return;
+  }
+  if(S.tube&&!validTubes(S.type,code,S.conn).includes(S.tube)){S.tube=null;setCV('ch-tube','—',true);}
+  if(S.conn&&!validConns(S.type,code,S.tube).includes(S.conn)){S.conn=null;setCV('ch-conn','—',true);}
+  S.model=code;S.mat=null;S.sc=null;
+  setCV('ch-model',code);
+  updateAll();
+}
+function pickTube(code,el){
+  if(S.tube===code){S.tube=null;setCV('ch-tube','—',true);updateAll();return;}
+  if(S.conn&&!validConns(S.type,S.model,code).includes(S.conn)){S.conn=null;setCV('ch-conn','—',true);}
+  if(S.model&&!validModels(S.type,code,S.conn).includes(S.model)){S.model=null;setCV('ch-model','—',true);}
+  S.tube=code;S.mat=null;S.sc=null;
+  setCV('ch-tube',tubeLbl(code));
+  updateAll();
+}
+function pickConn(code,el){
+  if(S.conn===code){S.conn=null;setCV('ch-conn','—',true);updateAll();return;}
+  if(S.tube&&!validTubes(S.type,S.model,code).includes(S.tube)){S.tube=null;setCV('ch-tube','—',true);}
+  if(S.model&&!validModels(S.type,S.tube,code).includes(S.model)){S.model=null;setCV('ch-model','—',true);}
+  S.conn=code;S.mat=null;S.sc=null;
+  setCV('ch-conn',connLabel(code,connKind(S.type,code))+' ('+code+')');
+  updateAll();
+}
+function pickMat(val){
+  if(!matsFor().includes(val)) return;
+  S.mat=val; setCV('ch-mat',ML[val]||val);
+  updateAll();
+}
+function pickSeal(val){
+  if(!sealsFor().includes(val)) return;
+  S.sc=val; setCV('ch-seal',SEAL_MAIN[val]);
+  updateAll();
+}
+
+/* ── ユーティリティ ── */
+function setCV(id,val,empty){const e=document.getElementById(id);if(!e)return;e.textContent=val;e.className='fcv'+(empty?' e':'');}
+function setText(id,val){const e=document.getElementById(id);if(e)e.textContent=val;}
+function doCopy(){
+  const btn=document.getElementById('copy-btn');
+  const p=btn.dataset.pn; if(!p)return;
+  try{navigator.clipboard.writeText(p);}catch(e){}
+  btn.textContent='コピーしました'; btn.classList.add('ok');
+  setTimeout(()=>{btn.textContent='コピー';btn.classList.remove('ok');},2000);
+}
+
+/* ══════════════════════════════════════════════════════
+   検証用API（総当たり生成。UIと同じ経路で品番を作る）
+══════════════════════════════════════════════════════ */
+function enumerateAll(){
+  const out=[],issues=[];
+  const S0=Object.assign({},S);
+  ['1',''].forEach(pu=>{
+    Object.keys(GROUPS).forEach(gk=>{
+      const [sm,st]=gk.split('|');
+      S.push=pu;S.sm=sm;S.st=st;S.type=null;S.model=null;S.tube=null;S.conn=null;
+      S.mat=null;S.sc=null;S.diamType=null;S.screwType=null;
+      buildRuntimeDB();
+      ['A','B','C','D'].forEach(t=>{
+        Object.keys(DB).forEach(model=>{
+          es(t,model).forEach(e=>{
+            S.type=t;S.model=model;S.tube=e.t;S.conn=e.c;S.mat=e.m;
+            S.sc=(hasSealField()&&e.k==='thread')?e.s:null;
+            const r=buildPN();
+            if(!r.done){ issues.push({kind:'not-done',pu:pu,gk:gk,t:t,model:model,e:e}); return; }
+            out.push({pn:r.pn,lg:e.lg?1:0,gk:gk,pu:pu,type:t,model:model});
+            /* UIの絞り込みで到達できるか（チップが有効になるか）も確認 */
+            S.mat=null;S.sc=null;S.conn=null;S.tube=null;S.model=null;
+            if(!validModels(t,null,null).includes(model)) issues.push({kind:'model-unreachable',pu:pu,gk:gk,t:t,model:model});
+            S.model=model;
+            if(!validTubes(t,model,null).includes(e.t)) issues.push({kind:'tube-unreachable',pu:pu,gk:gk,t:t,model:model,e:e});
+            S.tube=e.t;
+            if(e.c!=null&&!validConns(t,model,e.t).includes(e.c)) issues.push({kind:'conn-unreachable',pu:pu,gk:gk,t:t,model:model,e:e});
+            S.conn=e.c;
+            if(!matsFor().includes(e.m)) issues.push({kind:'mat-unreachable',pu:pu,gk:gk,t:t,model:model,e:e});
+            S.mat=e.m;
+            if(hasSealField()&&e.k==='thread'&&!sealsFor().includes(e.s)) issues.push({kind:'seal-unreachable',pu:pu,gk:gk,t:t,model:model,e:e});
+            S.mat=null;S.sc=null;S.conn=null;S.tube=null;S.model=null;
+          });
+        });
+      });
+    });
+  });
+  Object.assign(S,S0); buildRuntimeDB();
+  return {list:out,issues:issues};
+}
+
+/* ══════════════════════════════════════════════════════
+   初期化：真円形 × シール剤/ガスケット × ミリM,R,Rc（＝v15の既定）
+══════════════════════════════════════════════════════ */
+(function(){
+  const g=document.getElementById('sm-chips');
+  SM_LIST.forEach(x=>{
+    const d=document.createElement('div'); d.className='chip'; d.dataset.v=x.v;
+    d.innerHTML=`<span class="cm">${x.m}</span><span class="cs">${x.s}</span>`;
+    d.onclick=()=>pickSM(x.v); g.appendChild(d);
+  });
+  S.push='';
+  document.querySelectorAll('#card-push .chip')[1].classList.add('sel');
+  setCV('ch-push','真円形');
+  S.sm='sealant';
+  document.querySelectorAll('#sm-chips .chip').forEach(c=>c.classList.toggle('sel',c.dataset.v==='sealant'));
+  setCV('ch-sm',SM_LBL['sealant']);
+  S.st='milli-MRRc';
+  setCV('ch-st',ST_LBL['milli-MRRc']+'（S1）');
+  paintST();
+  rebuildGroup();
+})();
+</script>
+</body>
+</html>
