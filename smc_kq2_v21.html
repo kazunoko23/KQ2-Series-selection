@@ -1372,7 +1372,9 @@ function buildConnChips(t){
   const dt=(t==='B')?S.diamType:null;
   allConns(t).filter(cv=>isDiam(cv,dt)).forEach(c=>{
     const d=document.createElement('div'); d.className='chip'; d.dataset.v=c;
-    d.innerHTML=`<span class="cm">${c}</span><span class="cs">${connLabel(c,connKind(t,c))}</span>`;
+    /* 実寸(R1/4等)を主・コードを副にする。現場が見たいのは寸法であってコードではない */
+    const cl=connLabel(c,connKind(t,c));
+    d.innerHTML=`<span class="cm">${cl||c}</span><span class="cs">${cl?c:''}</span>`;
     d.onclick=()=>pickConn(c,d); g.appendChild(d);
   });
   note.style.display='block';
