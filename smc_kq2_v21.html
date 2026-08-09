@@ -135,8 +135,9 @@ body.dark .arow{border-bottom-color:#333d48;}
 .chip:hover{border-color:var(--ac);}
 .chip.sel{border-color:var(--ac);background:var(--ac2);box-shadow:0 0 0 1px var(--ac) inset;}
 .chip.dis{opacity:.35;pointer-events:none;}
-.cm{font-size:13px;font-weight:700;color:var(--tx);font-family:var(--mono);}
-.cs{display:block;font-size:10.5px;color:var(--tx3);margin-top:1px;line-height:1.3;}
+/* 主表示＝実寸(ø6・R1/8)。ここを読んで選ぶので大きく濃く。副表示＝品番コードは控えめに */
+.cm{font-size:15px;font-weight:700;color:var(--tx);font-family:var(--mono);letter-spacing:.2px;}
+.cs{display:block;font-size:10px;color:var(--tx3);margin-top:2px;line-height:1.3;opacity:.85;}
 .chip.sel .cm{color:var(--ac3);}
 /* タイル状に並べるチップ（①②③のような分類の選択） */
 .tilechips{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;}
