@@ -990,7 +990,17 @@ function cleanApplicable(){
   if(S.push!=='') return false;                 // 長円形は不可（実測で全滅）
   if(CLEAN_EXCL.has(S.model)) return false;     // ニップル・プラグ・カラーキャップは対象外
   const e=ordEntry(); if(!e) return true;       // 未確定のうちは選ばせる（確定時に再判定）
-  if(e.k==='thread') return e.m==='N' && e.s==='S';   // ねじ付は N＋S のみ（カタログ例 10-KQ2H06-02NS）
+  /* ねじ付は材質N（黄銅無電解ニッケルめっき）に限る。材質AはSの有無に関わらず不可
+     （実証 2026-08-21: 10-KQ2H06-01A／-02A／-01AS／-02AS／10-KQ2L06-02A＝いずれもNG）。
+     さらにシール方式で必要な記号が変わる:
+       ・シール剤付（R/Rc/NPT/UNF系）→ シール剤記号 S が必要（10-KQ2H06-02NS＝OK／10-KQ2E12-04N＝NG）
+       ・ガスケットシール（ユニファイ Uni 系）→ シール記号なしの N（10-KQ2H06-U01N 等＝全数OK・15/15）
+     カタログ p.54 の記載例 10-KQ2H06-02NS（ねじ付）とも整合。 */
+  if(e.k==='thread'){
+    if(e.m!=='N') return false;
+    if(S.sm==='gasket-uni') return true;      // ユニファイ系はシール記号なし
+    return e.s==='S';                          // シール剤系は S 必須
+  }
   return e.m==='A' || e.m==='N';                      // ねじなしは A／N（カタログ例 10-KQ2H06-00A）
 }
 function packingSeal(){
